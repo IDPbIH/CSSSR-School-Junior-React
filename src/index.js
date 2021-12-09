@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import productsList from './products.json';
 
-function App() {
+function Main() {
     return (
         <div className="products-main">
             <h1>Список товаров</h1>
             <ul>
-                {productsList.map(p => p.id < 4 && <li key={p.id}>{p.name}</li>)}
+                {productsList.map(
+                    function callback(p) {
+                        return p.id < 4 && <li key={p.id}>{p.name}</li>
+                    }
+                )}
             </ul>
         </div>
     );
 }
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<Main />, rootElement);
