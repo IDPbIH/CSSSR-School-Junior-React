@@ -1,0 +1,12 @@
+.products-main {
+  display: table;
+  margin: auto;
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 15pt;
+  text-align: center;
+}
+
+.products-main ul {
+  margin: auto;
+  margin-top: 20px;
+}
