@@ -1,0 +1,21 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+}
+
+.starFill {
+  width: 0px;
+  height: 0px;
+  border-right: 10px solid transparent;
+  border-top: 10px solid black;
+  border-left: 10px solid black;
+  border-bottom: 10px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: inline-flex;
+  margin-right: 10px;
+}
