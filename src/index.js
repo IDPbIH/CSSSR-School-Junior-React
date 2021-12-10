@@ -1,25 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import productsList from './products.json';
-
-class ProductsMainH1 extends React.Component {
-    render() {
-        return <h1 className='products-main-h1'>Список товаров</h1>;
-    }
-}
-
-class ProductsMainUL extends React.Component {
-    render() {
-        return <ul className='products-main-ul'>
-            {productsList.map(
-                function callback(p) {
-                    return p.id < 4 && <li key={p.id}>{p.name}</li>
-                }
-            )}
-        </ul>;
-    }
-}
+import ProductsMainH1 from './components/ProductsMainH1/ProductsMainH1';
+import ProductsMainUL from './components/ProductsMainUL/ProductsMainUL';
 
 function App() {
     return (
