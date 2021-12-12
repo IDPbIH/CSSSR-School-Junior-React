@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ProductsMainH1 = props => {
+const ProductMainHeader = props => {
     return <h1 className='products-main-h1'>Список товаров</h1>;
 }
 
-export default ProductsMainH1;
+export default ProductMainHeader;

@@ -1,0 +1,12 @@
+ul {
+  margin: auto;
+  text-align: left;
+}
+
+.isInStockTrue {
+  color: black;
+}
+
+.isInStockFalse {
+  color: gray;
+}
