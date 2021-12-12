@@ -10,10 +10,10 @@ const ratingComponent = ({ isFilled }) => {
 
 const ProductMainLIst = props => {
     const shortProductList = productList.slice(0, 3);
-    return (<div className={styles.wrapper}>
+    return <div className={styles.wrapper}>
         {
             shortProductList.map(product => {
-                return (<ProductItem
+                return <ProductItem
                     key={product.id}
                     isInStock={product.isInStock}
                     img={product.img}
@@ -23,10 +23,10 @@ const ProductMainLIst = props => {
                     maxRating={product.maxRating}
                     rating={product.rating}
                     ratingComponent={ratingComponent}
-                />);
+                />
             })
         }
-    </div >);
+    </div >
 }
 
 export default ProductMainLIst;
