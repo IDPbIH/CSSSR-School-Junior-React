@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import ProductMainHeader from './components/ProductMainHeader/ProductMainHeader';
-// import ProductMainList from './components/ProductMainList/ProductMainList';
-import ProductsMainTable from './components/ProductMainTable/ProductMainTable';
+import ProductMainLIst from './components/ProductMainLIst/ProductMainLIst';
 
 function App() {
     return (
         <main>
             <div className='products-main'>
                 <ProductMainHeader />
-                <ProductsMainTable />
+                <ProductMainLIst />
             </div>
         </main>
     );

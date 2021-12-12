@@ -1,27 +1,32 @@
 import React from 'react';
-import styles from './ProductMainList.module.css';
+import styles from './ProductMainLIst.module.css';
 import productList from '../../products.json';
+import ProductItem from 'csssr-school-product-card';
+import Star from '../Star/Star';
 
-const ProductItem = ({ isInStock, title, price, subPriceContent }) => {
-    return <div className={isInStock ? styles.isInStockTrue : styles.isInStockFalse}>{title}. Цена: {price} {subPriceContent}.</div>
+const ratingComponent = ({ isFilled }) => {
+    return (<div className={styles.starFill}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>);
 };
 
 const ProductMainLIst = props => {
     const shortProductList = productList.slice(0, 3);
-    return (<ul>
+    return (<div className={styles.wrapper}>
         {
             shortProductList.map(product => {
-                return (<li key={product.id}>
-                    <ProductItem
-                        isInStock={product.isInStock}
-                        title={product.title}
-                        price={product.price}
-                        subPriceContent={product.subPriceContent}
-                    />
-                </li>);
+                return (<ProductItem
+                    key={product.id}
+                    isInStock={product.isInStock}
+                    img={product.img}
+                    title={product.title}
+                    price={product.price}
+                    subPriceContent={' ' + product.subPriceContent}
+                    maxRating={product.maxRating}
+                    rating={product.rating}
+                    ratingComponent={ratingComponent}
+                />);
             })
         }
-    </ul>);
-};
+    </div >);
+}
 
 export default ProductMainLIst;

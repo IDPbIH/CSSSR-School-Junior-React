@@ -1,12 +1,11 @@
-ul {
-  margin: auto;
-  text-align: left;
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
 }
 
-.isInStockTrue {
-  color: black;
-}
-
-.isInStockFalse {
-  color: gray;
+.starFill {
+  display: inline-flex;
+  margin-right: 10px;
 }
