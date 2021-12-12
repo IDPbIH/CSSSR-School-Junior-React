@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProductMainLIst.module.css';
+import styles from './ProductMainList.module.css';
 import productList from '../../products.json';
 import ProductItem from 'csssr-school-product-card';
 import Star from '../Star/Star';
@@ -8,7 +8,7 @@ const ratingComponent = ({ isFilled }) => {
     return (<div className={styles.starFill}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>);
 };
 
-const ProductMainLIst = props => {
+const ProductMainList = props => {
     const shortProductList = productList.slice(0, 3);
     return <div className={styles.wrapper}>
         {
@@ -29,4 +29,4 @@ const ProductMainLIst = props => {
     </div >
 }
 
-export default ProductMainLIst;
+export default ProductMainList;
