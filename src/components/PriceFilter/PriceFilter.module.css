@@ -17,9 +17,8 @@
 
 .price_filter_input input {
   padding-left: 20px;
-  color: #7e8fa4;
   height: 20px;
-  width: 100px;
+  width: 60px;
   border: 1px solid #7e8fa4;
 }
 

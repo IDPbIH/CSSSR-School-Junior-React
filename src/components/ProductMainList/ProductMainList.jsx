@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ProductMainList.module.css';
-import productList from '../../products.json';
 import ProductItem from 'csssr-school-product-card';
 import Star from '../Star/Star';
 
@@ -8,8 +7,7 @@ const ratingComponent = ({ isFilled }) => {
     return (<div className={styles.star}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>);
 };
 
-const ProductMainList = props => {
-    const shortProductList = productList.slice(0, 3);
+const ProductMainList = ({shortProductList}) => { 
     return (
         <div className={styles.wrapper}>
             {shortProductList.map(product => {
