@@ -10,13 +10,13 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const productListPriceArray = ProductsJSON.map(product => {
-            return (product.price);
+        const ProductsJSONPriceArray = ProductsJSON.map(product => {
+            return product.price;
         });
 
         this.state = {
-            minPriceValue: Math.min.apply(null, productListPriceArray),
-            maxPriceValue: Math.max.apply(null, productListPriceArray),
+            minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
+            maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             products: ProductsJSON
         };
 
