@@ -19,20 +19,19 @@ class App extends React.Component {
             maxPriceValue: Math.max.apply(null, productListPriceArray),
             products: ProductsJSON
         };
-        
-        this.updateProducts(this.state.minPriceValue, this.state.maxPriceValue);
+
     }
 
-    updateProducts = (minValue, maxValue) => {
-        this.shortProductList=this.state.products.filter(product => (product.price >= minValue && product.price <= maxValue)).slice(0,3);
+    getFilteredProducts = (minValue, maxValue) => {
+        return (ProductsJSON.filter(product => (product.price >= minValue && product.price <= maxValue)));
     }
 
-    changeState = (newMinValue, newMaxValue) => {
+    handleSubmit = (newMinValue, newMaxValue) => {
         this.setState({
             minPriceValue: newMinValue,
-            maxPriceValue: newMaxValue
+            maxPriceValue: newMaxValue,
+            products: this.getFilteredProducts(newMinValue, newMaxValue)
         });
-        this.updateProducts(newMinValue, newMaxValue);
     }
 
     render() {
@@ -42,13 +41,13 @@ class App extends React.Component {
                     <div className='box1'><ProductMainHeader /></div>
                     <div className='box2'>
                         <PriceFilter
-                            changeState={this.changeState}
+                            handleSubmit={this.handleSubmit}
                             minValue={this.state.minPriceValue}
                             maxValue={this.state.maxPriceValue}
                         />
                     </div>
                     <div className='box3'>
-                        <ProductMainList shortProductList={this.shortProductList} />
+                        <ProductMainList shortProductList={this.state.products} />
                     </div>
                 </div>
             </main>

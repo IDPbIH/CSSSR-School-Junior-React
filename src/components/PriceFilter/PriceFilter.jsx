@@ -6,7 +6,7 @@ class PriceFilter extends LogRender {
     handleSubmit = (e) => {
         if (e.target[0].value >= 0 && e.target[1].value >= 0) {
             e.preventDefault();
-            this.props.changeState(e.target[0].value,e.target[1].value);
+            this.props.handleSubmit(e.target[0].value,e.target[1].value);
         } else {
             alert('Введите неотрицательное значение для фильтра!');
         }
