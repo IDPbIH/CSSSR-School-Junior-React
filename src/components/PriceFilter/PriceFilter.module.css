@@ -18,8 +18,16 @@
 .price_filter_input input {
   padding-left: 20px;
   height: 20px;
-  width: 60px;
+  width: 80px;
   border: 1px solid #7e8fa4;
+}
+
+.price_filter_minValue {
+  color: #7e8fa4;
+}
+
+.price_filter_maxValue {
+  color: black;
 }
 
 .price_filter_button {

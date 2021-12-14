@@ -13,30 +13,35 @@ class PriceFilter extends React.Component {
             minValue: Math.min.apply(null, productListPriceArray),
             maxValue: Math.max.apply(null, productListPriceArray)
         };
-        this.input = React.createRef();
     }
 
-    handleClick = (e) => {
-        console.log('1');
+    toggleActive = (e) => {
+        console.log(e);
     }
 
     handleSubmit = (e) => {
-        e.target[0].value = 200;
+        if (e.target[0].value >= 0 && e.target[1].value >= 0) {
+            e.preventDefault();
+            this.setState({
+                minValue: e.target[0].value,
+                maxValue: e.target[1].value
+            });
+        } else {
+            alert('Введите неотрицательное значение для фильтра!');
+        }
     }
 
     render() {
         return (
             <form className={styles.price_filter} onSubmit={this.handleSubmit}>
                 <div className={styles.price_filter_header}>Цена</div>
-                <div className={styles.price_filter_input}>от <input
-                    type="text"
-                    defaultValue={this.state.minValue}
-                    onClick={this.handleClick} />
-                    до <input
-                        type="text"
-                        defaultValue={this.state.maxValue}
-                        onClick={this.handleClick}
-                        ref={this.input} />
+                <div className={styles.price_filter_input}>
+                    от <input type="text"
+                        className={styles.price_filter_minValue}
+                        defaultValue={this.state.minValue} />
+                    до <input type="text"
+                        className={styles.price_filter_maxValue}
+                        defaultValue={this.state.maxValue} />
                 </div>
                 <div className={styles.price_filter_button}>
                     <button>Применить</button>
