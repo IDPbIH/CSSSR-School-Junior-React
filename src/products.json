@@ -54,7 +54,7 @@
     "isInStock": false,
     "title": "Огурцы",
     "img": "https://goferma.ru/wp-content/uploads/2020/06/ogurtsy-fenix-640.jpg",
-    "price": "110",
+    "price": 110,
     "subPriceContent": "\u20BD",
     "maxRating": 5,
     "rating": 4
