@@ -15,24 +15,22 @@
   text-align: justify;
 }
 
-.price_filter_input input {
-  padding-left: 20px;
-  height: 20px;
-  width: 80px;
-  border: 1px solid #7e8fa4;
-}
-
 .price_filter_minValue {
   color: #7e8fa4;
+  height: 20px;
+  width: 80px;
 }
 
 .price_filter_maxValue {
   color: black;
+  height: 20px;
+  width: 80px;
 }
 
 .price_filter_button {
   overflow: hidden;
 }
+
 .price_filter_button button {
   background-color: #323c48;
   color: white;
