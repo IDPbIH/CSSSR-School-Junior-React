@@ -1,4 +1,5 @@
 import React from 'react';
+import InputMask from 'react-input-mask';
 import styles from './InputNumber.module.css'
 
 class InputNumber extends React.Component {
@@ -21,7 +22,8 @@ class InputNumber extends React.Component {
 
     render() {
         return (
-            <input type="text"
+            <InputMask mask={'999999'}
+                maskChar={null}
                 className={this.props.className}
                 value={this.state.value}
                 onClick={this.handleClick}

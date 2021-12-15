@@ -5,11 +5,11 @@ import styles from './PriceFilter.module.css';
 
 class PriceFilter extends LogRender {
     handleSubmit = (e) => {
-        if (e.target[0].value >= 0 && e.target[1].value >= 0 && e.target[0].value !== '' && e.target[1].value !== '') {
+        if (e.target[0].value > 0 && e.target[1].value > 0 && e.target[0].value !== '' && e.target[1].value !== '') {
             e.preventDefault();
             this.props.handleSubmit(e.target[0].value, e.target[1].value);
         } else {
-            alert('Введите неотрицательное значение для фильтра!');
+            alert('Введите натуральные числа для полей фильтра!');
         }
     }
 
