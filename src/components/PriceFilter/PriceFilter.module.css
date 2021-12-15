@@ -26,16 +26,3 @@
   height: 20px;
   width: 80px;
 }
-
-.price_filter_button {
-  overflow: hidden;
-}
-
-.price_filter_button button {
-  background-color: #323c48;
-  color: white;
-  border: none;
-  text-align: center;
-  height: 30px;
-  width: 100%;
-}

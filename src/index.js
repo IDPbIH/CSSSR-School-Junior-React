@@ -26,12 +26,25 @@ class App extends React.Component {
         return (ProductsJSON.filter(product => (product.price >= minValue && product.price <= maxValue)));
     }
 
-    handleSubmit = (newMinValue, newMaxValue) => {
-        this.setState({
-            minPriceValue: newMinValue,
-            maxPriceValue: newMaxValue,
-            products: this.getFilteredProducts(newMinValue, newMaxValue)
-        });
+    handleSubmit = (value, title) => {
+        switch (title) {
+            case 'minValueInput':
+                return (
+                    this.setState({
+                        minPriceValue: value,
+                        products: this.getFilteredProducts(value, this.state.maxPriceValue)
+                    })
+                );
+            case 'maxValueInput':
+                return (
+                    this.setState({
+                        maxPriceValue: value,
+                        products: this.getFilteredProducts(this.state.maxPriceValue, value)
+                    })
+                );
+            default:
+                console.log('input error');
+        }
     }
 
     render() {

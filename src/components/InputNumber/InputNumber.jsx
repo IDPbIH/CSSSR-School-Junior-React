@@ -13,6 +13,7 @@ class InputNumber extends React.Component {
 
     handleChange = (e) => {
         this.setState({ value: e.target.value });
+        this.props.handleSubmit(e.target.value,this.props.title);
     }
 
     handleClick = (e) => {
