@@ -4,7 +4,7 @@ import './index.css';
 import ProductsJSON from './products.json';
 import ProductMainHeader from './components/ProductMainHeader/ProductMainHeader';
 import ProductMainList from './components/ProductMainList/ProductMainList';
-import PriceFilter from './components/PriceFilter/PriceFilter';
+import Filters from './components/Filters/Filters';
 
 class App extends React.Component {
     constructor(props) {
@@ -17,29 +17,48 @@ class App extends React.Component {
         this.state = {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
+            discountValue: '0',
             products: ProductsJSON
         };
-
+        
     }
 
-    getFilteredProducts = (minValue, maxValue) => {
-        return (ProductsJSON.filter(product => (product.price >= minValue && product.price <= maxValue)));
+    isPriceInMinMaxRange = (minValue, maxValue, price) => {
+        return (price >= minValue && price <= maxValue);
     }
 
-    handleSubmit = (value, title) => {
-        switch (title) {
+    isDiscountDone = (minPrice, maxPrice, discount) => {
+        return ((minPrice) <= (1-discount/100)*maxPrice);
+    }
+
+    getFilteredProducts = (minValue, maxValue, discountValue) => {
+        return (ProductsJSON.filter(product => (
+            this.isPriceInMinMaxRange(minValue, maxValue, product.price) &&
+            this.isDiscountDone(product.price,product.subPriceContent,discountValue)
+        )));
+    }
+
+    handleSubmit = (value, name) => {
+        switch (name) {
             case 'minValueInput':
                 return (
                     this.setState({
                         minPriceValue: value,
-                        products: this.getFilteredProducts(value, this.state.maxPriceValue)
+                        products: this.getFilteredProducts(value, this.state.maxPriceValue, this.state.discountValue)
                     })
                 );
             case 'maxValueInput':
                 return (
                     this.setState({
                         maxPriceValue: value,
-                        products: this.getFilteredProducts(this.state.maxPriceValue, value)
+                        products: this.getFilteredProducts(this.state.maxPriceValue, value, this.state.discountValue)
+                    })
+                );
+            case 'discountInput':
+                return (
+                    this.setState({
+                        discountValue: value,
+                        products: this.getFilteredProducts(this.state.minPriceValue, this.state.maxPriceValue, value)
                     })
                 );
             default:
@@ -53,10 +72,11 @@ class App extends React.Component {
                 <div className='products_main'>
                     <div className='box1'><ProductMainHeader /></div>
                     <div className='box2'>
-                        <PriceFilter
+                        <Filters
                             handleSubmit={this.handleSubmit}
                             minValue={this.state.minPriceValue}
                             maxValue={this.state.maxPriceValue}
+                            discountValue={this.state.discountValue}
                         />
                     </div>
                     <div className='box3'>

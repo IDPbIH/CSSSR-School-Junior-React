@@ -1,35 +1,39 @@
 import React from 'react';
-import InputMask from 'react-input-mask';
-import styles from './InputNumber.module.css'
+import s from './InputNumber.module.css'
 
 class InputNumber extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: this.props.defaultValue
-        };
-    }
-
     handleChange = (e) => {
-        this.setState({ value: e.target.value });
-        this.props.handleSubmit(e.target.value,this.props.title);
+        !isNaN(e.target.value) && this.props.handleSubmit(e.target.value, e.target.name);
     }
 
     handleClick = (e) => {
-        this.setState({ value: '' });
+        e.target.value = '';
         e.preventDefault();
     }
 
     render() {
         return (
-            <InputMask mask={'999999'}
-                maskChar={null}
-                className={this.props.className}
-                value={this.state.value}
-                onClick={this.handleClick}
-                onChange={this.handleChange}
-            />
+            <div className={s.wrapper}>
+                <h3 className={s.title}>Цена</h3>
+                <div className={s.inputs}>
+                    от
+                    <input
+                        name='minValueInput'
+                        className={s.minValue}
+                        value={this.props.minValue}
+                        onClick={this.handleClick}
+                        onChange={this.handleChange}
+                    />
+                    до
+                    <input
+                        name='maxValueInput'
+                        className={s.maxValue}
+                        value={this.props.maxValue}
+                        onClick={this.handleClick}
+                        onChange={this.handleChange}
+                    />
+                </div>
+            </div>
         );
     }
 }
