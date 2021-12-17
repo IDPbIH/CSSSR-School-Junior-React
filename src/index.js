@@ -17,10 +17,9 @@ class App extends React.Component {
         this.state = {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
-            discountValue: '0',
+            discountValue: 0,
             products: ProductsJSON
         };
-
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -43,21 +42,21 @@ class App extends React.Component {
             case 'minValueInput':
                 return (
                     this.setState({
-                        minPriceValue: value,
+                        minPriceValue: Number(value),
                         products: this.getFilteredProducts(value, this.state.maxPriceValue, this.state.discountValue)
                     })
                 );
             case 'maxValueInput':
                 return (
                     this.setState({
-                        maxPriceValue: value,
-                        products: this.getFilteredProducts(this.state.maxPriceValue, value, this.state.discountValue)
+                        maxPriceValue: Number(value),
+                        products: this.getFilteredProducts(this.state.minPriceValue, value, this.state.discountValue)
                     })
                 );
             case 'discountInput':
-                return (
+                return ( 
                     this.setState({
-                        discountValue: value,
+                        discountValue: Number(value),
                         products: this.getFilteredProducts(this.state.minPriceValue, this.state.maxPriceValue, value)
                     })
                 );
