@@ -20,21 +20,21 @@ class App extends React.Component {
             discountValue: '0',
             products: ProductsJSON
         };
-        
+
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
-        return (price >= minValue && price <= maxValue);
+        return price >= minValue && price <= maxValue;
     }
 
-    isDiscountDone = (minPrice, maxPrice, discount) => {
-        return ((minPrice) <= (1-discount/100)*maxPrice);
+    isDiscountWorking = (minPrice, maxPrice, discount) => {
+        return (minPrice) <= (1 - discount / 100) * maxPrice;
     }
 
     getFilteredProducts = (minValue, maxValue, discountValue) => {
         return (ProductsJSON.filter(product => (
             this.isPriceInMinMaxRange(minValue, maxValue, product.price) &&
-            this.isDiscountDone(product.price,product.subPriceContent,discountValue)
+            this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
         )));
     }
 
