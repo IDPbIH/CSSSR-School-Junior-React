@@ -1,8 +1,9 @@
 import React from 'react';
 import s from './InputNumber.module.css'
 import withSubscription from '../../hoc/withSubscription ';
+import LogRender from '../../containers/LogRender/LogRender';
 
-class InputNumber extends React.Component {
+class InputNumber extends LogRender {
     render() {
         return (
             <div className={s.wrapper}>
