@@ -6,6 +6,23 @@ import ProductMainHeader from './components/ProductMainHeader/ProductMainHeader'
 import ProductMainList from './components/ProductMainList/ProductMainList';
 import Filters from './components/Filters/Filters';
 
+const memoize = (fn) => {
+    const prevCall = {
+        args: []
+    }
+    return function (...args) {
+        let equal = true
+        args.forEach((el, index) => {
+            equal = equal && prevCall.args[index] === el
+        })
+        if (!equal) {
+            prevCall.args = args
+            prevCall.result = fn(...args)
+        }
+        return prevCall.result
+    }
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -30,12 +47,20 @@ class App extends React.Component {
         return (minPrice) <= (1 - discount / 100) * maxPrice;
     }
 
-    getFilteredProducts = (minValue, maxValue, discountValue) => {
+    // getFilteredProducts = (minValue, maxValue, discountValue) => {
+    //     return (ProductsJSON.filter(product => (
+    //         this.isPriceInMinMaxRange(minValue, maxValue, product.price) &&
+    //         this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
+    //     )));
+    // }
+
+    getFilteredProducts = memoize((minValue, maxValue, discountValue) => {
         return (ProductsJSON.filter(product => (
-            this.isPriceInMinMaxRange(minValue, maxValue, product.price) &&
-            this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
-        )));
-    }
+            this.isPriceInMinMaxRange(minValue, maxValue, product.price)
+            &&
+            this.isDiscountWorking(product.price, product.subPriceContent, discountValue))
+        ));
+    });
 
     handleSubmit = (value, name) => {
         switch (name) {
@@ -54,7 +79,7 @@ class App extends React.Component {
                     })
                 );
             case 'discountInput':
-                return ( 
+                return (
                     this.setState({
                         discountValue: Number(value),
                         products: this.getFilteredProducts(this.state.minPriceValue, this.state.maxPriceValue, value)
@@ -65,11 +90,16 @@ class App extends React.Component {
         }
     }
 
+    renderChildren = memoize(() => <ProductMainHeader />)
+
     render() {
+        
+
         return (
             <main>
                 <div className='products_main'>
-                    <div className='box1'><ProductMainHeader /></div>
+                    {/* <div className='box1'><ProductMainHeader /></div> */}
+                    {this.renderChildren}
                     <div className='box2'>
                         <Filters
                             handleSubmit={this.handleSubmit}
@@ -79,6 +109,7 @@ class App extends React.Component {
                         />
                     </div>
                     <div className='box3'>
+                        {/* {this.renderInputNumber} */}
                         <ProductMainList shortProductList={this.state.products} />
                     </div>
                 </div>
