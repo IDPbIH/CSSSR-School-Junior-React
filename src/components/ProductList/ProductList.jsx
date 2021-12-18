@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProductMainList.module.css';
+import styles from './ProductList.module.css';
 import ProductItem from 'csssr-school-product-card';
 import Star from '../Star/Star';
 import LogRender from '../../containers/LogRender/LogRender';
@@ -8,11 +8,11 @@ const ratingComponent = ({ isFilled }) => {
     return (<div className={styles.star}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>);
 };
 
-class ProductMainList extends LogRender {
+class ProductList extends LogRender {
     render () {
         return (
             <div className={styles.wrapper}>
-                {this.props.shortProductList.map(product => {
+                {/* {this.props.shortProductList.map(product => {
                     return (
                         <ProductItem
                             key={product.id}
@@ -26,10 +26,10 @@ class ProductMainList extends LogRender {
                             ratingComponent={ratingComponent}
                         />
                     );
-                })}
+                })} */}
             </div >
         );
     }
 }
 
-export default ProductMainList;
+export default ProductList;

@@ -16,8 +16,6 @@ class InputNumber extends LogRender {
                         value={this.props.minValue}
                         onChange={this.props.handleChange}
                         onClick={this.props.handleClick}
-                        onFocus={this.props.handleOnFocus}
-                        onBlur={this.props.handleOnBlur}
                     />
                     до
                     <input

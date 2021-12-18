@@ -24,7 +24,7 @@ export default function withSubscription(InputComponent) {
         }
 
         handleOnBlur = (e) => {
-            this.props.handleSubmit(e.target.value, e.target.name)
+            e.target.value=this.state.value;
         }
 
         render() {

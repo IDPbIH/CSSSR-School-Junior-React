@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import ProductsJSON from './products.json';
-import ProductMainHeader from './components/ProductMainHeader/ProductMainHeader';
-import ProductMainList from './components/ProductMainList/ProductMainList';
-import Filters from './components/Filters/Filters';
+import ProductListHeader from './components/ProductListHeader/ProductListHeader';
+import ProductList from './components/ProductList/ProductList';
+import FilterPage from './components/FilterPage/FilterPage';
+import ProductPage from './components/ProductPage/ProductPage';
 
 const memoize = (fn) => {
     const prevCall = {
@@ -23,7 +24,7 @@ const memoize = (fn) => {
     }
 }
 
-class App extends React.Component {
+class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -47,24 +48,20 @@ class App extends React.Component {
         return (minPrice) <= (1 - discount / 100) * maxPrice;
     }
 
-    // getFilteredProducts = (minValue, maxValue, discountValue) => {
-    //     return (ProductsJSON.filter(product => (
-    //         this.isPriceInMinMaxRange(minValue, maxValue, product.price) &&
-    //         this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
-    //     )));
-    // }
-
-    getFilteredProducts = memoize((minValue, maxValue, discountValue) => {
-        return (ProductsJSON.filter(product => (
-            this.isPriceInMinMaxRange(minValue, maxValue, product.price)
-            &&
-            this.isDiscountWorking(product.price, product.subPriceContent, discountValue))
-        ));
+    getFilteredProducts = memoize((arr, minValue, maxValue, discountValue) => {
+        return {
+            arr:ProductsJSON.filter(product => (
+                this.isPriceInMinMaxRange(minValue, maxValue, product.price)
+                && this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
+            ))
+        }
     });
 
     handleSubmit = (value, name) => {
+        console.log(value)
         switch (name) {
             case 'minValueInput':
+                console.log(this.getFilteredProducts(value, this.state.maxPriceValue, this.state.discountValue))
                 return (
                     this.setState({
                         minPriceValue: Number(value),
@@ -90,29 +87,28 @@ class App extends React.Component {
         }
     }
 
-    renderChildren = memoize(() => <ProductMainHeader />)
+    renderProductMainHeader = memoize(() => <ProductListHeader />)
+    renderProductList = memoize(() => <ProductList shortProductList={this.state.products} />)
 
     render() {
-        
-
         return (
             <main>
-                <div className='products_main'>
-                    {/* <div className='box1'><ProductMainHeader /></div> */}
-                    {this.renderChildren}
-                    <div className='box2'>
-                        <Filters
-                            handleSubmit={this.handleSubmit}
-                            minValue={this.state.minPriceValue}
-                            maxValue={this.state.maxPriceValue}
-                            discountValue={this.state.discountValue}
-                        />
+                <ProductPage>
+                    <div className='products_main'>
+                        <div className='box1'>{this.renderProductMainHeader(1)}</div>
+                        <div className='box2'>
+                            <FilterPage
+                                handleSubmit={this.handleSubmit}
+                                minValue={this.state.minPriceValue}
+                                maxValue={this.state.maxPriceValue}
+                                discountValue={this.state.discountValue}
+                            />
+                        </div>
+                        <div className='box3'>
+                            {this.renderProductList(this.state.products)}
+                        </div>
                     </div>
-                    <div className='box3'>
-                        {/* {this.renderInputNumber} */}
-                        <ProductMainList shortProductList={this.state.products} />
-                    </div>
-                </div>
+                </ProductPage>
             </main>
         );
     }
