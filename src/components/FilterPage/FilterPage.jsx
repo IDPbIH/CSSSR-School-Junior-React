@@ -28,17 +28,17 @@ class FilterList extends React.PureComponent {
 
 class FilterPage extends LogRender {
     renderInputNumber = memoize(
-        () => <InputNumber
-            minValue={this.props.minValue}
-            maxValue={this.props.maxValue}
-            handleSubmit={this.props.handleSubmit}
+        (min,max,h) => <InputNumber
+            minValue={min}
+            maxValue={max}
+            handleSubmit={h}
         />
     );
 
     renderInputDiscount = memoize(
-        () => <InputDiscount
-            discountValue={this.props.discountValue}
-            handleSubmit={this.props.handleSubmit}
+        (d,h) => <InputDiscount
+            discountValue={d}
+            handleSubmit={h}
         />
     );
 
@@ -46,11 +46,6 @@ class FilterPage extends LogRender {
         return (
             <form>
                 <FilterList>
-                    {/* <InputNumber
-                        minValue={this.props.minValue}
-                        maxValue={this.props.maxValue}
-                        handleSubmit={this.props.handleSubmit}
-                    /> */}
                     {this.renderInputNumber(this.props.minValue,this.props.maxValue,this.props.handleSubmit)}
                     {this.renderInputDiscount(this.props.discountValue,this.props.handleSubmit)}
                 </FilterList>

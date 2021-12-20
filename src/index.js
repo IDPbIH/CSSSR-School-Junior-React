@@ -48,20 +48,19 @@ class App extends React.PureComponent {
         return (minPrice) <= (1 - discount / 100) * maxPrice;
     }
 
-    getFilteredProducts = memoize((arr, minValue, maxValue, discountValue) => {
-        return {
-            arr:ProductsJSON.filter(product => (
+    getFilteredProducts = memoize((minValue, maxValue, discountValue) => {
+        return (
+            ProductsJSON.filter(product => (
                 this.isPriceInMinMaxRange(minValue, maxValue, product.price)
-                && this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
+                &&
+                this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
             ))
-        }
+        );
     });
 
     handleSubmit = (value, name) => {
-        console.log(value)
         switch (name) {
             case 'minValueInput':
-                console.log(this.getFilteredProducts(value, this.state.maxPriceValue, this.state.discountValue))
                 return (
                     this.setState({
                         minPriceValue: Number(value),
@@ -88,7 +87,7 @@ class App extends React.PureComponent {
     }
 
     renderProductMainHeader = memoize(() => <ProductListHeader />)
-    renderProductList = memoize(() => <ProductList shortProductList={this.state.products} />)
+    renderProductList = memoize((stateProductList) => <ProductList shortProductList={stateProductList} />)
 
     render() {
         return (
