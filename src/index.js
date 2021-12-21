@@ -5,24 +5,7 @@ import ProductsJSON from './products.json';
 import ProductListHeader from './components/ProductListHeader/ProductListHeader';
 import ProductList from './components/ProductList/ProductList';
 import FilterPage from './components/FilterPage/FilterPage';
-import ProductPage from './components/ProductPage/ProductPage';
-
-const memoize = (fn) => {
-    const prevCall = {
-        args: []
-    }
-    return function (...args) {
-        let equal = true
-        args.forEach((el, index) => {
-            equal = equal && prevCall.args[index] === el
-        })
-        if (!equal) {
-            prevCall.args = args
-            prevCall.result = fn(...args)
-        }
-        return prevCall.result
-    }
-}
+import memoize from './utils/memoize';
 
 class App extends React.PureComponent {
     constructor(props) {
@@ -58,56 +41,30 @@ class App extends React.PureComponent {
         );
     });
 
-    handleSubmit = (value, name) => {
-        switch (name) {
-            case 'minValueInput':
-                return (
-                    this.setState({
-                        minPriceValue: Number(value),
-                        products: this.getFilteredProducts(value, this.state.maxPriceValue, this.state.discountValue)
-                    })
-                );
-            case 'maxValueInput':
-                return (
-                    this.setState({
-                        maxPriceValue: Number(value),
-                        products: this.getFilteredProducts(this.state.minPriceValue, value, this.state.discountValue)
-                    })
-                );
-            case 'discountInput':
-                return (
-                    this.setState({
-                        discountValue: Number(value),
-                        products: this.getFilteredProducts(this.state.minPriceValue, this.state.maxPriceValue, value)
-                    })
-                );
-            default:
-                console.log('input error');
-        }
+    handleSubmit = (e) => {
+        this.setState({ [e.target.name]: Number(e.target.value) });
+        this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
     }
 
-    renderProductMainHeader = memoize(() => <ProductListHeader />)
     renderProductList = memoize((stateProductList) => <ProductList shortProductList={stateProductList} />)
 
     render() {
         return (
             <main>
-                <ProductPage>
-                    <div className='products_main'>
-                        <div className='box1'>{this.renderProductMainHeader(1)}</div>
-                        <div className='box2'>
-                            <FilterPage
-                                handleSubmit={this.handleSubmit}
-                                minValue={this.state.minPriceValue}
-                                maxValue={this.state.maxPriceValue}
-                                discountValue={this.state.discountValue}
-                            />
-                        </div>
-                        <div className='box3'>
-                            {this.renderProductList(this.state.products)}
-                        </div>
+                <div className='products_main'>
+                    <div className='box1'><ProductListHeader /></div>
+                    <div className='box2'>
+                        <FilterPage
+                            handleSubmit={this.handleSubmit}
+                            minPriceValue={this.state.minPriceValue}
+                            maxPriceValue={this.state.maxPriceValue}
+                            discountValue={this.state.discountValue}
+                        />
                     </div>
-                </ProductPage>
+                    <div className='box3'>
+                        {this.renderProductList(this.state.products)}
+                    </div>
+                </div>
             </main>
         );
     }

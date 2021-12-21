@@ -1,7 +1,6 @@
 import React from 'react';
-import LogRender from '../../containers/LogRender/LogRender';
 
-class ProductMainHeader extends LogRender {
+class ProductMainHeader extends React.PureComponent {
     render () {
         return (
             <h1 className='products-main-h1'>Список товаров</h1>

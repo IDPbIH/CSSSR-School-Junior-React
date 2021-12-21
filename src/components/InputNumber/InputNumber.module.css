@@ -14,8 +14,15 @@
   font-weight: 600;
 }
 
-.inputs {
-  text-align: justify;
+.error {
+  border: 2px solid #dadada;
+  border-radius: 7px;
+}
+
+.error:focus {
+  outline: none;
+  border-color: #360505;
+  box-shadow: 0 0 10px #360505;
 }
 
 .minValue {

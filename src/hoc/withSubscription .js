@@ -6,16 +6,23 @@ export default function withSubscription(InputComponent) {
             super(props);
 
             this.state = {
+                error: false,
                 value: null
             };
         }
 
         handleChange = (e) => {
-            !isNaN(e.target.value) && this.props.handleSubmit(e.target.value, e.target.name);
+            if (!isNaN(e.target.value)) {
+                this.setState({ error: false })
+                this.props.handleSubmit(e);
+            } else {
+                this.setState({ error: true })
+            }
         }
 
         handleClick = (e) => {
             e.target.value = 0;
+            this.props.handleSubmit(e);
             e.preventDefault();;
         }
 
@@ -24,12 +31,13 @@ export default function withSubscription(InputComponent) {
         }
 
         handleOnBlur = (e) => {
-            e.target.value=this.state.value;
+            e.target.value = this.state.value;
         }
 
         render() {
             return (
                 <InputComponent {...this.props}
+                    error={this.state.error}
                     handleChange={this.handleChange}
                     handleClick={this.handleClick}
                     handleOnFocus={this.handleOnFocus}
