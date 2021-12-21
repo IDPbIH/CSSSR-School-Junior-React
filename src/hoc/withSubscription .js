@@ -14,7 +14,7 @@ export default function withSubscription(InputComponent) {
         handleChange = (e) => {
             if (!isNaN(e.target.value)) {
                 this.setState({ error: false })
-                this.props.handleSubmit(e);
+                this.props.handleStateChange(e);
             } else {
                 this.setState({ error: true })
             }
@@ -22,7 +22,7 @@ export default function withSubscription(InputComponent) {
 
         handleClick = (e) => {
             e.target.value = 0;
-            this.props.handleSubmit(e);
+            this.props.handleStateChange(e);
             e.preventDefault();;
         }
 

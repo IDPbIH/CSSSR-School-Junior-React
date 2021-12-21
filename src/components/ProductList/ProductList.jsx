@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './ProductList.module.css';
 import Star from '../Star/Star';
-import withLogRender from '../../hoc/withLogRender';
+import LogRender from '../../components/LogRender/LogRender';
 import ProductItem from 'csssr-school-product-card';
 
 const ratingComponent = ({ isFilled }) => {
     return (<div className={styles.star}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>);
 };
 
-class ProductList extends withLogRender {
+class ProductList extends LogRender {
     render () {
         return (
             <div className={styles.wrapper}>

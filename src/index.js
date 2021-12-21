@@ -4,7 +4,7 @@ import './index.css';
 import ProductsJSON from './products.json';
 import ProductListHeader from './components/ProductListHeader/ProductListHeader';
 import ProductList from './components/ProductList/ProductList';
-import FilterPage from './components/FilterPage/FilterPage';
+import FilterList from './components/FilterList/FilterList';
 import memoize from './utils/memoize';
 
 class App extends React.PureComponent {
@@ -41,9 +41,10 @@ class App extends React.PureComponent {
         );
     });
 
-    handleSubmit = (e) => {
+    handleStateChange= (e) => {
         this.setState({ [e.target.name]: Number(e.target.value) });
-        this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
+        this.setState((state) =>
+        { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
     }
 
     renderProductList = memoize((stateProductList) => <ProductList shortProductList={stateProductList} />)
@@ -54,8 +55,8 @@ class App extends React.PureComponent {
                 <div className='products_main'>
                     <div className='box1'><ProductListHeader /></div>
                     <div className='box2'>
-                        <FilterPage
-                            handleSubmit={this.handleSubmit}
+                        <FilterList
+                            handleStateChange={this.handleStateChange}
                             minPriceValue={this.state.minPriceValue}
                             maxPriceValue={this.state.maxPriceValue}
                             discountValue={this.state.discountValue}

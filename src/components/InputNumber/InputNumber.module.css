@@ -16,13 +16,13 @@
 
 .error {
   border: 2px solid #dadada;
-  border-radius: 7px;
+  border-radius: 1px;
 }
 
 .error:focus {
   outline: none;
-  border-color: #360505;
-  box-shadow: 0 0 10px #360505;
+  border-color: red;
+  box-shadow: 0 0 10px red;
 }
 
 .minValue {
