@@ -19,7 +19,8 @@ class App extends React.PureComponent {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
-            products: ProductsJSON
+            products: ProductsJSON,
+            category: null
         };
     }
 
@@ -47,7 +48,7 @@ class App extends React.PureComponent {
         { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
     }
 
-    renderProductList = memoize((stateProductList) => <ProductList shortProductList={stateProductList} />)
+    renderProductList = memoize((products) => <ProductList products={products} />)
 
     render() {
         return (
@@ -57,6 +58,7 @@ class App extends React.PureComponent {
                     <div className='box2'>
                         <FilterList
                             handleStateChange={this.handleStateChange}
+                            products={this.state.products}
                             minPriceValue={this.state.minPriceValue}
                             maxPriceValue={this.state.maxPriceValue}
                             discountValue={this.state.discountValue}

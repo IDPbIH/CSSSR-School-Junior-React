@@ -15,7 +15,6 @@ class InputDiscount extends LogRender {
                     onChange={this.props.handleChange}
                 />
             </div>
-
         );
     }
 }
