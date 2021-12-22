@@ -21,9 +21,9 @@ export default function withSubscription(InputComponent) {
         }
 
         handleClick = (e) => {
+            e.preventDefault();;
             e.target.value = 0;
             this.props.handleStateChange(e);
-            e.preventDefault();;
         }
 
         handleOnFocus = (e) => {
