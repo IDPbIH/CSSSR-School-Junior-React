@@ -1,28 +1,23 @@
-.title {
-  font-family: OpenSans, sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: #323c48;
-  text-align: left;
-  padding-bottom: 16px;
-}
-
-.wrapper {
+.numbers {
   font-family: OpenSans, sans-serif;
   color: #323c48;
   font-size: 14px;
   font-weight: 600;
 }
 
-.error {
-  border: 2px solid #dadada;
-  border-radius: 1px;
+.title {
+  font-family: OpenSans, sans-serif;
+  font-size: 20px;
+  color: #323c48;
+  text-align: left;
+  padding-bottom: 16px;
 }
 
-.error:focus {
-  outline: none;
-  border-color: red;
-  box-shadow: 0 0 10px red;
+.inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .minValue {
@@ -31,7 +26,7 @@
   margin-left: 8px;
   margin-right: 8px;
   height: 30px;
-  width: 55px;
+  width: 70px;
   border: solid 1px #7e8fa4;
   padding-left: 16px;
   padding-right: 16px;
@@ -43,8 +38,19 @@
   margin-left: 8px;
   margin-right: 8px;
   height: 30px;
-  width: 55px;
+  width: 70px;
   border: solid 1px #7e8fa4;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.error {
+  border: 2px solid #dadada;
+  border-radius: 1px;
+}
+
+.error:focus {
+  outline: none;
+  border-color: red;
+  box-shadow: 0 0 10px red;
 }

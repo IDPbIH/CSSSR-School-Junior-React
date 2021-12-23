@@ -23,8 +23,8 @@ class FilterList extends LogRender {
     );
 
     renderInputCategory = memoize(
-        (products, handleStateChange) => <InputCategory
-            products={products}
+        (category, handleStateChange) => <InputCategory
+            category={category}
             handleStateChange={handleStateChange}
         />
     );
@@ -34,7 +34,7 @@ class FilterList extends LogRender {
             <form>
                 {this.renderInputNumber(this.props.minPriceValue, this.props.maxPriceValue, this.props.handleStateChange)}
                 {this.renderInputDiscount(this.props.discountValue, this.props.handleStateChange)}
-                {this.renderInputCategory(this.props.products, this.props.handleStateChange)}
+                {this.renderInputCategory(this.props.category, this.props.handleStateChange)}
             </form>
         );
     }

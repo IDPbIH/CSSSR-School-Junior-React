@@ -6,9 +6,9 @@ import LogRender from '../../components/LogRender/LogRender';
 class InputNumber extends LogRender {
     render() {
         return (
-            <div className={s.wrapper}>
+            <div className={s.numbers}>
                 <h3 className={s.title}>Цена</h3>
-                <label>
+                <label className={s.inputs}>
                     от
                     <input
                         name='minPriceValue'

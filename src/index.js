@@ -19,8 +19,8 @@ class App extends React.PureComponent {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
-            products: ProductsJSON,
-            category: null
+            category: 'Продукты',
+            products: this.getFilteredProducts(Math.min.apply(null, ProductsJSONPriceArray),Math.max.apply(null, ProductsJSONPriceArray),0,'Продукты')
         };
     }
 
@@ -32,20 +32,27 @@ class App extends React.PureComponent {
         return (minPrice) <= (1 - discount / 100) * maxPrice;
     }
 
-    getFilteredProducts = memoize((minValue, maxValue, discountValue) => {
+    getFilteredProducts = memoize((minValue, maxValue, discountValue, category) => {
         return (
             ProductsJSON.filter(product => (
-                this.isPriceInMinMaxRange(minValue, maxValue, product.price)
+                this.isPriceInMinMaxRange(minValue, maxValue, product.price,)
                 &&
                 this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
+                &&
+                product.category===category
             ))
         );
     });
 
-    handleStateChange= (e) => {
-        this.setState({ [e.target.name]: Number(e.target.value) });
+    handleStateChange= (type, e) => {
+        console.log(type,e.target.name);
+        if (type === 'input') {
+            this.setState({ [e.target.name]: Number(e.target.value) });
+        } else {
+            this.setState({category: e.target.name});
+        }
         this.setState((state) =>
-        { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
+        { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
     }
 
     renderProductList = memoize((products) => <ProductList products={products} />)
@@ -57,11 +64,12 @@ class App extends React.PureComponent {
                     <div className='box1'><ProductListHeader /></div>
                     <div className='box2'>
                         <FilterList
-                            handleStateChange={this.handleStateChange}
-                            products={this.state.products}
+                            products={this.state.products}        
                             minPriceValue={this.state.minPriceValue}
                             maxPriceValue={this.state.maxPriceValue}
                             discountValue={this.state.discountValue}
+                            category={this.state.category}
+                            handleStateChange={this.handleStateChange}
                         />
                     </div>
                     <div className='box3'>
