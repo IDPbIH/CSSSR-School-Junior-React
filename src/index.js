@@ -7,20 +7,28 @@ import ProductList from './components/ProductList/ProductList';
 import FilterList from './components/FilterList/FilterList';
 import memoize from './utils/memoize';
 
+export const StateContext = React.createContext(null);
+
+
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        this.state = this.setInitialState();
+    }
+    
+    setInitialState = () => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
 
-        this.state = {
+        return {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
             category: 'Продукты',
-            products: this.getFilteredProducts(Math.min.apply(null, ProductsJSONPriceArray),Math.max.apply(null, ProductsJSONPriceArray),0,'Продукты')
+            products: this.getFilteredProducts(Math.min.apply(null, ProductsJSONPriceArray), Math.max.apply(null, ProductsJSONPriceArray), 0, 'Продукты')
         };
     }
 
@@ -39,42 +47,29 @@ class App extends React.PureComponent {
                 &&
                 this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
                 &&
-                product.category===category
+                product.category === category
             ))
         );
     });
 
-    handleStateChange= (type, e) => {
-        console.log(type,e.target.name);
+    handleStateChange = (type, e) => {
         if (type === 'input') {
             this.setState({ [e.target.name]: Number(e.target.value) });
         } else {
-            this.setState({category: e.target.name});
+            this.setState({ category: e.target.name });
         }
-        this.setState((state) =>
-        { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
+        this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
     }
-
-    renderProductList = memoize((products) => <ProductList products={products} />)
 
     render() {
         return (
             <main>
                 <div className='products_main'>
-                    <div className='box1'><ProductListHeader /></div>
-                    <div className='box2'>
-                        <FilterList
-                            products={this.state.products}        
-                            minPriceValue={this.state.minPriceValue}
-                            maxPriceValue={this.state.maxPriceValue}
-                            discountValue={this.state.discountValue}
-                            category={this.state.category}
-                            handleStateChange={this.handleStateChange}
-                        />
-                    </div>
-                    <div className='box3'>
-                        {this.renderProductList(this.state.products)}
-                    </div>
+                    <StateContext.Provider value={this.state}>
+                        <div className='box1'><ProductListHeader /></div>
+                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} setInitialState={this.setInitialState}/></div>
+                        <div className='box3'><ProductList /></div>
+                    </StateContext.Provider>
                 </div>
             </main>
         );
