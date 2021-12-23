@@ -25,7 +25,7 @@ class FilterList extends LogRender {
                 {this.renderInputNumber(this.props.handleStateChange)}
                 {this.renderInputDiscount(this.props.handleStateChange)}
                 {this.renderInputCategory(this.props.handleStateChange)}
-                <button className={s.reset_button} onChange={this.props.setInitialState}>Сбросить фильтры</button>
+                <button className={s.reset_button} onChange={() => {this.props.setInitialState()}}>Сбросить фильтры</button>
             </form>
         );
     }

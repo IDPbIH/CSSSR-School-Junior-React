@@ -8,11 +8,10 @@ class InputCategory extends LogRender {
     constructor(props) {
         super(props)
 
-        this.categories = new Set(
-            ProductsJSON.map(product => {
-                return product.category;
-            })
-        );
+        this.categories = [
+            ...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product]))
+            .values()
+          ];    
     }
 
     render() {
@@ -23,17 +22,17 @@ class InputCategory extends LogRender {
                         <div className={s.categories}>
                         <h3 className={s.title}>Категории</h3>
                         <div className={s.form_radio_group}>
-                            {[...this.categories].map((category, index) => {
+                            {this.categories.map((category, index) => {
                                 return (
                                     <div className={s.form_radio_group_item} key={index}>
                                         <input
                                             type="radio"
-                                            id={category}
-                                            name={category}
-                                            checked={category === state.category ? true : false}
+                                            id={category.category}
+                                            name={category.category}
+                                            checked={category.category === window.location.pathname.substr(1) ? true : false}
                                             onChange={(e) => { this.props.handleStateChange('radio', e) }}
                                         />
-                                        <label htmlFor={category}>{category}</label>
+                                        <label htmlFor={category.category}>{category.categoryName}</label>
                                     </div>
                                 );
                             })}

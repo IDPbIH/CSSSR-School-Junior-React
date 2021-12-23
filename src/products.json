@@ -8,7 +8,8 @@
     "subPriceContent": 160,
     "maxRating": 5,
     "rating": 4,
-    "category": "Продукты"
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "subPriceContent": 200,
     "maxRating": 5,
     "rating": 4,
-    "category": "Продукты"
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "subPriceContent": 150,
     "maxRating": 5,
     "rating": 5,
-    "category": "Продукты"
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 4,
@@ -40,8 +43,9 @@
     "price": 175,
     "subPriceContent": 180,
     "maxRating": 5,
-    "rating": 4,
-    "category": "Продукты"
+    "rating": 3,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "subPriceContent": 200,
     "maxRating": 5,
     "rating": 3,
-    "category": "Продукты"
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "subPriceContent": 110,
     "maxRating": 5,
     "rating": 4,
-    "category": "Продукты"
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 7,
@@ -72,9 +78,10 @@
     "img": "https://www.bobbibrown.ru/media/export/cms/products/v2_1080x1080/bb_sku_EJ0R01_1080x1080_0.jpg",
     "price": 2000,
     "subPriceContent": 2950,
-    "maxRating": 5,
+    "maxRating": 4,
     "rating": 5,
-    "category": "Косметика"
+    "category": "cosmetics",
+    "categoryName": "Косметика"
   },
   {
     "id": 8,
@@ -85,6 +92,7 @@
     "subPriceContent": 1600,
     "maxRating": 5,
     "rating": 5,
-    "category": "Косметика"
+    "category": "cosmetics",
+    "categoryName": "Косметика"
   }
 ]

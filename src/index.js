@@ -9,16 +9,21 @@ import memoize from './utils/memoize';
 
 export const StateContext = React.createContext(null);
 
-
-
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.state = this.setInitialState();
+        let category = 'products';
+        if (window.location.pathname.substr(1) !== '' && this.state) {
+            category = window.location.pathname.substr(1)
+        }
+
+        window.history.pushState(window.location.href, 'category', category);
+        
+        this.state = this.setInitialState(category);
     }
-    
-    setInitialState = () => {
+
+    setInitialState = (category) => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
@@ -27,8 +32,12 @@ class App extends React.PureComponent {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
-            category: 'Продукты',
-            products: this.getFilteredProducts(Math.min.apply(null, ProductsJSONPriceArray), Math.max.apply(null, ProductsJSONPriceArray), 0, 'Продукты')
+            category: category,
+            products: this.getFilteredProducts(
+                Math.min.apply(null, ProductsJSONPriceArray),
+                Math.max.apply(null, ProductsJSONPriceArray),
+                0,
+                category)
         };
     }
 
@@ -37,13 +46,13 @@ class App extends React.PureComponent {
     }
 
     isDiscountWorking = (minPrice, maxPrice, discount) => {
-        return (minPrice) <= (1 - discount / 100) * maxPrice;
+        return minPrice <= (1 - discount / 100) * maxPrice;
     }
 
     getFilteredProducts = memoize((minValue, maxValue, discountValue, category) => {
         return (
             ProductsJSON.filter(product => (
-                this.isPriceInMinMaxRange(minValue, maxValue, product.price,)
+                this.isPriceInMinMaxRange(minValue, maxValue, product.price)
                 &&
                 this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
                 &&
@@ -56,6 +65,7 @@ class App extends React.PureComponent {
         if (type === 'input') {
             this.setState({ [e.target.name]: Number(e.target.value) });
         } else {
+            window.history.pushState(window.location.href, 'category', e.target.name);
             this.setState({ category: e.target.name });
         }
         this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
@@ -67,7 +77,7 @@ class App extends React.PureComponent {
                 <div className='products_main'>
                     <StateContext.Provider value={this.state}>
                         <div className='box1'><ProductListHeader /></div>
-                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} setInitialState={this.setInitialState}/></div>
+                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} setInitialState={this.setInitialState} /></div>
                         <div className='box3'><ProductList /></div>
                     </StateContext.Provider>
                 </div>
