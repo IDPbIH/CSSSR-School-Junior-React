@@ -13,17 +13,20 @@ class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        let category = 'products';
-        if (window.location.pathname.substr(1) !== '' && this.state) {
-            category = window.location.pathname.substr(1)
-        }
+        let category;
 
-        window.history.pushState(window.location.href, 'category', category);
-        
+        if (window.location.pathname.substr(1) === '') {
+            category = 'products';
+        } else {
+            category = window.location.pathname.substr(1);
+        }
+       
         this.state = this.setInitialState(category);
     }
 
     setInitialState = (category) => {
+        window.history.pushState(window.location.href, 'category', category);
+
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
@@ -38,7 +41,7 @@ class App extends React.PureComponent {
                 Math.max.apply(null, ProductsJSONPriceArray),
                 0,
                 category)
-        };
+        }
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -63,10 +66,16 @@ class App extends React.PureComponent {
 
     handleStateChange = (type, e) => {
         if (type === 'input') {
-            this.setState({ [e.target.name]: Number(e.target.value) });
-        } else {
+            this.setState({
+                [e.target.name]: Number(e.target.value)
+            });
+        }
+        if (type === 'radio') {
             window.history.pushState(window.location.href, 'category', e.target.name);
-            this.setState({ category: e.target.name });
+
+            this.setState({
+                category: e.target.name
+            });
         }
         this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
     }
