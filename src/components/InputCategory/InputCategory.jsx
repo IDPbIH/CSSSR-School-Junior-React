@@ -11,20 +11,20 @@ class InputCategory extends LogRender {
                     (state) => (
                         <div className={s.categories}>
                             <h3 className={s.title}>Категории</h3>
-                                {state.categories.map((category, index) => {
-                                    return (
-                                        <label className={s.checkbox_btn}>
-                                            <input
-                                                type="checkbox"
-                                                name={category.category}
-                                                checked={category.category === window.location.pathname.substr(1) ? true : false}
-                                                onChange={(e) => { this.props.handleStateChange('checkbox', e) }}
-                                                >
-                                            </input>
-                                            <span>{category.categoryName}</span>
-                                        </label>
-                                    );
-                                })}
+                            {state.categories.map((category) => {
+                                return (
+                                    <label className={s.checkbox_btn} key={category.id}>
+                                        <input
+                                            type="checkbox"
+                                            name={category.category}
+                                            checked={state.categoriesSelected.includes(category.category) ? true : false}
+                                            onChange={(e) => { this.props.handleStateChange('checkbox', e.target.name) }}
+                                        >
+                                        </input>
+                                        <span>{category.categoryName}</span>
+                                    </label>
+                                );
+                            })}
                         </div>
                     )
                 }

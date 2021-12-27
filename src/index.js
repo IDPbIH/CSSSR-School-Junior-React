@@ -13,19 +13,19 @@ class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        let category;
+        // let categories;
 
-        if (window.location.pathname.substr(1) === '') {
-            category = 'products';
-        } else {
-            category = window.location.pathname.substr(1);
-        }
+        // if (window.location.pathname.substr(1) === '') {
+        //     categories = 'products';
+        // } else {
+        //     category = window.location.pathname.substr(1);
+        // }
 
-        this.state = this.setInitialState(category);
+        this.state = this.setInitialState();
     }
 
-    setInitialState = (category) => {
-        window.history.pushState(window.location.href, 'category', category);
+    setInitialState = () => {
+        this.setURL(this.categoriesSelectedFormation());
 
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
@@ -35,18 +35,22 @@ class App extends React.PureComponent {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
-            category: category,
             categories: this.categoriesFormation(),
+            categoriesSelected: this.categoriesSelectedFormation(),
             products: this.getFilteredProducts(
                 Math.min.apply(null, ProductsJSONPriceArray),
                 Math.max.apply(null, ProductsJSONPriceArray),
                 0,
-                category)
+                this.categoriesSelectedFormation())
         }
     }
 
     categoriesFormation = () => {
         return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
+    }
+
+    categoriesSelectedFormation = () => {
+        return [...new Set(ProductsJSON.map(product => { return product.category; }))];
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -57,32 +61,63 @@ class App extends React.PureComponent {
         return minPrice <= (1 - discount / 100) * maxPrice;
     }
 
-    getFilteredProducts = memoize((minValue, maxValue, discountValue, category) => {
+    isCategorySelected = (category, categoriesSelected) => {
+        if (!this.state) return true
+        else return categoriesSelected.includes(category);
+    }
+
+    getFilteredProducts = memoize((minValue, maxValue, discountValue, categoriesSelected) => {
         return (
             ProductsJSON.filter(product => (
                 this.isPriceInMinMaxRange(minValue, maxValue, product.price)
                 &&
                 this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
                 &&
-                product.category === category
+                this.isCategorySelected(product.category, categoriesSelected)
             ))
         );
     });
 
-    handleStateChange = (type, e) => {
+    setURL = (categoriesSelected) => {
+        let url='';
+        if (categoriesSelected.length !== 0) {
+            for (var i = 0; i < categoriesSelected.length; i++) {
+                i !== categoriesSelected.length - 1 ?
+                    url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
+                    url = url + 'p' + i + '=' + categoriesSelected[i]
+            }
+            window.history.pushState(categoriesSelected, 'categories', url);
+        } else {
+            window.history.pushState(categoriesSelected, 'categories','&');
+        }
+    }
+
+    handleStateChange = (type, name, value) => {
         if (type === 'input') {
             this.setState({
-                [e.target.name]: Number(e.target.value)
+                [name]: Number(value)
             });
         }
         if (type === 'checkbox') {
-            window.history.pushState(window.location.href, 'category', e.target.name);
-
-            this.setState({
-                category: e.target.name
-            });
+            if (this.state.categoriesSelected.includes(name)) {
+                this.setState({
+                    categoriesSelected: this.state.categoriesSelected.filter(category => category !== name)
+                });
+            } else {
+                this.setState({
+                    categoriesSelected: [...this.state.categoriesSelected, name],
+                });
+            }
         }
-        this.setState((state) => { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue, state.category) });
+        this.setState((state) => ({
+            products: this.getFilteredProducts(
+                state.minPriceValue,
+                state.maxPriceValue,
+                state.discountValue,
+                state.categoriesSelected)
+        }), () => {
+            this.setURL(this.state.categoriesSelected);
+        });
     }
 
     render() {
