@@ -20,7 +20,7 @@ class App extends React.PureComponent {
         } else {
             category = window.location.pathname.substr(1);
         }
-       
+
         this.state = this.setInitialState(category);
     }
 
@@ -36,12 +36,17 @@ class App extends React.PureComponent {
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
             category: category,
+            categories: this.categoriesFormation(),
             products: this.getFilteredProducts(
                 Math.min.apply(null, ProductsJSONPriceArray),
                 Math.max.apply(null, ProductsJSONPriceArray),
                 0,
                 category)
         }
+    }
+
+    categoriesFormation = () => {
+        return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -70,7 +75,7 @@ class App extends React.PureComponent {
                 [e.target.name]: Number(e.target.value)
             });
         }
-        if (type === 'radio') {
+        if (type === 'checkbox') {
             window.history.pushState(window.location.href, 'category', e.target.name);
 
             this.setState({
