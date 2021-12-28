@@ -18,6 +18,10 @@ class FilterList extends LogRender {
     renderInputCategory = memoize(
         (handleStateChange) => <InputCategory handleStateChange={handleStateChange} />
     );
+    
+    yo = () => {
+        window.history.replace('','','')
+    }
 
     render() {
         return (
@@ -25,7 +29,7 @@ class FilterList extends LogRender {
                 {this.renderInputNumber(this.props.handleStateChange)}
                 {this.renderInputDiscount(this.props.handleStateChange)}
                 {this.renderInputCategory(this.props.handleStateChange)}
-                <button className={s.reset_button} onClick={()=>{this.props.setInitialState('products')}}>Сбросить фильтры</button>
+                <button className={s.reset_button} onClick={() => {this.props.handleStateChange('reset')}}>Сбросить фильтры</button>
             </form>
         );
     }
