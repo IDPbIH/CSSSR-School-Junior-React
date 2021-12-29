@@ -35,17 +35,18 @@
   padding: 0px 15px;
   line-height: 34px;
   border: 1px solid #7e8fa4;
+  color: #7e8fa4;
   border-radius: 15px;
-  color: white;
-  background: #323c48;
+
+  background: white;
 }
 
 /* Checked */
 .checkbox_btn input[type="checkbox"]:checked + span {
   font-size: 14px;
-  color: #7e8fa4;
+  color: white;
   border: 1px solid #7e8fa4;
-  background: white;
+  background: #323c48;
 }
 
 /* Hover */

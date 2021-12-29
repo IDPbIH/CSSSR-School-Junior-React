@@ -13,10 +13,10 @@ class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.state = this.setInitialState(this.categoriesSelectedFormation());
+        this.state = this.setInitialState();
     }
 
-    setInitialState = (categoriesSelected) => {
+    setInitialState = () => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
@@ -26,12 +26,12 @@ class App extends React.PureComponent {
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
             categories: this.categoriesFormation(),
-            categoriesSelected: categoriesSelected,
+            categoriesSelected: this.categoriesSelectedFormation(),
             products: this.getFilteredProducts(
                 Math.min.apply(null, ProductsJSONPriceArray),
                 Math.max.apply(null, ProductsJSONPriceArray),
                 0,
-                categoriesSelected)
+                this.categoriesSelectedFormation())
         }
     }
 
@@ -39,15 +39,16 @@ class App extends React.PureComponent {
         return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
     }
 
-    categoriesSelectedFormation = (reset) => {
-        if (window.location.pathname.substr(1) === '' || reset === 'reset') {
-            return [...new Set(ProductsJSON.map(product => { return product.category; }))];
-        } else {
+    categoriesSelectedFormation = () => {
+        // if (reset === 'reset') {
+        //     return []
+        // } else {
+            console.log('*')
             return [...new Set(ProductsJSON
                 .filter(product => window.location.href.includes(product.category))
                 .map(product => { return product.category; })
             )];
-        }
+        // }
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -59,7 +60,8 @@ class App extends React.PureComponent {
     }
 
     isCategorySelected = (category, categoriesSelected) => {
-        return categoriesSelected.includes(category);
+        if (categoriesSelected.length === 0) return true
+        else return categoriesSelected.includes(category);
     }
 
     getFilteredProducts = memoize((minValue, maxValue, discountValue, categoriesSelected) => {
@@ -76,15 +78,15 @@ class App extends React.PureComponent {
 
     setURL = (categoriesSelected) => {
         let url = '';
-        if (categoriesSelected.length !== 0) {
+        if (categoriesSelected.length === 0) {
+            window.history.pushState(categoriesSelected, 'categories', '/');
+        } else {
             for (var i = 0; i < categoriesSelected.length; i++) {
                 i !== categoriesSelected.length - 1 ?
                     url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
                     url = url + 'p' + i + '=' + categoriesSelected[i]
             }
             window.history.pushState(categoriesSelected, 'categories', url);
-        } else {
-            window.history.pushState(categoriesSelected, 'categories', '&');
         }
     }
 
@@ -106,14 +108,8 @@ class App extends React.PureComponent {
                     });
                 }
                 break;
-            case 'reset':
-                this.setState({
-                    categoriesSelected: this.categoriesSelectedFormation('reset')
-                });
-                break;
             default:
         }
-
         this.setState((state) => ({
             products: this.getFilteredProducts(
                 state.minPriceValue,
@@ -131,7 +127,7 @@ class App extends React.PureComponent {
                 <div className='products_main'>
                     <StateContext.Provider value={this.state}>
                         <div className='box1'><ProductListHeader /></div>
-                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} /></div>
+                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} setInitialState={this.setInitialState} /></div>
                         <div className='box3'><ProductList /></div>
                     </StateContext.Provider>
                 </div>
