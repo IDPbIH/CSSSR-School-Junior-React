@@ -20,28 +20,28 @@ export default function withSubscription(InputComponent) {
             }
         }
 
-        handleClick = (e) => {
-            e.preventDefault();
-            e.target.value = 0;
-            this.props.handleStateChange('input', e.target.name, e.target.value);
-        }
+        // handleClick = (e) => {
+        //     e.preventDefault();
+        //     e.target.value = 0;
+        //     this.props.handleStateChange('input', e.target.name, e.target.value);
+        // }
 
-        handleOnFocus = (e) => {
-            this.setState({ value: e.target.value });
-        }
+        // handleOnFocus = (e) => {
+        //     this.setState({ value: e.target.value });
+        // }
 
-        handleOnBlur = (e) => {
-            e.target.value = this.state.value;
-        }
+        // handleOnBlur = (e) => {
+        //     e.target.value = this.state.value;
+        // }
 
         render() {
             return (
                 <InputComponent {...this.props}
                     error={this.state.error}
                     handleChange={this.handleChange}
-                    handleClick={this.handleClick}
-                    handleOnFocus={this.handleOnFocus}
-                    handleOnBlur={this.handleOnBlur}
+                    // handleClick={this.handleClick}
+                    // handleOnFocus={this.handleOnFocus}
+                    // handleOnBlur={this.handleOnBlur}
                 />
             );
         }

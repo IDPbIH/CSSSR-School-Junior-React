@@ -13,8 +13,22 @@ class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        window.history.replaceState(this.setInitialState(), '', window.location.pathname);
+        
         this.state = this.setInitialState();
     }
+
+    componentDidMount() {
+        window.addEventListener('popstate', this.setFromHistory);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('popstate', this.setFromHistory);
+    }
+
+    setFromHistory = e => {
+        this.setState(e.state);
+    };
 
     setInitialState = (reset) => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
@@ -22,7 +36,6 @@ class App extends React.PureComponent {
         });
 
         return {
-            url: null,
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
@@ -37,6 +50,20 @@ class App extends React.PureComponent {
         }
     }
 
+    setURL = (categoriesSelected) => {
+        let url='';
+        if (categoriesSelected.length === 0) {
+            window.history.pushState(this.state, '', '/');
+        } else {
+            for (var i = 0; i < categoriesSelected.length; i++) {
+                i !== categoriesSelected.length - 1 ?
+                    url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
+                    url = url + 'p' + i + '=' + categoriesSelected[i]
+            }
+            window.history.pushState(this.state, '', url);
+        }
+    }
+    
     categoriesFormation = () => {
         return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
     }
@@ -77,20 +104,6 @@ class App extends React.PureComponent {
         );
     });
 
-    setURL = (categoriesSelected) => {
-        let url = '';
-        if (categoriesSelected.length === 0) {
-            window.history.pushState(categoriesSelected, 'categories', '/');
-        } else {
-            for (var i = 0; i < categoriesSelected.length; i++) {
-                i !== categoriesSelected.length - 1 ?
-                    url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
-                    url = url + 'p' + i + '=' + categoriesSelected[i]
-            }
-            window.history.pushState(categoriesSelected, 'categories', url);
-        }
-    }
-
     handleStateChange = (type, name, value) => {
         switch (type) {
             case 'input':
@@ -110,11 +123,7 @@ class App extends React.PureComponent {
                 }
                 break;
             case 'reset':
-
-                // this.setState({
-                //     categoriesSelected: this.categoriesSelectedFormation('reset')
-                // });
-                this.setState((state) => { return state = this.setInitialState('reset') });
+                this.setState(this.setInitialState('reset'));
                 break;
             default:
         }
