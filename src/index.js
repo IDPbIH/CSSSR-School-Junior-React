@@ -16,22 +16,24 @@ class App extends React.PureComponent {
         this.state = this.setInitialState();
     }
 
-    setInitialState = () => {
+    setInitialState = (reset) => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
 
         return {
+            url: null,
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
             categories: this.categoriesFormation(),
-            categoriesSelected: this.categoriesSelectedFormation(),
+            categoriesSelected: this.categoriesSelectedFormation(reset),
             products: this.getFilteredProducts(
                 Math.min.apply(null, ProductsJSONPriceArray),
                 Math.max.apply(null, ProductsJSONPriceArray),
                 0,
-                this.categoriesSelectedFormation())
+                this.categoriesSelectedFormation(reset)
+            )
         }
     }
 
@@ -39,16 +41,15 @@ class App extends React.PureComponent {
         return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
     }
 
-    categoriesSelectedFormation = () => {
-        // if (reset === 'reset') {
-        //     return []
-        // } else {
-            console.log('*')
+    categoriesSelectedFormation = (reset) => {
+        if (reset === 'reset') {
+            return []
+        } else {
             return [...new Set(ProductsJSON
                 .filter(product => window.location.href.includes(product.category))
                 .map(product => { return product.category; })
             )];
-        // }
+        }
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -108,6 +109,13 @@ class App extends React.PureComponent {
                     });
                 }
                 break;
+            case 'reset':
+
+                // this.setState({
+                //     categoriesSelected: this.categoriesSelectedFormation('reset')
+                // });
+                this.setState((state) => { return state = this.setInitialState('reset') });
+                break;
             default:
         }
         this.setState((state) => ({
@@ -127,7 +135,7 @@ class App extends React.PureComponent {
                 <div className='products_main'>
                     <StateContext.Provider value={this.state}>
                         <div className='box1'><ProductListHeader /></div>
-                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} setInitialState={this.setInitialState} /></div>
+                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} /></div>
                         <div className='box3'><ProductList /></div>
                     </StateContext.Provider>
                 </div>

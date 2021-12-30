@@ -21,7 +21,7 @@ class FilterList extends LogRender {
 
     setDefault = (e) => {
         e.preventDefault();
-        this.props.setInitialState();
+        this.props.handleStateChange('reset');
     }
 
     render() {
