@@ -5,9 +5,11 @@
     "title": "Яблоки",
     "img": "https://cdnn21.img.ria.ru/images/155765/04/1557650483_0:105:2000:1230_1920x0_80_0_0_032afab1a2f1ac4ff00057036983cbbf.jpg",
     "price": 120,
-    "subPriceContent": "160",
+    "subPriceContent": 160,
     "maxRating": 5,
-    "rating": 4
+    "rating": 4,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 2,
@@ -15,9 +17,11 @@
     "title": "Апельсины",
     "img": "https://www.gastronom.ru/binfiles/images/20141003/b3c0313e.jpg",
     "price": 200,
-    "subPriceContent": "200",
+    "subPriceContent": 200,
     "maxRating": 5,
-    "rating": 4
+    "rating": 4,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 3,
@@ -25,9 +29,11 @@
     "title": "Бананы",
     "img": "https://cdnn21.img.ria.ru/images/49873/01/498730163_0:177:2928:1824_1920x0_80_0_0_93fb227fb06f559b14009d1939cdf718.jpg",
     "price": 130,
-    "subPriceContent": "150",
+    "subPriceContent": 150,
     "maxRating": 5,
-    "rating": 5
+    "rating": 5,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 4,
@@ -35,9 +41,11 @@
     "title": "Ананасы",
     "img": "https://fishki.net/picsw/122012/19/post/ananas/tn.jpg",
     "price": 175,
-    "subPriceContent": "180",
+    "subPriceContent": 180,
     "maxRating": 5,
-    "rating": 4
+    "rating": 3,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 5,
@@ -45,9 +53,11 @@
     "title": "Помидоры",
     "img": "https://resizer.mail.ru/p/06568562-b3c1-5fbe-937b-a54599702ae0/AAAcfIsJ9WTZnmreGENojDxxT8d2zLC1Vp4PhnPZdACXirhjtt4kVFbDAIWcnO-zfkQgJK6hCLo_awSPGLa69pB2l4A.jpg",
     "price": 180,
-    "subPriceContent": "200",
+    "subPriceContent": 200,
     "maxRating": 5,
-    "rating": 3
+    "rating": 3,
+    "category": "products",
+    "categoryName": "Продукты"
   },
   {
     "id": 6,
@@ -55,8 +65,34 @@
     "title": "Огурцы",
     "img": "https://goferma.ru/wp-content/uploads/2020/06/ogurtsy-fenix-640.jpg",
     "price": 110,
-    "subPriceContent": "110",
+    "subPriceContent": 110,
     "maxRating": 5,
-    "rating": 4
+    "rating": 4,
+    "category": "products",
+    "categoryName": "Продукты"
+  },
+  {
+    "id": 7,
+    "isInStock": true,
+    "title": "Тени",
+    "img": "https://www.bobbibrown.ru/media/export/cms/products/v2_1080x1080/bb_sku_EJ0R01_1080x1080_0.jpg",
+    "price": 2000,
+    "subPriceContent": 2950,
+    "maxRating": 4,
+    "rating": 5,
+    "category": "cosmetics",
+    "categoryName": "Косметика"
+  },
+  {
+    "id": 8,
+    "isInStock": true,
+    "title": "Помада",
+    "img": "https://www.bobbibrown.ru/media/export/cms/products/v2_1080x1080/bb_sku_ERLC01_1080x1080_0.jpg",
+    "price": 1360,
+    "subPriceContent": 1600,
+    "maxRating": 5,
+    "rating": 5,
+    "category": "cosmetics",
+    "categoryName": "Косметика"
   }
 ]

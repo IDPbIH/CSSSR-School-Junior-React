@@ -7,20 +7,76 @@ import ProductList from './components/ProductList/ProductList';
 import FilterList from './components/FilterList/FilterList';
 import memoize from './utils/memoize';
 
+export const StateContext = React.createContext(null);
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        window.history.replaceState(this.setInitialState(), '', window.location.pathname);
+        
+        this.state = this.setInitialState();
+    }
+
+    componentDidMount() {
+        window.addEventListener('popstate', this.setFromHistory);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('popstate', this.setFromHistory);
+    }
+
+    setFromHistory = e => {
+        this.setState(e.state);
+    };
+
+    setInitialState = (reset) => {
         const ProductsJSONPriceArray = ProductsJSON.map(product => {
             return product.price;
         });
 
-        this.state = {
+        return {
             minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
             maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
             discountValue: 0,
-            products: ProductsJSON
-        };
+            categories: this.categoriesFormation(),
+            categoriesSelected: this.categoriesSelectedFormation(reset),
+            products: this.getFilteredProducts(
+                Math.min.apply(null, ProductsJSONPriceArray),
+                Math.max.apply(null, ProductsJSONPriceArray),
+                0,
+                this.categoriesSelectedFormation(reset)
+            )
+        }
+    }
+
+    setURL = (categoriesSelected) => {
+        let url='';
+        if (categoriesSelected.length === 0) {
+            window.history.pushState(this.state, '', '/');
+        } else {
+            for (var i = 0; i < categoriesSelected.length; i++) {
+                i !== categoriesSelected.length - 1 ?
+                    url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
+                    url = url + 'p' + i + '=' + categoriesSelected[i]
+            }
+            window.history.pushState(this.state, '', url);
+        }
+    }
+    
+    categoriesFormation = () => {
+        return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
+    }
+
+    categoriesSelectedFormation = (reset) => {
+        if (reset === 'reset') {
+            return []
+        } else {
+            return [...new Set(ProductsJSON
+                .filter(product => window.location.href.includes(product.category))
+                .map(product => { return product.category; })
+            )];
+        }
     }
 
     isPriceInMinMaxRange = (minValue, maxValue, price) => {
@@ -28,43 +84,69 @@ class App extends React.PureComponent {
     }
 
     isDiscountWorking = (minPrice, maxPrice, discount) => {
-        return (minPrice) <= (1 - discount / 100) * maxPrice;
+        return minPrice <= (1 - discount / 100) * maxPrice;
     }
 
-    getFilteredProducts = memoize((minValue, maxValue, discountValue) => {
+    isCategorySelected = (category, categoriesSelected) => {
+        if (categoriesSelected.length === 0) return true
+        else return categoriesSelected.includes(category);
+    }
+
+    getFilteredProducts = memoize((minValue, maxValue, discountValue, categoriesSelected) => {
         return (
             ProductsJSON.filter(product => (
                 this.isPriceInMinMaxRange(minValue, maxValue, product.price)
                 &&
                 this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
+                &&
+                this.isCategorySelected(product.category, categoriesSelected)
             ))
         );
     });
 
-    handleStateChange= (e) => {
-        this.setState({ [e.target.name]: Number(e.target.value) });
-        this.setState((state) =>
-        { state.products = this.getFilteredProducts(state.minPriceValue, state.maxPriceValue, state.discountValue) });
+    handleStateChange = (type, name, value) => {
+        switch (type) {
+            case 'input':
+                this.setState({
+                    [name]: Number(value)
+                });
+                break;
+            case 'checkbox':
+                if (this.state.categoriesSelected.includes(name)) {
+                    this.setState({
+                        categoriesSelected: this.state.categoriesSelected.filter(category => category !== name)
+                    });
+                } else {
+                    this.setState({
+                        categoriesSelected: [...this.state.categoriesSelected, name],
+                    });
+                }
+                break;
+            case 'reset':
+                this.setState(this.setInitialState('reset'));
+                break;
+            default:
+        }
+        this.setState((state) => ({
+            products: this.getFilteredProducts(
+                state.minPriceValue,
+                state.maxPriceValue,
+                state.discountValue,
+                state.categoriesSelected)
+        }), () => {
+            this.setURL(this.state.categoriesSelected);
+        });
     }
-
-    renderProductList = memoize((stateProductList) => <ProductList shortProductList={stateProductList} />)
 
     render() {
         return (
             <main>
                 <div className='products_main'>
-                    <div className='box1'><ProductListHeader /></div>
-                    <div className='box2'>
-                        <FilterList
-                            handleStateChange={this.handleStateChange}
-                            minPriceValue={this.state.minPriceValue}
-                            maxPriceValue={this.state.maxPriceValue}
-                            discountValue={this.state.discountValue}
-                        />
-                    </div>
-                    <div className='box3'>
-                        {this.renderProductList(this.state.products)}
-                    </div>
+                    <StateContext.Provider value={this.state}>
+                        <div className='box1'><ProductListHeader /></div>
+                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} /></div>
+                        <div className='box3'><ProductList /></div>
+                    </StateContext.Provider>
                 </div>
             </main>
         );
