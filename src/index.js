@@ -1,151 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ProductsJSON from './products.json';
 import ProductListHeader from './components/ProductListHeader/ProductListHeader';
-import ProductList from './components/ProductList/ProductList';
-import FilterList from './components/FilterList/FilterList';
-import memoize from './utils/memoize';
+import ProductListContainer from './containers/ProductListContainer';
+import FilterListContainer from './containers/FilterListContainer';
+import { store } from './store';
+import setURL from './utils/setURL';
 
-export const StateContext = React.createContext(null);
+export const StateContext = React.createContext();
+export const DispatchContext = React.createContext();
 
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
-
-        window.history.replaceState(this.setInitialState(), '', window.location.pathname);
-        
-        this.state = this.setInitialState();
+        window.history.replaceState(store.getState(), '', window.location.pathname);
     }
 
     componentDidMount() {
-        window.addEventListener('popstate', this.setFromHistory);
+        window.addEventListener('popstate', (event) => { reRender(event.state) });
     }
-    
+
     componentWillUnmount() {
-        window.removeEventListener('popstate', this.setFromHistory);
-    }
-
-    setFromHistory = e => {
-        this.setState(e.state);
-    };
-
-    setInitialState = (reset) => {
-        const ProductsJSONPriceArray = ProductsJSON.map(product => {
-            return product.price;
-        });
-
-        return {
-            minPriceValue: Math.min.apply(null, ProductsJSONPriceArray),
-            maxPriceValue: Math.max.apply(null, ProductsJSONPriceArray),
-            discountValue: 0,
-            categories: this.categoriesFormation(),
-            categoriesSelected: this.categoriesSelectedFormation(reset),
-            products: this.getFilteredProducts(
-                Math.min.apply(null, ProductsJSONPriceArray),
-                Math.max.apply(null, ProductsJSONPriceArray),
-                0,
-                this.categoriesSelectedFormation(reset)
-            )
-        }
-    }
-
-    setURL = (categoriesSelected) => {
-        let url='';
-        if (categoriesSelected.length === 0) {
-            window.history.pushState(this.state, '', '/');
-        } else {
-            for (var i = 0; i < categoriesSelected.length; i++) {
-                i !== categoriesSelected.length - 1 ?
-                    url = url + 'p' + i + '=' + categoriesSelected[i] + '&' :
-                    url = url + 'p' + i + '=' + categoriesSelected[i]
-            }
-            window.history.pushState(this.state, '', url);
-        }
-    }
-    
-    categoriesFormation = () => {
-        return [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()];
-    }
-
-    categoriesSelectedFormation = (reset) => {
-        if (reset === 'reset') {
-            return []
-        } else {
-            return [...new Set(ProductsJSON
-                .filter(product => window.location.href.includes(product.category))
-                .map(product => { return product.category; })
-            )];
-        }
-    }
-
-    isPriceInMinMaxRange = (minValue, maxValue, price) => {
-        return price >= minValue && price <= maxValue;
-    }
-
-    isDiscountWorking = (minPrice, maxPrice, discount) => {
-        return minPrice <= (1 - discount / 100) * maxPrice;
-    }
-
-    isCategorySelected = (category, categoriesSelected) => {
-        if (categoriesSelected.length === 0) return true
-        else return categoriesSelected.includes(category);
-    }
-
-    getFilteredProducts = memoize((minValue, maxValue, discountValue, categoriesSelected) => {
-        return (
-            ProductsJSON.filter(product => (
-                this.isPriceInMinMaxRange(minValue, maxValue, product.price)
-                &&
-                this.isDiscountWorking(product.price, product.subPriceContent, discountValue)
-                &&
-                this.isCategorySelected(product.category, categoriesSelected)
-            ))
-        );
-    });
-
-    handleStateChange = (type, name, value) => {
-        switch (type) {
-            case 'input':
-                this.setState({
-                    [name]: Number(value)
-                });
-                break;
-            case 'checkbox':
-                if (this.state.categoriesSelected.includes(name)) {
-                    this.setState({
-                        categoriesSelected: this.state.categoriesSelected.filter(category => category !== name)
-                    });
-                } else {
-                    this.setState({
-                        categoriesSelected: [...this.state.categoriesSelected, name],
-                    });
-                }
-                break;
-            case 'reset':
-                this.setState(this.setInitialState('reset'));
-                break;
-            default:
-        }
-        this.setState((state) => ({
-            products: this.getFilteredProducts(
-                state.minPriceValue,
-                state.maxPriceValue,
-                state.discountValue,
-                state.categoriesSelected)
-        }), () => {
-            this.setURL(this.state.categoriesSelected);
-        });
+        window.removeEventListener('popstate', (event) => { reRender(event.state) });
     }
 
     render() {
         return (
             <main>
                 <div className='products_main'>
-                    <StateContext.Provider value={this.state}>
-                        <div className='box1'><ProductListHeader /></div>
-                        <div className='box2'><FilterList handleStateChange={this.handleStateChange} /></div>
-                        <div className='box3'><ProductList /></div>
+                    <StateContext.Provider value={this.props.state}>
+                        <DispatchContext.Provider value={this.props.dispatch}>
+                            <div className='box1'><ProductListHeader /></div>
+                            <div className='box2'><FilterListContainer /></div>
+                            <div className='box3'><ProductListContainer /></div>
+                        </DispatchContext.Provider>
                     </StateContext.Provider>
                 </div>
             </main>
@@ -153,5 +41,12 @@ class App extends React.PureComponent {
     }
 }
 
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+let reRender = (state) => {
+    const rootElement = document.getElementById('root');
+    ReactDOM.render(<App state={state} dispatch={store.dispatch} />, rootElement);
+};
+reRender(store.getState());
+store.subscribe(() => {
+    setURL(store.getState());
+    reRender(store.getState());
+});
