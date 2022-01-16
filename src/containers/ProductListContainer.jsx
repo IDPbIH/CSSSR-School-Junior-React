@@ -1,13 +1,12 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import ProductList from '../components/ProductList/ProductList';
-import { StateContext } from '../index';
 
-const ProductListContainer = () => {
-    const stateContext = React.useContext(StateContext);
-    
-    return (
-        <ProductList mainPage={stateContext.mainPage} />
-    );
-}
+const mapStateToProps = (state) => {
+    return {
+        products: state.mainPage.products
+    };
+};
+
+const ProductListContainer = connect(mapStateToProps)(ProductList);
 
 export default ProductListContainer;

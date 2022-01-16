@@ -1,14 +1,13 @@
 import React from 'react';
-import { changeDiscountValue, changeMaxPriceValue, changeMinPriceValue } from '../store/mainReducer';
 
-export default function withSubscription(InputComponent) {
+export default function withHandle(InputComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
 
             this.state = {
                 error: false,
-                value: null
+                value: 0
             };
         }
 
@@ -17,11 +16,11 @@ export default function withSubscription(InputComponent) {
                 this.setState({ error: false })
                 switch (event.target.name) {
                     case 'minPriceValue':
-                        return this.props.dispatch(changeMinPriceValue(event.target.value));
+                        return this.props.changeMinPriceValueAC(event.target.value);
                     case 'maxPriceValue':
-                        return this.props.dispatch(changeMaxPriceValue(event.target.value));
+                        return this.props.changeMaxPriceValueAC(event.target.value);
                     case 'discountValue':
-                        return this.props.dispatch(changeDiscountValue(event.target.value));
+                        return this.props.changeDiscountValueAC(event.target.value);
                     default:
                 }
             } else {
@@ -29,11 +28,24 @@ export default function withSubscription(InputComponent) {
             }
         }
 
+        handleClick = (event) => {
+            event.preventDefault();
+            this.setState({ value: event.target.value });
+            event.target.value = 0;
+        }
+
+        handleOnBlur = (e) => {
+            console.log('*')
+            e.target.value = this.state.value;
+        }
+
         render() {
             return (
                 <InputComponent {...this.props}
                     error={this.state.error}
                     handleChange={this.handleChange}
+                    handleClick={this.handleClick}
+                    handleOnBlur={this.handleOnBlur}
                 />
             );
         }

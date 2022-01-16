@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './InputDiscount.module.css'
 import Discount from 'csssr-school-input-discount';
-import withSubscription from '../../hoc/withSubscription ';
+import withHandle from '../../hoc/withHandle';
 import LogRender from '../../components/LogRender/LogRender';
 
 class InputDiscount extends LogRender {
@@ -11,7 +11,7 @@ class InputDiscount extends LogRender {
                 <Discount
                     title='Скидка'
                     name='discountValue'
-                    value={this.props.mainPage.discountValue}
+                    value={this.props.discountValue}
                     onChange={this.props.handleChange}
                 />
             </div>
@@ -20,4 +20,4 @@ class InputDiscount extends LogRender {
 }
 
 
-export default withSubscription(InputDiscount);
+export default withHandle(InputDiscount);

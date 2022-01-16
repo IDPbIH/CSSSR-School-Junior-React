@@ -5,6 +5,7 @@ const CHANGE_MIN_PRICE_VALUE = 'CHANGE_MIN_PRICE_VALUE';
 const CHANGE_MAX_PRICE_VALUE = 'CHANGE_MAX_PRICE_VALUE';
 const CHANGE_DISCOUNT_VALUE = 'CHANGE_DISCOUNT_VALUE';
 const CATEGORY_SELECTION = 'CATEGORY_SELECTION';
+const SET_FROM_HISTORY = 'SET_FROM_HISTORY';
 const STATE_RESET = 'STATE_RESET';
 
 const ProductsJSONPriceArray = ProductsJSON.map(product => {
@@ -107,6 +108,8 @@ const mainReducer = (state = initialState, action) => {
                     state.discountValue,
                     updateCategoriesSelected)
             };
+        case SET_FROM_HISTORY:
+            return action.state.mainPage;
         case STATE_RESET:
             return {
                 ...initialState,
@@ -123,10 +126,12 @@ const mainReducer = (state = initialState, action) => {
     }
 };
 
-export const changeMinPriceValue = (value) => ({ type: CHANGE_MIN_PRICE_VALUE, value });
-export const changeMaxPriceValue = (value) => ({ type: CHANGE_MAX_PRICE_VALUE, value });
-export const changeDiscountValue = (value) => ({ type: CHANGE_DISCOUNT_VALUE, value });
-export const categorySelection = (name) => ({ type: CATEGORY_SELECTION, name });
-export const stateReset = () => ({ type: STATE_RESET });
+export const changeMinPriceValueAC = (value) => ({ type: CHANGE_MIN_PRICE_VALUE, value });
+export const changeMaxPriceValueAC = (value) => ({ type: CHANGE_MAX_PRICE_VALUE, value });
+export const changeDiscountValueAC = (value) => ({ type: CHANGE_DISCOUNT_VALUE, value });
+export const categorySelectionAC = (name) => ({ type: CATEGORY_SELECTION, name });
+export const stateResetAC = () => ({ type: STATE_RESET });
+export const setFromHistoryAC = (state) => ({ type: SET_FROM_HISTORY, state });
+
 
 export default mainReducer;

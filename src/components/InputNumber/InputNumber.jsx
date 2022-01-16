@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './InputNumber.module.css'
-import withSubscription from '../../hoc/withSubscription ';
+import withHandle from '../../hoc/withHandle';
 import LogRender from '../../components/LogRender/LogRender';
 
 class InputNumber extends LogRender {
@@ -12,23 +12,26 @@ class InputNumber extends LogRender {
                     от
                     <input
                         name='minPriceValue'
-                        className={s.minValue + ' ' + (this.props.error && s.error)}
-                        value={this.props.mainPage.minPriceValue}
+                        className={s.minValue + ' ' + (this.props.error && s.errorInputs)}
+                        value={this.props.minPriceValue}
                         onChange={this.props.handleChange}
                         onClick={this.props.handleClick}
+                        onBlur={this.props.handleOnBlur}
                     />
                     до
                     <input
                         name='maxPriceValue'
-                        className={s.maxValue + ' ' + (this.props.error && s.error)}
-                        value={this.props.mainPage.maxPriceValue}
+                        className={s.maxValue + ' ' + (this.props.error && s.errorInputs)}
+                        value={this.props.maxPriceValue}
                         onChange={this.props.handleChange}
                         onClick={this.props.handleClick}
+                        onBlur={this.props.handleOnBlur}
                     />
                 </label>
+                <p className={s.message + ' ' + (this.props.error && s.errorMessage)}>Используйте для ввода только цифры</p>
             </div>
         );
     }
 }
 
-export default withSubscription(InputNumber);
+export default withHandle(InputNumber);
