@@ -35,7 +35,6 @@ export default function withHandle(InputComponent) {
         }
 
         handleOnBlur = (e) => {
-            console.log('*')
             e.target.value = this.state.value;
         }
 
