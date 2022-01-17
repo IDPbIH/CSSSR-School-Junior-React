@@ -15,8 +15,6 @@ class InputNumber extends LogRender {
                         className={s.minValue + ' ' + (this.props.error && s.errorInputs)}
                         value={this.props.minPriceValue}
                         onChange={this.props.handleChange}
-                        onClick={this.props.handleClick}
-                        onBlur={this.props.handleOnBlur}
                     />
                     до
                     <input
@@ -24,8 +22,6 @@ class InputNumber extends LogRender {
                         className={s.maxValue + ' ' + (this.props.error && s.errorInputs)}
                         value={this.props.maxPriceValue}
                         onChange={this.props.handleChange}
-                        onClick={this.props.handleClick}
-                        onBlur={this.props.handleOnBlur}
                     />
                 </label>
                 <p className={s.message + ' ' + (this.props.error && s.errorMessage)}>Используйте для ввода только цифры</p>

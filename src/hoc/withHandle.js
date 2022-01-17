@@ -14,28 +14,10 @@ export default function withHandle(InputComponent) {
         handleChange = (event) => {
             if (!isNaN(event.target.value)) {
                 this.setState({ error: false })
-                switch (event.target.name) {
-                    case 'minPriceValue':
-                        return this.props.changeMinPriceValueAC(event.target.value);
-                    case 'maxPriceValue':
-                        return this.props.changeMaxPriceValueAC(event.target.value);
-                    case 'discountValue':
-                        return this.props.changeDiscountValueAC(event.target.value);
-                    default:
-                }
+                this.props.changeInputValue(event);
             } else {
                 this.setState({ error: true })
             }
-        }
-
-        handleClick = (event) => {
-            event.preventDefault();
-            this.setState({ value: event.target.value });
-            event.target.value = 0;
-        }
-
-        handleOnBlur = (e) => {
-            e.target.value = this.state.value;
         }
 
         render() {
@@ -43,8 +25,6 @@ export default function withHandle(InputComponent) {
                 <InputComponent {...this.props}
                     error={this.state.error}
                     handleChange={this.handleChange}
-                    handleClick={this.handleClick}
-                    handleOnBlur={this.handleOnBlur}
                 />
             );
         }

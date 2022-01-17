@@ -5,32 +5,43 @@ import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
 import withHistory from '../hoc/withHistory';
-import { stateResetAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, categorySelectionAC } from '../store/mainReducer';
+import { resetStateAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, selectCategoryAC } from '../store/mainReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
-    (minPriceValue, maxPriceValue, changeMinPriceValueAC, changeMaxPriceValueAC) => <InputNumber
+    (minPriceValue, maxPriceValue, changeInputValue) => <InputNumber
         minPriceValue={minPriceValue}
         maxPriceValue={maxPriceValue}
-        changeMinPriceValueAC={changeMinPriceValueAC}
-        changeMaxPriceValueAC={changeMaxPriceValueAC}
+        changeInputValue={changeInputValue}
     />
 );
 
 const renderInputDiscount = memoize(
-    (discountValue, changeDiscountValueAC) => <InputDiscount
+    (discountValue, changeInputValue) => <InputDiscount
         discountValue={discountValue}
-        changeDiscountValueAC={changeDiscountValueAC}
+        changeInputValue={changeInputValue}
     />
 );
 
 const renderInputCategory = memoize(
-    (categories, categoriesSelected, categorySelectionAC) => <InputCategory
+    (categories, categoriesSelected, selectCategoryAC) => <InputCategory
         categories={categories}
         categoriesSelected={categoriesSelected}
-        categorySelectionAC={categorySelectionAC}
+        selectCategoryAC={selectCategoryAC}
     />
 );
+
+const changeInputValue = (event) => {
+    switch (event.target.name) {
+        case 'minPriceValue':
+            return changeMinPriceValueAC(event.target.value);
+        case 'maxPriceValue':
+            return changeMaxPriceValueAC(event.target.value);
+        case 'discountValue':
+            return changeDiscountValueAC(event.target.value);
+        default:
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -43,11 +54,9 @@ const mapStateToProps = (state) => {
 };
 
 const FilterListContainer = connect(mapStateToProps, {
-    stateResetAC,
-    changeMinPriceValueAC,
-    changeMaxPriceValueAC,
-    changeDiscountValueAC,
-    categorySelectionAC,
+    resetStateAC,
+    selectCategoryAC,
+    changeInputValue,
     renderInputNumber,
     renderInputDiscount,
     renderInputCategory

@@ -12,7 +12,7 @@ class ProductList extends LogRender {
     render() {
         return (
             <div className={styles.wrapper}>
-                {this.props.products.map(product => {
+                {this.props.filteredProducts.map(product => {
                     return (
                         <ProductItem
                             key={product.id}

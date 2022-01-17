@@ -15,7 +15,7 @@ class InputCategory extends LogRender {
                                 type="checkbox"
                                 name={category.category}
                                 checked={this.props.categoriesSelected.includes(category.category) ? true : false}
-                                onChange={() => { this.props.categorySelectionAC(category.category); }}
+                                onChange={() => { this.props.selectCategoryAC(category.category); }}
                             >
                             </input>
                             <span>{category.categoryName}</span>
