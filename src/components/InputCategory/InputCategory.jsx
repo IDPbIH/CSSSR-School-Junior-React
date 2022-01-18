@@ -3,7 +3,6 @@ import s from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
 
 class InputCategory extends LogRender {
-    debugger
     render() {
         return (
             <div className={s.categories}>
