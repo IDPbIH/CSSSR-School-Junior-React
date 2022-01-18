@@ -1,33 +1,41 @@
 import React from 'react';
 import s from './InputNumber.module.css'
-import withHandle from '../../hoc/withHandle';
+import withSubscription from '../../hoc/withSubscription ';
 import LogRender from '../../components/LogRender/LogRender';
+import { StateContext } from '../../index';
 
 class InputNumber extends LogRender {
     render() {
         return (
-            <div className={s.numbers}>
-                <h3 className={s.title}>Цена</h3>
-                <label className={s.inputs}>
-                    от
-                    <input
-                        name='minPriceValue'
-                        className={s.minValue + ' ' + (this.props.error && s.errorInputs)}
-                        value={this.props.minPriceValue}
-                        onChange={this.props.handleChange}
-                    />
-                    до
-                    <input
-                        name='maxPriceValue'
-                        className={s.maxValue + ' ' + (this.props.error && s.errorInputs)}
-                        value={this.props.maxPriceValue}
-                        onChange={this.props.handleChange}
-                    />
-                </label>
-                <p className={s.message + ' ' + (this.props.error && s.errorMessage)}>Используйте для ввода только цифры</p>
-            </div>
+            <StateContext.Consumer>
+                {
+                    (state) => (
+                        <div className={s.numbers}>
+                            <h3 className={s.title}>Цена</h3>
+                            <label className={s.inputs}>
+                                от
+                                <input
+                                    name='minPriceValue'
+                                    className={s.minValue + ' ' + (this.props.error && s.error)}
+                                    value={state.minPriceValue}
+                                    onChange={this.props.handleChange}
+                                    onClick={this.props.handleClick}
+                                />
+                                до
+                                <input
+                                    name='maxPriceValue'
+                                    className={s.minValue + ' ' + (this.props.error && s.error)}
+                                    value={state.maxPriceValue}
+                                    onChange={this.props.handleChange}
+                                    onClick={this.props.handleClick}
+                                />
+                            </label>
+                        </div>
+                    )
+                }
+            </StateContext.Consumer>
         );
     }
 }
 
-export default withHandle(InputNumber);
+export default withSubscription(InputNumber);
