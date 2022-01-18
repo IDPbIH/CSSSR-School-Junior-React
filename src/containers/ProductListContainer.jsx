@@ -16,7 +16,6 @@ const isCategorySelected = (category, categoriesSelected) => {
 };
 
 const getFilteredProducts = memoize((products, minValue, maxValue, discountValue, categoriesSelected) => {
-    
     return (
         products.filter(product => (
             isPriceInMinMaxRange(minValue, maxValue, product.price)

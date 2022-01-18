@@ -1,6 +1,5 @@
 import React from 'react';
 import { store } from '../store';
-import { setFromHistoryAC } from '../store/mainReducer';
 
 export default function withHistory(InputComponent) {
     return class extends React.Component {
@@ -10,36 +9,36 @@ export default function withHistory(InputComponent) {
             this.setFromHistoryTrigger = false;
         }
 
-        setURL = (state) => {
-            let url = '';
-            if (state.mainPage.categoriesSelected.length === 0) {
-                window.history.pushState(state, '', '/');
+        setURL = (dataURL) => {
+            let url = '?';
+            if (dataURL.length === 0) {
+                window.history.pushState(store.getState(), '', '/');
             } else {
-                for (var i = 0; i < state.mainPage.categoriesSelected.length; i++) {
-                    i !== state.mainPage.categoriesSelected.length - 1
-                        ? url = url + 'p' + i + '=' + state.mainPage.categoriesSelected[i] + '&'
-                        : url = url + 'p' + i + '=' + state.mainPage.categoriesSelected[i]
+                for (var i = 0; i < dataURL.length; i++) {
+                    i !== dataURL.length - 1
+                        ? url = url + 'p' + i + '=' + dataURL[i] + '&'
+                        : url = url + 'p' + i + '=' + dataURL[i]
                 }
-                window.history.pushState(state, '', url);
+                window.history.pushState(store.getState(), '', url);
             }
         }
 
         componentDidMount() {
             window.addEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                store.dispatch(setFromHistoryAC(event.state));
+                this.props.setFromHistoryAC(event.state);
             });
         }
 
         componentWillUnmount() {
             window.removeEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                store.dispatch(setFromHistoryAC(event.state));
+                this.props.setFromHistoryAC(event.state);
             });
         }
 
         componentDidUpdate() {
-            !this.setFromHistoryTrigger && this.setURL(store.getState());
+            !this.setFromHistoryTrigger && this.setURL(this.props.dataForURL);
             this.setFromHistoryTrigger = false;
         }
 
