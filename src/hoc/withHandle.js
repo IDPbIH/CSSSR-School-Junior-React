@@ -1,20 +1,20 @@
 import React from 'react';
 
-export default function withSubscription(InputComponent) {
+export default function withHandle(InputComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
 
             this.state = {
                 error: false,
-                value: null
+                value: 0
             };
         }
 
-        handleChange = (e) => {
-            if (!isNaN(e.target.value)) {
+        handleChange = (event) => {
+            if (!isNaN(event.target.value)) {
                 this.setState({ error: false })
-                this.props.handleStateChange('input', e.target.name, e.target.value);
+                this.props.changeInputValue(event);
             } else {
                 this.setState({ error: true })
             }
