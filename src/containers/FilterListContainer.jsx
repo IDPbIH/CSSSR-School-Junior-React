@@ -5,7 +5,7 @@ import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
 import withHistory from '../hoc/withHistory';
-import { resetStateAC, setFromHistoryAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, selectCategoryAC } from '../store/mainReducer';
+import { resetStateAC, setFromHistoryAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, selectCategoryAC, getFilterValue, getCategories } from '../store/mainReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -45,11 +45,8 @@ const changeInputValue = (event) => {
 
 const mapStateToProps = (state) => {
     return {
-        minPriceValue: state.mainPage.minPriceValue,
-        maxPriceValue: state.mainPage.maxPriceValue,
-        discountValue: state.mainPage.discountValue,
-        categories: state.mainPage.categories,
-        categoriesSelected: state.mainPage.categoriesSelected,
+        filterValue: getFilterValue(state),
+        categories: getCategories(state),
         dataForURL: state.mainPage.categoriesSelected
     };
 };

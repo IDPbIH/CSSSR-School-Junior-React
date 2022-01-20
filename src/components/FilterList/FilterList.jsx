@@ -9,7 +9,7 @@ class FilterList extends LogRender {
     }
 
     render() {
-        const { minPriceValue, maxPriceValue, discountValue, categories, categoriesSelected,
+        const { filterValue: {minPriceValue, maxPriceValue, discountValue, categoriesSelected}, categories, 
             changeInputValue, selectCategoryAC } = this.props;
 
         return (
