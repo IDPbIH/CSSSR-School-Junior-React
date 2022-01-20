@@ -1,5 +1,8 @@
 import ProductsJSON from '../products.json';
+import { createSelector } from 'reselect';
+import { isCategorySelected, isDiscountWorking, isPriceInMinMaxRange } from '../utils/checks';
 
+// Actions
 const CHANGE_MIN_PRICE_VALUE = 'CHANGE_MIN_PRICE_VALUE';
 const CHANGE_MAX_PRICE_VALUE = 'CHANGE_MAX_PRICE_VALUE';
 const CHANGE_DISCOUNT_VALUE = 'CHANGE_DISCOUNT_VALUE';
@@ -7,6 +10,7 @@ const SELECT_CATEGORY = 'SELECT_CATEGORY';
 const SET_FROM_HISTORY = 'SET_FROM_HISTORY';
 const RESET_STATE = 'RESET_STATE';
 
+//initialState
 const initialState = {
     minPriceValue: Math.min.apply(null, ProductsJSON.map(product => { return product.price; })),
     maxPriceValue: Math.max.apply(null, ProductsJSON.map(product => { return product.price; })),
@@ -16,9 +20,11 @@ const initialState = {
         .filter(product => window.location.href.includes(product.category))
         .map(product => { return product.category; })
     )],
-    products: ProductsJSON
+    products: ProductsJSON,
+    currentPage: 1
 };
 
+// Reducer
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_MIN_PRICE_VALUE:
@@ -55,11 +61,34 @@ const mainReducer = (state = initialState, action) => {
     }
 };
 
+// Action Creators
 export const changeMinPriceValueAC = (value) => ({ type: CHANGE_MIN_PRICE_VALUE, value });
 export const changeMaxPriceValueAC = (value) => ({ type: CHANGE_MAX_PRICE_VALUE, value });
 export const changeDiscountValueAC = (value) => ({ type: CHANGE_DISCOUNT_VALUE, value });
 export const selectCategoryAC = (name) => ({ type: SELECT_CATEGORY, name });
 export const setFromHistoryAC = (state) => ({ type: SET_FROM_HISTORY, state });
 export const resetStateAC = () => ({ type: RESET_STATE });
+
+// Selectors
+const getCurrentPage = (state) => state.mainPage.currentPage;
+const getProducts = (state) => state.mainPage.products;
+
+export const getFilterValue = (state) => ({
+    minPriceValue: state.mainPage.minPriceValue, 
+    maxPriceValue: state.mainPage.maxPriceValue, 
+    discountValue: state.mainPage.discountValue, 
+    categoriesSelected: state.mainPage.categoriesSelected
+});
+
+export const getFilteredProducts = createSelector(getFilterValue, getProducts, ({minPriceValue, maxPriceValue, discountValue, categoriesSelected}, products) => {
+    return products.filter(product => (
+        isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)
+        &&
+        isDiscountWorking(discountValue, product.price, product.subPriceContent)
+        &&
+        isCategorySelected(categoriesSelected, product.category)
+    ))
+});
+
 
 export default mainReducer;
