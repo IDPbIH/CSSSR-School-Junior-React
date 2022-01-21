@@ -28,7 +28,7 @@ const Paginator = ({ currentPage, pageSize, totalFilteredProductCount, setCurren
                     name='pageButton'
                     value={page}
                     key={index}
-                    onClick={handleClick}> {page}</button>
+                    onClick={handleClick}>{page}</button>
             })}
             <button name='nextPageButton' className={styles.forward_button} onClick={handleClick}>Вперёд</button>
         </div >

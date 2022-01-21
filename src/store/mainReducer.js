@@ -1,6 +1,8 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
-import { isCategorySelected, isDiscountWorking, isPriceInMinMaxRange } from '../utils/checks';
+import getFilteredProducts from '../utils/getFilteredProducts';
+
+// Filter Module.js
 
 // Actions
 const CHANGE_MIN_PRICE_VALUE = 'CHANGE_MIN_PRICE_VALUE';
@@ -49,7 +51,8 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 categoriesSelected: state.categoriesSelected.includes(action.name)
                     ? state.categoriesSelected.filter(category => category !== action.name)
-                    : [...state.categoriesSelected, action.name]
+                    : [...state.categoriesSelected, action.name],
+                currentPage: 1
             };
         case SET_FROM_HISTORY:
             return action.state.mainPage;
@@ -81,34 +84,26 @@ export const setCurrentPageAC = (page) => ({ type: SET_CURRENT_PAGE, page })
 export const getCurrentPage = (state) => state.mainPage.currentPage;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
+export const getCategoriesSelected = (state) => state.mainPage.categoriesSelected;
+export const getProducts = (state) => state.mainPage.products;
 
-const getProducts = (state) => state.mainPage.products;
-
-export const getFilterValue = (state) => ({
-    minPriceValue: state.mainPage.minPriceValue,
-    maxPriceValue: state.mainPage.maxPriceValue,
-    discountValue: state.mainPage.discountValue,
-    categoriesSelected: state.mainPage.categoriesSelected
-});
-
-export const getFilteredProducts = createSelector(
-    getFilterValue, getProducts, ({ minPriceValue, maxPriceValue, discountValue, categoriesSelected }, products) => {
-        return products.filter(product => (
-            isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)
-            &&
-            isDiscountWorking(discountValue, product.price, product.subPriceContent)
-            &&
-            isCategorySelected(categoriesSelected, product.category)
-        ))
-    });
+export const getFilterValue = (state) => {
+    return {
+        minPriceValue: state.mainPage.minPriceValue,
+        maxPriceValue: state.mainPage.maxPriceValue,
+        discountValue: state.mainPage.discountValue,
+        categoriesSelected: state.mainPage.categoriesSelected
+    };
+};
 
 export const getFilteredProductsWithPagination = createSelector(getFilterValue, getCurrentPage, getPageSize, getProducts,
-    (getFilterValue , currentPage, pageSize, products) => {
-        // getFilteredProducts(getFilterValue, products);
-        // console.log(products)
-        return products.filter((product) =>
-            product.id >= (pageSize * (currentPage - 1) + 1) &&
-            product.id <= currentPage * pageSize
+    (filterValue, currentPage, pageSize, products) => {
+        const filteredProducts = getFilteredProducts(filterValue, products);
+
+        return filteredProducts.filter((product, index) =>
+            (index + 1) >= (pageSize * (currentPage - 1) + 1)
+            &&
+            (index + 1) <= currentPage * pageSize
         )
     }
 );
