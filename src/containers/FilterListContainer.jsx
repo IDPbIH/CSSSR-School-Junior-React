@@ -4,8 +4,8 @@ import FilterList from '../components/FilterList/FilterList';
 import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
-import withHistory from '../hoc/withHistory';
-import { resetStateAC, setFromHistoryAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, selectCategoryAC, getFilterValue, getCategories, getCategoriesSelected } from '../store/mainReducer';
+import { resetStateAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, getFilterValue, getCategories } from '../store/mainReducer';
+import { selectCategoryAC} from '../store/routingReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -46,19 +46,17 @@ const changeInputValue = (event) => {
 const mapStateToProps = (state) => {
     return {
         filterValue: getFilterValue(state),
-        categories: getCategories(state),
-        dataForURL: getCategoriesSelected(state)
+        categories: getCategories(state)
     };
 };
 
 const FilterListContainer = connect(mapStateToProps, {
     resetStateAC,
     selectCategoryAC,
-    setFromHistoryAC,
     changeInputValue,
     renderInputNumber,
     renderInputDiscount,
     renderInputCategory
-})(withHistory(FilterList));
+})(FilterList);
 
 export default FilterListContainer;

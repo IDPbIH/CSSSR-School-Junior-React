@@ -1,7 +1,7 @@
 import React from 'react';
 import { store } from '../store';
 
-export default function withHistory(InputComponent) {
+const withHistory = (InputComponent) => {
     return class extends React.Component {
         constructor(props) {
             super(props);
