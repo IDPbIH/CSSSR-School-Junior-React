@@ -6,11 +6,11 @@ import ProductsJSON from '../products.json';
 const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
 const SET_ROUTING_FROM_HISTORY = 'SET_ROUTING_FROM_HISTORY';
+const SET_INITIAL_ROUTER_STATE = 'SET_INITIAL_ROUTER_STATE';
 
 //initialState
 const initialState = {
-    path: '/products',
-    url: '/',
+    path: '/productList',
     query: {
         activePage: 1,
         activeCategories: [...new Set(ProductsJSON
@@ -26,15 +26,13 @@ const routingReducer = (state = initialState, action) => {
         case SET_ACTIVE_PAGE:
             return {
                 ...state,
-                path: '/products',
-                url: action.url,
+                path: '/productList',
                 query: { ...state.query, activePage: Number(action.page) }
             };
         case SET_ACTIVE_CATEGORIES:
             return {
                 ...state,
-                path: '/products',
-                url: action.url,
+                path: '/productList',
                 query: {
                     ...state.query,
                     activeCategories: state.query.activeCategories.includes(action.name)
@@ -44,8 +42,11 @@ const routingReducer = (state = initialState, action) => {
                 }
 
             };
-        case SET_ROUTING_FROM_HISTORY:
-            return action.state.routing;
+        case SET_INITIAL_ROUTER_STATE:
+            return {
+                ...initialState,
+                query: { ...state.query, activeCategories: [] }
+            };
         default:
             return state;
     }
@@ -55,6 +56,7 @@ const routingReducer = (state = initialState, action) => {
 export const setActivePage = (page) => ({ type: SET_ACTIVE_PAGE, page });
 export const setActiveCategories = (name) => ({ type: SET_ACTIVE_CATEGORIES, name });
 export const setRoutingFromHistoryAC = (state) => ({ type: SET_ROUTING_FROM_HISTORY, state });
+export const setInitialRouterState = () => ({ type: SET_INITIAL_ROUTER_STATE });
 
 // Selectors
 export const getActivePage = (state) => state.routing.query.activePage;

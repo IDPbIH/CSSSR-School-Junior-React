@@ -1,11 +1,12 @@
 import React from 'react';
-import s from './FilterList.module.css';
+import styles from './FilterList.module.css';
 import LogRender from '../LogRender/LogRender';
 
 class FilterList extends LogRender {
     setDefault = (event) => {
         event.preventDefault();
-        this.props.resetStateAC();
+        this.props.setInitialMainState();
+        this.props.setInitialRouterState();
     }
 
     render() {
@@ -19,7 +20,7 @@ class FilterList extends LogRender {
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}
                     {this.props.renderInputCategory(categories, activeCategories)}
                 </form>
-                <button className={s.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
+                <button className={styles.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
             </div>
         );
     }

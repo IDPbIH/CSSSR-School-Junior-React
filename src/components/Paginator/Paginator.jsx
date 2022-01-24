@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Link from '../Link/Link';
+import LinkButton from '../LinkButton/LinkButton';
 import styles from './Paginator.module.css';
 
-// const Paginator = ({ currentPage, pageSize, totalFilteredProductCount, setCurrentPageAC }) => {
 class Paginator extends React.Component {
     render() {
-        const { currentPage, pageSize, totalFilteredProductCount, setCurrentPageAC } = this.props;
+        const { activePage, pageSize, totalFilteredProductCount } = this.props;
 
         const pageCount = Math.ceil(totalFilteredProductCount / pageSize);
 
@@ -15,37 +13,35 @@ class Paginator extends React.Component {
             pages.push(i);
         }
 
-        const onLinkClick = (event) => {
-            // switch (event.target.name) {
-            //     case 'backPageButton':
-            //         return currentPage > 1 && setCurrentPageAC(currentPage - 1);
-            //     case 'nextPageButton':
-            //         return currentPage < pages.length && setCurrentPageAC(currentPage + 1);
-            //     default:
-            //         return setCurrentPageAC(event.target.value);
-            // }
-        }
-
         return (
             <div>
-                <button name='backPageButton' className={styles.back_button}>Назад</button>
+                <LinkButton type='page' 
+                    name='backPageButton'
+                    value={activePage > 1 ? (activePage - 1) : 1}
+                    text='Назад'
+                    classNameButton={styles.back_button} />
                 {pages.map((page) => {
+                    
                     return (
-                    <Link href={`/?page=${page}`} name={`pageButton ${page}`} value={page} key={page}>
-                        <button className={page === currentPage ? styles.active_button : styles.center_button}>{page}</button>
-                    </Link>);
+                        <LinkButton type='page' 
+                            name={`pageButton ${page}`}
+                            value={page}
+                            text={page}
+                            classNameButton={page === activePage
+                                ? styles.active_button
+                                : styles.center_button}
+                            keyButton={page}
+                            key={page} />
+                    );
                 })}
-                <button name='nextPageButton' className={styles.forward_button}>Вперёд</button>
+                <LinkButton type='page' 
+                    name='nextPageButton'
+                    value={activePage < pages.length ? (activePage + 1) : pages.length}
+                    text='Вперёд'
+                    classNameButton={styles.forward_button} />
             </div >
         );
     }
 }
 
-/////
-export default connect(state => {
-    return {
-        query: state.routing.query
-    }
-})(Paginator);
-
-// export default Paginator;
+export default Paginator;

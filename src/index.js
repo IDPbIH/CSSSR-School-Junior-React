@@ -31,15 +31,15 @@ class App extends React.PureComponent {
             this.props.setRoutingFromHistoryAC(event.state);
         });
     }
-
+    
     render() {
         return (
             <main>
                 <div className='products_main'>
                     <div className='box1'><ProductListHeader /></div>
                     <div className='box2'><FilterListContainer /></div>
-                    <div className='box3'><Route path='/products'><ProductListContainer /></Route></div>
-                    <div className='box4'><Route path='/products'><PaginatorContainer /></Route></div>
+                    <div className='box3'><Route path='/productList'><ProductListContainer /></Route></div>
+                    <div className='box4'><Route path='/productList'><PaginatorContainer /></Route></div>
                 </div>
             </main >
         );

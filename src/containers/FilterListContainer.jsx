@@ -4,8 +4,8 @@ import FilterList from '../components/FilterList/FilterList';
 import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
-import { resetStateAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, getFilterValue, getCategories } from '../store/mainReducer';
-import { activeCategories, setActiveCategories} from '../store/routingReducer';
+import { setInitialMainState, setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
+import { setInitialRouterState } from '../store/routingReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -33,11 +33,11 @@ const renderInputCategory = memoize(
 const changeInputValue = (event) => {
     switch (event.target.name) {
         case 'minPriceValue':
-            return changeMinPriceValueAC(event.target.value);
+            return setMinPriceValue(event.target.value);
         case 'maxPriceValue':
-            return changeMaxPriceValueAC(event.target.value);
+            return setMaxPriceValue(event.target.value);
         case 'discountValue':
-            return changeDiscountValueAC(event.target.value);
+            return setDiscountValue(event.target.value);
         default:
     }
 }
@@ -50,8 +50,8 @@ const mapStateToProps = (state) => {
 };
 
 const FilterListContainer = connect(mapStateToProps, {
-    resetStateAC,
-    setActiveCategories,
+    setInitialMainState,
+    setInitialRouterState,
     changeInputValue,
     renderInputNumber,
     renderInputDiscount,

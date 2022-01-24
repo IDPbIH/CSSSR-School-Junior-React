@@ -6,11 +6,11 @@ import { getActiveCategories, getActivePage } from './routingReducer';
 // Filter Module.js
 
 // Actions
-const CHANGE_MIN_PRICE_VALUE = 'CHANGE_MIN_PRICE_VALUE';
-const CHANGE_MAX_PRICE_VALUE = 'CHANGE_MAX_PRICE_VALUE';
-const CHANGE_DISCOUNT_VALUE = 'CHANGE_DISCOUNT_VALUE';
+const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
+const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
+const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
 const SET_MAIN_FROM_HISTORY = 'SET_MAIN_FROM_HISTORY';
-const RESET_STATE = 'RESET_STATE';
+const SET_INITIAL_MAIN_STATE = 'SET_INITIAL_MAIN_STATE';
 
 //initialState
 const initialState = {
@@ -25,27 +25,26 @@ const initialState = {
 // Reducer
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_MIN_PRICE_VALUE:
+        case SET_MIN_PRICE_VALUE:
             return {
                 ...state,
                 minPriceValue: Number(action.value)
             };
-        case CHANGE_MAX_PRICE_VALUE:
+        case SET_MAX_PRICE_VALUE:
             return {
                 ...state,
                 maxPriceValue: Number(action.value)
             };
-        case CHANGE_DISCOUNT_VALUE:
+        case SET_DISCOUNT_VALUE:
             return {
                 ...state,
                 discountValue: Number(action.value)
             };
         case SET_MAIN_FROM_HISTORY:
             return action.state.mainPage;
-        case RESET_STATE:
+        case SET_INITIAL_MAIN_STATE:
             return {
-                ...initialState,
-                // activeCaregories: []
+                ...initialState
             };
         default:
             return state;
@@ -53,11 +52,11 @@ const mainReducer = (state = initialState, action) => {
 };
 
 // Action Creators
-export const changeMinPriceValueAC = (value) => ({ type: CHANGE_MIN_PRICE_VALUE, value });
-export const changeMaxPriceValueAC = (value) => ({ type: CHANGE_MAX_PRICE_VALUE, value });
-export const changeDiscountValueAC = (value) => ({ type: CHANGE_DISCOUNT_VALUE, value });
+export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value });
+export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
+export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
 export const setMainFromHistoryAC = (state) => ({ type: SET_MAIN_FROM_HISTORY, state });
-export const resetStateAC = () => ({ type: RESET_STATE });
+export const setInitialMainState = () => ({ type: SET_INITIAL_MAIN_STATE });
 
 // Selectors
 export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
