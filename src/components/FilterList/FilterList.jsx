@@ -9,15 +9,15 @@ class FilterList extends LogRender {
     }
 
     render() {
-        const { filterValue: {minPriceValue, maxPriceValue, discountValue, categoriesSelected}, categories, 
-            changeInputValue, selectCategoryAC } = this.props;
+        const { filterValue: { minPriceValue, maxPriceValue, discountValue, activeCategories }, categories,
+            changeInputValue } = this.props;
 
         return (
             <div>
                 <form>
                     {this.props.renderInputNumber(minPriceValue, maxPriceValue, changeInputValue)}
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}
-                    {this.props.renderInputCategory(categories, categoriesSelected, selectCategoryAC)}
+                    {this.props.renderInputCategory(categories, activeCategories)}
                 </form>
                 <button className={s.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
             </div>

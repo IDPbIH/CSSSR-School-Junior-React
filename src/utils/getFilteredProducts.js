@@ -4,23 +4,23 @@ const isPriceInMinMaxRange = (minValue, maxValue, price) => {
     return price >= minValue && price <= maxValue;
 };
 
-const isDiscountWorking = (discount, minPrice, maxPrice) => {
+const isDiscountActive = (discount, minPrice, maxPrice) => {
     return minPrice <= (1 - discount / 100) * maxPrice;
 };
 
-const isCategorySelected = (categoriesSelected, category) => {
-    if (categoriesSelected.length === 0) return true
-    else return categoriesSelected.includes(category);
+const isCategoryActive= (activeCategories, category) => {
+    if (activeCategories.length === 0) return true
+    else return activeCategories.includes(category);
 };
 
-const getFilteredProducts = memoize(({minPriceValue, maxPriceValue, discountValue, categoriesSelected}, products) => {
+const getFilteredProducts = memoize(({minPriceValue, maxPriceValue, discountValue, activeCategories}, products) => {
     return (
         products.filter(product => (
             isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)
             &&
-            isDiscountWorking(discountValue, product.price, product.subPriceContent)
+            isDiscountActive(discountValue, product.price, product.subPriceContent)
             &&
-            isCategorySelected(categoriesSelected, product.category)
+            isCategoryActive(activeCategories, product.category)
         ))
     );
 });

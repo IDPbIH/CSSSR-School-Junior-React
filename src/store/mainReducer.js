@@ -1,6 +1,7 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
+import { getActiveCategories, getActivePage } from './routingReducer';
 
 // Filter Module.js
 
@@ -44,7 +45,7 @@ const mainReducer = (state = initialState, action) => {
         case RESET_STATE:
             return {
                 ...initialState,
-                categoriesSelected: []
+                // activeCaregories: []
             };
         default:
             return state;
@@ -59,29 +60,30 @@ export const setMainFromHistoryAC = (state) => ({ type: SET_MAIN_FROM_HISTORY, s
 export const resetStateAC = () => ({ type: RESET_STATE });
 
 // Selectors
+export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
+export const getMaxPriceValue = (state) => state.mainPage.maxPriceValue;
+export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
 
-export const getCurrentPage = (state) => state.routing.query.currentPage;
-
 export const getFilterValue = (state) => {
     return {
-        minPriceValue: state.mainPage.minPriceValue,
-        maxPriceValue: state.mainPage.maxPriceValue,
-        discountValue: state.mainPage.discountValue,
-        categoriesSelected: state.routing.query.categoriesSelected
+        minPriceValue: getMinPriceValue(state),
+        maxPriceValue: getMaxPriceValue(state),
+        discountValue: getDiscountValue(state),
+        activeCategories: getActiveCategories(state)
     };
 };
 
-export const getFilteredProductsWithPagination = createSelector(getFilterValue, getCurrentPage, getPageSize, getProducts,
-    (filterValue, currentPage, pageSize, products) => {
+export const getFilteredProductsWithPagination = createSelector(getFilterValue, getActivePage, getPageSize, getProducts,
+    (filterValue, activePage, pageSize, products) => {
         const filteredProducts = getFilteredProducts(filterValue, products);
 
         return filteredProducts.filter((product, index) =>
-            (index + 1) >= (pageSize * (currentPage - 1) + 1)
+            (index + 1) >= (pageSize * (activePage - 1) + 1)
             &&
-            (index + 1) <= currentPage * pageSize
+            (index + 1) <= activePage * pageSize
         )
     }
 );
