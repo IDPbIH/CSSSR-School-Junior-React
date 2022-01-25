@@ -8,7 +8,6 @@ import ProductListContainer from './containers/ProductListContainer';
 import FilterListContainer from './containers/FilterListContainer';
 import PaginatorContainer from './containers/PaginatorContainer';
 import Route from './components/Route/Route';
-// import {setStateFromHistory} from './store';
 
 class App extends React.Component {
     constructor(props) {
@@ -24,15 +23,13 @@ class App extends React.Component {
                 <div className='products_main'>
                     <div className='box1'><ProductListHeader /></div>
                     <div className='box2'><FilterListContainer /></div>
-                    <div className='box3'><Route path='/productList'><ProductListContainer /></Route></div>
-                    <div className='box4'><Route path='/productList'><PaginatorContainer /></Route></div>
+                    <div className='box3'><Route path='/productlist'><ProductListContainer /></Route></div>
+                    <div className='box4'><Route path='/productlist'><PaginatorContainer /></Route></div>
                 </div>
             </main >
         );
     }
 }
-
-// const AppContainer = connect(null, setStateFromHistory)(App);
 
 const rootElement = document.getElementById('root');
 

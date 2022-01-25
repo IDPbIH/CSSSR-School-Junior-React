@@ -1,4 +1,4 @@
-import ProductsJSON from '../products.json';
+import { getActiveCategoriesFromURL, getPageFromURL } from '../utils/getFromURL';
 
 // Routing Module.js
 
@@ -7,17 +7,11 @@ const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
 
 //initialState
-const { pathToRegexp } = require('path-to-regexp');
-const regexp = pathToRegexp('\\?:page\\=(\\d+)?{(\\&:category\\=:name)}?{(\\&:category\\=:name)}?');
-console.log(window.location.search);
-console.log(regexp.exec('?page=1'));
-
 const initialState = {
-    path: '/productList',
+    path: '/productlist',
     queryItems: {
-        activePage: 1,
-        activeCategories: [...new Set(ProductsJSON.filter(product => window.location.search.includes(product.category))
-            .map(product => { return product.category; }))]
+        activePage: window.location.search ? Number(getPageFromURL[0]) : 1,
+        activeCategories: getActiveCategoriesFromURL
     }
 };
 
@@ -27,13 +21,13 @@ const routingReducer = (state = initialState, action) => {
         case SET_ACTIVE_PAGE:
             return {
                 ...state,
-                path: '/productList',
+                path: '/productlist',
                 queryItems: { ...state.queryItems, activePage: Number(action.page) }
             };
         case SET_ACTIVE_CATEGORIES:
             return {
                 ...state,
-                path: '/productList',
+                path: '/productlist',
                 queryItems: {
                     ...state.queryItems,
                     activePage: 1,
@@ -46,7 +40,14 @@ const routingReducer = (state = initialState, action) => {
         case 'SET_STATE_FROM_HISTORY':
             return action.state.routing;
         case 'SET_INITIAL_STATE':
-            return initialState;
+            return {
+                ...initialState,
+                queryItems: {
+                    ...initialState.queryItems,
+                    activePage: 1,
+                    activeCategories: []
+                }
+            };
         default:
             return state;
     }

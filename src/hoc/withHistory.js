@@ -10,12 +10,11 @@ const withHistory = (InputComponent) => {
         }
 
         setURL = (state) => {
-            console.log('Working...');
             let activeCategoriesURL = '';
             for (var i = 0; i < state.routing.queryItems.activeCategories.length; i++) {
                 activeCategoriesURL = activeCategoriesURL + '&category=' + state.routing.queryItems.activeCategories[i];
             }
-            const url = '?page=' + state.routing.queryItems.activePage + activeCategoriesURL;
+            const url = state.routing.path+'?page=' + state.routing.queryItems.activePage + activeCategoriesURL;
             window.history.pushState(state,123, url);
         }
 
