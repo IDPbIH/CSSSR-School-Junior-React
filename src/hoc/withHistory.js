@@ -7,7 +7,6 @@ const withHistory = (InputComponent) => {
             super(props);
 
             this.setFromHistoryTrigger = false;
-            console.log('')
         }
 
         setURL = (state) => {
@@ -17,24 +16,20 @@ const withHistory = (InputComponent) => {
                 activeCategoriesURL = activeCategoriesURL + '&category=' + state.routing.queryItems.activeCategories[i];
             }
             const url = '?page=' + state.routing.queryItems.activePage + activeCategoriesURL;
-            window.history.pushState(state, '', url);
+            window.history.pushState(state,123, url);
         }
 
         componentDidMount() {
             window.addEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                this.props.setMainStateFromHistory(event.state);
-                this.setFromHistoryTrigger = true;
-                this.props.setRoutingStateFromHistory(event.state);
+                this.props.setStateFromHistory(event.state);
             });
         }
 
         componentWillUnmount() {
             window.removeEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                this.props.setMainStateFromHistory(event.state);
-                this.setFromHistoryTrigger = true;
-                this.props.setRoutingStateFromHistory(event.state);
+                this.props.setStateFromHistory(event.state);
             });
         }
 

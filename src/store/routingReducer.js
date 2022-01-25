@@ -5,18 +5,19 @@ import ProductsJSON from '../products.json';
 // Actions
 const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
-const SET_ROUTING_STATE_FROM_HISTORY = 'SET_ROUTING_STATE_FROM_HISTORY';
-const SET_INITIAL_ROUTING_STATE = 'SET_INITIAL_ROUTING_STATE';
 
 //initialState
+const { pathToRegexp } = require('path-to-regexp');
+const regexp = pathToRegexp('\\?:page\\=(\\d+)?{(\\&:category\\=:name)}?{(\\&:category\\=:name)}?');
+console.log(window.location.search);
+console.log(regexp.exec('?page=1'));
+
 const initialState = {
     path: '/productList',
     queryItems: {
         activePage: 1,
-        activeCategories: [...new Set(ProductsJSON
-            .filter(product => window.location.href.includes(product.category))
-            .map(product => { return product.category; })
-        )]
+        activeCategories: [...new Set(ProductsJSON.filter(product => window.location.search.includes(product.category))
+            .map(product => { return product.category; }))]
     }
 };
 
@@ -42,17 +43,10 @@ const routingReducer = (state = initialState, action) => {
                 }
 
             };
-        case SET_ROUTING_STATE_FROM_HISTORY:
+        case 'SET_STATE_FROM_HISTORY':
             return action.state.routing;
-        case SET_INITIAL_ROUTING_STATE:
-            return {
-                ...initialState,
-                queryItems: {
-                    ...state.queryItems,
-                    activePage: 1,
-                    activeCategories: []
-                }
-            };
+        case 'SET_INITIAL_STATE':
+            return initialState;
         default:
             return state;
     }
@@ -61,8 +55,6 @@ const routingReducer = (state = initialState, action) => {
 // Action Creators
 export const setActivePage = (page) => ({ type: SET_ACTIVE_PAGE, page });
 export const setActiveCategories = (name) => ({ type: SET_ACTIVE_CATEGORIES, name });
-export const setRoutingStateFromHistory = (state) => ({ type: SET_ROUTING_STATE_FROM_HISTORY, state });
-export const setInitialRoutingState = () => ({ type: SET_INITIAL_ROUTING_STATE });
 
 // Selectors
 export const getActivePage = (state) => state.routing.queryItems.activePage;

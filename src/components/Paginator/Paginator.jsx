@@ -14,12 +14,12 @@ class Paginator extends React.Component {
         }
 
         return (
-            <div>
+            <div className={styles.paginator}>
                 <LinkButton type='page' 
                     name='backPageButton'
                     value={activePage > 1 ? (activePage - 1) : 1}
                     text='Назад'
-                    classNameButton={styles.back_button} />
+                    classNameButton={styles.side_button} />
                 {pages.map((page) => {
                     
                     return (
@@ -38,7 +38,7 @@ class Paginator extends React.Component {
                     name='nextPageButton'
                     value={activePage < pages.length ? (activePage + 1) : pages.length}
                     text='Вперёд'
-                    classNameButton={styles.forward_button} />
+                    classNameButton={styles.side_button} />
             </div >
         );
     }

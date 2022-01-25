@@ -9,8 +9,6 @@ import { getActiveCategories, getActivePage } from './routingReducer';
 const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
 const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
 const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
-const SET_MAIN_STATE_FROM_HISTORY = 'SET_MAIN_STATE_FROM_HISTORY';
-const SET_INITIAL_MAIN_STATE = 'SET_INITIAL_MAIN_STATE';
 
 //initialState
 const initialState = {
@@ -40,9 +38,9 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 discountValue: Number(action.value)
             };
-        case SET_MAIN_STATE_FROM_HISTORY:
+        case 'SET_STATE_FROM_HISTORY':
             return action.state.mainPage;
-        case SET_INITIAL_MAIN_STATE:
+        case 'SET_INITIAL_STATE':
             return initialState;
         default:
             return state;
@@ -53,8 +51,6 @@ const mainReducer = (state = initialState, action) => {
 export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value });
 export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
 export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
-export const setMainStateFromHistory = (state) => ({ type: SET_MAIN_STATE_FROM_HISTORY, state });
-export const setInitialMainState = () => ({ type: SET_INITIAL_MAIN_STATE });
 
 // Selectors
 export const getMinPriceValue = (state) => state.mainPage.minPriceValue;

@@ -5,8 +5,7 @@ import LogRender from '../LogRender/LogRender';
 class FilterList extends LogRender {
     setDefault = (event) => {
         event.preventDefault();
-        this.props.setInitialMainState();
-        this.props.setInitialRoutingState();
+        this.props.setInitialState();
     }
 
     render() {

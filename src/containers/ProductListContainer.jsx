@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import ProductList from '../components/ProductList/ProductList';
 import withHistory from '../hoc/withHistory';
-import { getFilteredProductsWithPagination, setMainStateFromHistory } from '../store/mainReducer';
-import { setRoutingStateFromHistory } from '../store/routingReducer';
+import { getFilteredProductsWithPagination } from '../store/mainReducer';
+import { setStateFromHistory } from '../store';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,4 +10,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {setMainStateFromHistory, setRoutingStateFromHistory})(withHistory(ProductList));
+export default connect(mapStateToProps, { setStateFromHistory })(withHistory(ProductList));

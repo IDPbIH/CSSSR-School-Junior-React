@@ -1,3 +1,7 @@
+.paginator {
+  margin-top: 20px;
+}
+
 .active_button {
   font-size: 14px;
   color: white;
@@ -18,17 +22,7 @@
   margin: 1px;
 }
 
-.back_button {
-  font-size: 14px;
-  color: #7e8fa4;
-  width: 88px;
-  height: 32px;
-  background: white;
-  border: 1px solid #c5cfde;
-  margin: 1px 20px;
-}
-
-.forward_button {
+.side_button {
   font-size: 14px;
   color: #7e8fa4;
   width: 88px;

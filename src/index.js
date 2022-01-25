@@ -2,34 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { store } from './store';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import ProductListHeader from './components/ProductListHeader/ProductListHeader';
 import ProductListContainer from './containers/ProductListContainer';
 import FilterListContainer from './containers/FilterListContainer';
 import PaginatorContainer from './containers/PaginatorContainer';
 import Route from './components/Route/Route';
-import { setMainStateFromHistory } from './store/mainReducer';
-import { setRoutingStateFromHistory } from './store/routingReducer';
+// import {setStateFromHistory} from './store';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         window.history.replaceState(store.getState(), '', window.location.search);
-    }
-
-    componentDidMount() {
-        window.addEventListener('popstate', (event) => {
-            this.props.setMainStateFromHistory(event.state);
-            this.props.setRoutingStateFromHistory(event.state);
-        });
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('popstate', (event) => {
-            this.props.setMainStateFromHistory(event.state);
-            this.props.setRoutingStateFromHistory(event.state);
-        });
     }
 
     render() {
@@ -47,12 +32,12 @@ class App extends React.Component {
     }
 }
 
-const AppContainer = connect(null, { setMainStateFromHistory, setRoutingStateFromHistory })(App);
+// const AppContainer = connect(null, setStateFromHistory)(App);
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppContainer />
+        <App />
     </Provider>
     , rootElement);

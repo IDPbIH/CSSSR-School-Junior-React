@@ -4,8 +4,8 @@ import FilterList from '../components/FilterList/FilterList';
 import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
-import { setInitialMainState, setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
-import { setInitialRoutingState } from '../store/routingReducer';
+import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
+import { setInitialState } from '../store';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -50,8 +50,7 @@ const mapStateToProps = (state) => {
 };
 
 const FilterListContainer = connect(mapStateToProps, {
-    setInitialMainState,
-    setInitialRoutingState,
+    setInitialState,
     changeInputValue,
     renderInputNumber,
     renderInputDiscount,
