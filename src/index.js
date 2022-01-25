@@ -8,31 +8,32 @@ import ProductListContainer from './containers/ProductListContainer';
 import FilterListContainer from './containers/FilterListContainer';
 import PaginatorContainer from './containers/PaginatorContainer';
 import Route from './components/Route/Route';
-import { setMainFromHistoryAC } from './store/mainReducer';
-import { setRoutingFromHistoryAC } from './store/routingReducer';
+import { setMainStateFromHistory } from './store/mainReducer';
+import { setRoutingStateFromHistory } from './store/routingReducer';
 
-class App extends React.PureComponent {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
-        window.history.replaceState(store.getState(), '', window.location.pathname);
+        window.history.replaceState(store.getState(), '', window.location.search);
     }
 
     componentDidMount() {
         window.addEventListener('popstate', (event) => {
-            this.props.setMainFromHistoryAC(event.state);
-            this.props.setRoutingFromHistoryAC(event.state);
+            this.props.setMainStateFromHistory(event.state);
+            this.props.setRoutingStateFromHistory(event.state);
         });
     }
 
     componentWillUnmount() {
         window.removeEventListener('popstate', (event) => {
-            this.props.setMainFromHistoryAC(event.state);
-            this.props.setRoutingFromHistoryAC(event.state);
+            this.props.setMainStateFromHistory(event.state);
+            this.props.setRoutingStateFromHistory(event.state);
         });
     }
-    
+
     render() {
+
         return (
             <main>
                 <div className='products_main'>
@@ -46,7 +47,7 @@ class App extends React.PureComponent {
     }
 }
 
-const AppContainer = connect(null, {setMainFromHistoryAC, setRoutingFromHistoryAC})(App);
+const AppContainer = connect(null, { setMainStateFromHistory, setRoutingStateFromHistory })(App);
 
 const rootElement = document.getElementById('root');
 

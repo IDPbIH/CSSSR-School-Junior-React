@@ -6,7 +6,7 @@ class FilterList extends LogRender {
     setDefault = (event) => {
         event.preventDefault();
         this.props.setInitialMainState();
-        this.props.setInitialRouterState();
+        this.props.setInitialRoutingState();
     }
 
     render() {

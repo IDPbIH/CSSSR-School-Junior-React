@@ -5,45 +5,48 @@ const withHistory = (InputComponent) => {
     return class extends React.Component {
         constructor(props) {
             super(props);
-     
+
             this.setFromHistoryTrigger = false;
+            console.log('')
         }
 
-        setURL = (dataURL) => {
-            let url = '?';
-            if (dataURL.length === 0) {
-                window.history.pushState(store.getState(), '', '/');
-            } else {
-                for (var i = 0; i < dataURL.length; i++) {
-                    i !== dataURL.length - 1
-                        ? url = url + 'p' + i + '=' + dataURL[i] + '&'
-                        : url = url + 'p' + i + '=' + dataURL[i]
-                }
-                window.history.pushState(store.getState(), '', url);
+        setURL = (state) => {
+            console.log('Working...');
+            let activeCategoriesURL = '';
+            for (var i = 0; i < state.routing.queryItems.activeCategories.length; i++) {
+                activeCategoriesURL = activeCategoriesURL + '&category=' + state.routing.queryItems.activeCategories[i];
             }
+            const url = '?page=' + state.routing.queryItems.activePage + activeCategoriesURL;
+            window.history.pushState(state, '', url);
         }
 
         componentDidMount() {
             window.addEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                this.props.setFromHistoryAC(event.state);
+                this.props.setMainStateFromHistory(event.state);
+                this.setFromHistoryTrigger = true;
+                this.props.setRoutingStateFromHistory(event.state);
             });
         }
 
         componentWillUnmount() {
             window.removeEventListener('popstate', (event) => {
                 this.setFromHistoryTrigger = true;
-                this.props.setFromHistoryAC(event.state);
+                this.props.setMainStateFromHistory(event.state);
+                this.setFromHistoryTrigger = true;
+                this.props.setRoutingStateFromHistory(event.state);
             });
         }
 
         componentDidUpdate() {
-            !this.setFromHistoryTrigger && this.setURL(this.props.dataForURL);
+            !this.setFromHistoryTrigger && this.setURL(store.getState());
             this.setFromHistoryTrigger = false;
         }
 
         render() {
-            return <InputComponent {...this.props}/>;
+            return <InputComponent {...this.props} />;
         }
     };
 }
+
+export default withHistory;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setActivePage, setActiveCategories } from '../../store/routingReducer';
-import setURL from '../../utils/setURL';
 
 class Link extends React.Component {
     handleLinkClick = (event) => {
@@ -15,7 +14,6 @@ class Link extends React.Component {
                 break;
             default:
         }
-        setURL(this.props.type, this.props.value);
     }
 
     render() {
