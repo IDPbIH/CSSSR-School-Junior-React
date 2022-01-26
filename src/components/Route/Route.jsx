@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getRoutingState } from '../../store/routingReducer';
 
 class Route extends React.Component {
     render() {
@@ -13,6 +14,6 @@ class Route extends React.Component {
 
 export default connect(state => {
     return {
-        routing: state.routing // распаршенные данные о URL
+        routing: getRoutingState(state)
     };
 })(Route);

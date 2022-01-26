@@ -16,9 +16,7 @@ class InputCategory extends LogRender {
                             name={category.category}
                             value={category.category}
                             text={category.categoryName}
-                            classNameButton={activeCategories.includes(category.category)
-                                ? styles.active_button
-                                : styles.inActive_button}
+                            isChecked={activeCategories.includes(category.category) ? true : false}
                             keyButton={category.id}
                             key={category.id} />
                     );

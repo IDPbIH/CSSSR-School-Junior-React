@@ -40,7 +40,7 @@ const mainReducer = (state = initialState, action) => {
             };
         case 'SET_STATE_FROM_HISTORY':
             return action.state.mainPage;
-        case 'SET_INITIAL_STATE':
+        case 'SET_DEFAULT_FILTERS_VALUE':
             return initialState;
         default:
             return state;
@@ -73,11 +73,13 @@ export const getFilteredProductsWithPagination = createSelector(getFilterValue, 
     (filterValue, activePage, pageSize, products) => {
         const filteredProducts = getFilteredProducts(filterValue, products);
 
-        return filteredProducts.filter((product, index) =>
-            (index + 1) >= (pageSize * (activePage - 1) + 1)
-            &&
-            (index + 1) <= activePage * pageSize
-        )
+        return filteredProducts.filter((product, index) => {
+            index++
+            const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);
+            const isLastItemForActivePageRange = index <= activePage * pageSize;
+
+            return isFirstItemForActivePageRange && isLastItemForActivePageRange;
+        })
     }
 );
 

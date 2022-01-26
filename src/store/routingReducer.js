@@ -1,3 +1,4 @@
+import { isCategoryActive } from '../utils/getFilteredProducts';
 import { getActiveCategoriesFromURL, getPageFromURL } from '../utils/getFromURL';
 
 // Routing Module.js
@@ -31,15 +32,16 @@ const routingReducer = (state = initialState, action) => {
                 queryItems: {
                     ...state.queryItems,
                     activePage: 1,
-                    activeCategories: state.queryItems.activeCategories.includes(action.name)
-                        ? state.queryItems.activeCategories.filter(category => category !== action.name)
-                        : [...state.queryItems.activeCategories, action.name]
+                    activeCategories: isCategoryActive(state.queryItems.activeCategories, action.category)
+                    // activeCategories: state.queryItems.activeCategories.includes(action.category)
+                        ? state.queryItems.activeCategories.filter(category => category !== action.category)
+                        : [...state.queryItems.activeCategories, action.category]
                 }
 
             };
         case 'SET_STATE_FROM_HISTORY':
             return action.state.routing;
-        case 'SET_INITIAL_STATE':
+        case 'SET_DEFAULT_FILTERS_VALUE':
             return {
                 ...initialState,
                 queryItems: {
@@ -55,9 +57,10 @@ const routingReducer = (state = initialState, action) => {
 
 // Action Creators
 export const setActivePage = (page) => ({ type: SET_ACTIVE_PAGE, page });
-export const setActiveCategories = (name) => ({ type: SET_ACTIVE_CATEGORIES, name });
+export const setActiveCategories = (category) => ({ type: SET_ACTIVE_CATEGORIES, category });
 
 // Selectors
+export const getRoutingState = (state) => state.routing;
 export const getActivePage = (state) => state.routing.queryItems.activePage;
 export const getActiveCategories = (state) => state.routing.queryItems.activeCategories;
 

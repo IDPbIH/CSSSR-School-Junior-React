@@ -8,9 +8,8 @@ const isDiscountActive = (discount, minPrice, maxPrice) => {
     return minPrice <= (1 - discount / 100) * maxPrice;
 };
 
-const isCategoryActive= (activeCategories, category) => {
-    if (activeCategories.length === 0) return true
-    else return activeCategories.includes(category);
+export const isCategoryActive= (activeCategories, category) => {
+    return activeCategories.includes(category);
 };
 
 const getFilteredProducts = memoize(({minPriceValue, maxPriceValue, discountValue, activeCategories}, products) => {
