@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
 import LinkButton from '../LinkButton/LinkButton';
+import { isCategoryActive } from '../../utils/checks';
 
 class InputCategory extends LogRender {
     render() {
@@ -16,7 +17,7 @@ class InputCategory extends LogRender {
                             name={category.category}
                             value={category.category}
                             text={category.categoryName}
-                            isChecked={activeCategories.includes(category.category) ? true : false}
+                            isChecked={isCategoryActive(activeCategories, category.category) ? true : false}
                             keyButton={category.id}
                             key={category.id} />
                     );

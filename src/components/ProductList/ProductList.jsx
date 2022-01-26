@@ -31,6 +31,7 @@ class ProductList extends LogRender {
                 })}
             </div >
         );
+
     }
 }
 

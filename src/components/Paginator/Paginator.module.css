@@ -2,12 +2,7 @@
   margin-top: 20px;
 }
 
-.side_button {
-  font-size: 14px;
-  color: #7e8fa4;
-  width: 88px;
-  height: 32px;
-  background: white;
-  border: 1px solid #c5cfde;
-  margin: 1px 20px;
+.side_button_visible {
+  pointer-events: none;
+  opacity: 0.5;
 }

@@ -5,7 +5,7 @@ import LogRender from '../LogRender/LogRender';
 class FilterList extends LogRender {
     setDefault = (event) => {
         event.preventDefault();
-        this.props.setInitialState();
+        this.props.setDefaultFiltersValue();
     }
 
     render() {
@@ -13,7 +13,7 @@ class FilterList extends LogRender {
             changeInputValue } = this.props;
 
         return (
-            <div>
+            <div className={styles.filterList}>
                 <form>
                     {this.props.renderInputNumber(minPriceValue, maxPriceValue, changeInputValue)}
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}

@@ -10,12 +10,12 @@ class Paginator extends React.Component {
 
         return (
             <div className={styles.paginator}>
-                <LinkButton type='page'
-                    name='backPageButton'
-                    value={activePage > 1 ? (activePage - 1) : 1}
-                    text='Назад'
-                    classNameButton={styles.side_button} />
-
+                <span className={activePage === 1 ? styles.side_button_visible : 'false'}>
+                    <LinkButton type='page'
+                        name='backPageButton'
+                        value={activePage > 1 ? (activePage - 1) : 1}
+                        text='Назад' />
+                </span>
                 {[...Array(pageCount)].map((page, key) => {
                     key++
                     return (
@@ -28,12 +28,12 @@ class Paginator extends React.Component {
                             key={key} />
                     );
                 })}
-
-                <LinkButton type='page'
-                    name='nextPageButton'
-                    value={activePage < pageCount ? (activePage + 1) : pageCount}
-                    text='Вперёд'
-                    classNameButton={styles.side_button} />
+                <span className={activePage === pageCount ? styles.side_button_visible : 'false'}>
+                    <LinkButton type='page'
+                        name='nextPageButton'
+                        value={activePage < pageCount ? (activePage + 1) : pageCount}
+                        text='Вперёд' />
+                </span>
             </div >
         );
     }

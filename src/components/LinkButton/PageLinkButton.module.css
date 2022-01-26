@@ -6,6 +6,7 @@
   background: #5695ed;
   border: 1px solid #c5cfde;
   margin: 1px;
+  pointer-events: none;
 }
 
 .inActive_button {
@@ -16,4 +17,5 @@
   background: white;
   border: 1px solid #c5cfde;
   margin: 1px;
+  pointer-events: none;
 }
