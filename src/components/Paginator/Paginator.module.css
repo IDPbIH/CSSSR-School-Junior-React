@@ -1,0 +1,8 @@
+.paginator {
+  margin-top: 20px;
+}
+
+.side_button_visible {
+  pointer-events: none;
+  opacity: 0.5;
+}

@@ -1,43 +1,40 @@
+import React from 'react';
+import styles from '../components/ProductList/ProductList.module.css';
 import { connect } from 'react-redux';
 import ProductList from '../components/ProductList/ProductList';
-import memoize from '../utils/memoize';
+import withHistory from '../hoc/withHistory';
+import { getFilteredProductsWithPagination } from '../store/mainReducer';
+import { setStateFromHistory } from '../store';
+import ProductListHeader from '../components/ProductListHeader/ProductListHeader';
+import PaginatorContainer from './PaginatorContainer';
 
-const isPriceInMinMaxRange = (minValue, maxValue, price) => {
-    return price >= minValue && price <= maxValue;
-};
+class ProductListContainer extends React.PureComponent {
+    render() {
+        const { filteredProducts } = this.props;
 
-const isDiscountWorking = (minPrice, maxPrice, discount) => {
-    return minPrice <= (1 - discount / 100) * maxPrice;
-};
-
-const isCategorySelected = (category, categoriesSelected) => {
-    if (categoriesSelected.length === 0) return true
-    else return categoriesSelected.includes(category);
-};
-
-const getFilteredProducts = memoize((products, minValue, maxValue, discountValue, categoriesSelected) => {
-    return (
-        products.filter(product => (
-            isPriceInMinMaxRange(minValue, maxValue, product.price)
-            &&
-            isDiscountWorking(product.price, product.subPriceContent, discountValue)
-            &&
-            isCategorySelected(product.category, categoriesSelected)
-        ))
-    );
-});
+        if (!filteredProducts.length) {
+            return (
+                <div className={styles.productListContainer}>
+                    <h2>Нет товаров, удовлетворющих условиям поиска.</h2>
+                    <h2>Измените значения фильтров.</h2>
+                </div>
+            );
+        } else {
+            return (
+                <div className={styles.productListContainer}>
+                    <ProductListHeader />
+                    <ProductList {...this.props} />
+                    <PaginatorContainer />
+                </div>
+            );
+        }
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
-        filteredProducts: getFilteredProducts(
-            state.mainPage.products,
-            state.mainPage.minPriceValue,
-            state.mainPage.maxPriceValue,
-            state.mainPage.discountValue,
-            state.mainPage.categoriesSelected)
+        filteredProducts: getFilteredProductsWithPagination(state)
     };
 };
 
-const ProductListContainer = connect(mapStateToProps)(ProductList);
-
-export default ProductListContainer;
+export default connect(mapStateToProps, { setStateFromHistory })(withHistory(ProductListContainer));

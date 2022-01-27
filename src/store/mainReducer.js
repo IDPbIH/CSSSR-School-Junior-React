@@ -1,65 +1,86 @@
 import ProductsJSON from '../products.json';
+import { createSelector } from 'reselect';
+import getFilteredProducts from '../utils/getFilteredProducts';
+import { getActiveCategories, getActivePage } from './routingReducer';
 
-const CHANGE_MIN_PRICE_VALUE = 'CHANGE_MIN_PRICE_VALUE';
-const CHANGE_MAX_PRICE_VALUE = 'CHANGE_MAX_PRICE_VALUE';
-const CHANGE_DISCOUNT_VALUE = 'CHANGE_DISCOUNT_VALUE';
-const SELECT_CATEGORY = 'SELECT_CATEGORY';
-const SET_FROM_HISTORY = 'SET_FROM_HISTORY';
-const RESET_STATE = 'RESET_STATE';
+// Filter Module.js
 
+// Actions
+const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
+const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
+const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
+
+//initialState
 const initialState = {
     minPriceValue: Math.min.apply(null, ProductsJSON.map(product => { return product.price; })),
     maxPriceValue: Math.max.apply(null, ProductsJSON.map(product => { return product.price; })),
     discountValue: 0,
     categories: [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()],
-    categoriesSelected: [...new Set(ProductsJSON
-        .filter(product => window.location.href.includes(product.category))
-        .map(product => { return product.category; })
-    )],
-    products: ProductsJSON
+    products: ProductsJSON,
+    pageSize: 6
 };
 
+// Reducer
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_MIN_PRICE_VALUE:
+        case SET_MIN_PRICE_VALUE:
             return {
                 ...state,
                 minPriceValue: Number(action.value)
             };
-        case CHANGE_MAX_PRICE_VALUE:
+        case SET_MAX_PRICE_VALUE:
             return {
                 ...state,
                 maxPriceValue: Number(action.value)
             };
-        case CHANGE_DISCOUNT_VALUE:
+        case SET_DISCOUNT_VALUE:
             return {
                 ...state,
                 discountValue: Number(action.value)
             };
-        case SELECT_CATEGORY:
-            return {
-                ...state,
-                categoriesSelected: state.categoriesSelected.includes(action.name)
-                    ? state.categoriesSelected.filter(category => category !== action.name)
-                    : [...state.categoriesSelected, action.name]
-            };
-        case SET_FROM_HISTORY:
+        case 'SET_STATE_FROM_HISTORY':
             return action.state.mainPage;
-        case RESET_STATE:
-            return {
-                ...initialState,
-                categoriesSelected: []
-            };
+        case 'SET_DEFAULT_FILTERS_VALUE':
+            return initialState;
         default:
             return state;
     }
 };
 
-export const changeMinPriceValueAC = (value) => ({ type: CHANGE_MIN_PRICE_VALUE, value });
-export const changeMaxPriceValueAC = (value) => ({ type: CHANGE_MAX_PRICE_VALUE, value });
-export const changeDiscountValueAC = (value) => ({ type: CHANGE_DISCOUNT_VALUE, value });
-export const selectCategoryAC = (name) => ({ type: SELECT_CATEGORY, name });
-export const setFromHistoryAC = (state) => ({ type: SET_FROM_HISTORY, state });
-export const resetStateAC = () => ({ type: RESET_STATE });
+// Action Creators
+export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value });
+export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
+export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
+
+// Selectors
+export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
+export const getMaxPriceValue = (state) => state.mainPage.maxPriceValue;
+export const getDiscountValue = (state) => state.mainPage.discountValue;
+export const getPageSize = (state) => state.mainPage.pageSize;
+export const getCategories = (state) => state.mainPage.categories;
+export const getProducts = (state) => state.mainPage.products;
+
+export const getFilterValue = (state) => {
+    return {
+        minPriceValue: getMinPriceValue(state),
+        maxPriceValue: getMaxPriceValue(state),
+        discountValue: getDiscountValue(state),
+        activeCategories: getActiveCategories(state)
+    };
+};
+
+export const getFilteredProductsWithPagination = createSelector(getFilterValue, getActivePage, getPageSize, getProducts,
+    (filterValue, activePage, pageSize, products) => {
+        const filteredProducts = getFilteredProducts(filterValue, products);
+
+        return filteredProducts.filter((product, index) => {
+            index++
+            const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);
+            const isLastItemForActivePageRange = index <= activePage * pageSize;
+
+            return isFirstItemForActivePageRange && isLastItemForActivePageRange;
+        })
+    }
+);
 
 export default mainReducer;

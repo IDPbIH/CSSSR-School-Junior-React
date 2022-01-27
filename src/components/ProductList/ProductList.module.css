@@ -1,11 +1,16 @@
-.wrapper {
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 30px;
-  grid-row-gap: 30px;
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
 }
 
 .star {
   display: inline-flex;
   margin-right: 10px;
+}
+
+.productListContainer {
+  width: 780px;
+  text-align: center;
 }

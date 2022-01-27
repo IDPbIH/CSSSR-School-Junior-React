@@ -1,25 +1,25 @@
 import React from 'react';
-import s from './InputCategory.module.css'
+import styles from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
+import LinkButton from '../LinkButton/LinkButton';
+import { isCategoryActive } from '../../utils/checks';
 
 class InputCategory extends LogRender {
-    debugger
     render() {
+        const { categories, activeCategories } = this.props;
+
         return (
-            <div className={s.categories}>
-                <h3 className={s.title}>Категории</h3>
-                {this.props.categories.map((category) => {
+            <div className={styles.categories}>
+                <h3 className={styles.title}>Категории</h3>
+                {categories.map((category) => {
                     return (
-                        <label className={s.checkbox_btn} key={category.id}>
-                            <input
-                                type="checkbox"
-                                name={category.category}
-                                checked={this.props.categoriesSelected.includes(category.category) ? true : false}
-                                onChange={() => { this.props.selectCategoryAC(category.category); }}
-                            >
-                            </input>
-                            <span>{category.categoryName}</span>
-                        </label>
+                        <LinkButton type='category'
+                            name={category.category}
+                            value={category.category}
+                            text={category.categoryName}
+                            isChecked={isCategoryActive(activeCategories, category.category) ? true : false}
+                            keyButton={category.id}
+                            key={category.id} />
                     );
                 })}
             </div>

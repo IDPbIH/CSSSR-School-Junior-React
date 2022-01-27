@@ -10,9 +10,11 @@ const ratingComponent = ({ isFilled }) => {
 
 class ProductList extends LogRender {
     render() {
+        const { filteredProducts } = this.props;
+
         return (
-            <div className={styles.wrapper}>
-                {this.props.filteredProducts.map(product => {
+            <div className={styles.grid}>
+                {filteredProducts.map(product => {
                     return (
                         <ProductItem
                             key={product.id}
@@ -29,6 +31,7 @@ class ProductList extends LogRender {
                 })}
             </div >
         );
+
     }
 }
 

@@ -8,8 +8,8 @@
     "subPriceContent": 160,
     "maxRating": 5,
     "rating": 4,
-    "category": "products",
-    "categoryName": "Продукты"
+    "category": "fruits",
+    "categoryName": "Фрукты"
   },
   {
     "id": 2,
@@ -20,8 +20,8 @@
     "subPriceContent": 200,
     "maxRating": 5,
     "rating": 4,
-    "category": "products",
-    "categoryName": "Продукты"
+    "category": "fruits",
+    "categoryName": "Фрукты"
   },
   {
     "id": 3,
@@ -32,23 +32,11 @@
     "subPriceContent": 150,
     "maxRating": 5,
     "rating": 5,
-    "category": "products",
-    "categoryName": "Продукты"
+    "category": "fruits",
+    "categoryName": "Фрукты"
   },
   {
     "id": 4,
-    "isInStock": true,
-    "title": "Ананасы",
-    "img": "https://fishki.net/picsw/122012/19/post/ananas/tn.jpg",
-    "price": 175,
-    "subPriceContent": 180,
-    "maxRating": 5,
-    "rating": 3,
-    "category": "products",
-    "categoryName": "Продукты"
-  },
-  {
-    "id": 5,
     "isInStock": true,
     "title": "Помидоры",
     "img": "https://resizer.mail.ru/p/06568562-b3c1-5fbe-937b-a54599702ae0/AAAcfIsJ9WTZnmreGENojDxxT8d2zLC1Vp4PhnPZdACXirhjtt4kVFbDAIWcnO-zfkQgJK6hCLo_awSPGLa69pB2l4A.jpg",
@@ -56,8 +44,20 @@
     "subPriceContent": 200,
     "maxRating": 5,
     "rating": 3,
-    "category": "products",
-    "categoryName": "Продукты"
+    "category": "vegetables",
+    "categoryName": "Овощи"
+  },
+  {
+    "id": 5,
+    "isInStock": true,
+    "title": "Ананасы",
+    "img": "https://fishki.net/picsw/122012/19/post/ananas/tn.jpg",
+    "price": 175,
+    "subPriceContent": 180,
+    "maxRating": 5,
+    "rating": 3,
+    "category": "fruits",
+    "categoryName": "Фрукты"
   },
   {
     "id": 6,
@@ -68,31 +68,103 @@
     "subPriceContent": 110,
     "maxRating": 5,
     "rating": 4,
-    "category": "products",
-    "categoryName": "Продукты"
+    "category": "vegetables",
+    "categoryName": "Овощи"
   },
   {
     "id": 7,
-    "isInStock": true,
-    "title": "Тени",
-    "img": "https://www.bobbibrown.ru/media/export/cms/products/v2_1080x1080/bb_sku_EJ0R01_1080x1080_0.jpg",
-    "price": 2000,
-    "subPriceContent": 2950,
+    "isInStock": false,
+    "title": "Российский",
+    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8GnD8arGsnyJdtSbbJ5sslScFZ-RQEHNMXw&usqp=CAU",
+    "price": 400,
+    "subPriceContent": 500,
     "maxRating": 5,
-    "rating": 5,
-    "category": "cosmetics",
-    "categoryName": "Косметика"
+    "rating": 4,
+    "category": "cheese",
+    "categoryName": "Сыр"
   },
   {
     "id": 8,
     "isInStock": true,
-    "title": "Помада",
-    "img": "https://www.bobbibrown.ru/media/export/cms/products/v2_1080x1080/bb_sku_ERLC01_1080x1080_0.jpg",
-    "price": 1360,
-    "subPriceContent": 1600,
+    "title": "Пармезан",
+    "img": "https://cheese-home.com/files/materials/%D1%80%D0%B5%D1%86%D0%B5%D0%BF%D1%82%D1%8B/%D0%BF%D0%B0%D1%80%D0%BC%D0%B5%D0%B7%D0%B0%D0%BD/%D0%BF%D0%B0%D1%80%D0%BC%D0%B5%D0%B7%D0%B0%D0%BD%D0%A1%D0%9F%D0%B1.JPG",
+    "price": 2000,
+    "subPriceContent": 2500,
+    "maxRating": 5,
+    "rating": 4,
+    "category": "cheese",
+    "categoryName": "Сыр"
+  },
+  {
+    "id": 9,
+    "isInStock": true,
+    "title": "Грейпфрут",
+    "img": "https://images11.popmeh.ru/upload/img_cache/f7b/f7bf402117c454652d282c4e08bf2537_ce_1200x640x0x64_cropped_666x444.jpeg",
+    "price": 290,
+    "subPriceContent": 320,
+    "maxRating": 5,
+    "rating": 4,
+    "category": "fruits",
+    "categoryName": "Фрукты"
+  },
+  {
+    "id": 10,
+    "isInStock": true,
+    "title": "Пшеничный",
+    "img": "https://academy.oetker.ru/upload/iblock/6f4/6f42da3cfa3539914530b656cd70cc92.jpg",
+    "price": 70,
+    "subPriceContent": 70,
     "maxRating": 5,
     "rating": 5,
-    "category": "cosmetics",
-    "categoryName": "Косметика"
+    "category": "bread",
+    "categoryName": "Хлеб"
+  },
+  {
+    "id": 11,
+    "isInStock": true,
+    "title": "Бородинский",
+    "img": "https://ecomarket.ru/imgs/products/7302/hleb-borodinskiy-na-zakvaske---450-gr---1.jpeg",
+    "price": 50,
+    "subPriceContent": 50,
+    "maxRating": 5,
+    "rating": 5,
+    "category": "bread",
+    "categoryName": "Хлеб"
+  },
+  {
+    "id": 12,
+    "isInStock": true,
+    "title": "Докторская",
+    "img": "https://newslab.ru/images/2019/_09_September/03/Doctor.jpg",
+    "price": 400,
+    "subPriceContent": 500,
+    "maxRating": 5,
+    "rating": 5,
+    "category": "sausages",
+    "categoryName": "Колбасы"
+  },
+  {
+    "id": 13,
+    "isInStock": true,
+    "title": "Краковская",
+    "img": "https://www.koolinar.ru/all_image/recipes/148/148106/recipe_a8fd8c0e-3f39-4cae-a607-4c4145881b28_w450.jpg",
+    "price": 400,
+    "subPriceContent": 400,
+    "maxRating": 5,
+    "rating": 4,
+    "category": "sausages",
+    "categoryName": "Колбасы"
+  },
+  {
+    "id": 14,
+    "isInStock": false,
+    "title": "Любительская",
+    "img": "http://vkusnoblog.net/sites/default/files/styles/x500/public/product_contain/lyubitelskaya_kolbasa_2.jpg",
+    "price": 430,
+    "subPriceContent": 450,
+    "maxRating": 5,
+    "rating": 4,
+    "category": "sausages",
+    "categoryName": "Колбасы"
   }
 ]

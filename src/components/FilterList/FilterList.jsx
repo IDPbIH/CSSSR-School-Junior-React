@@ -1,25 +1,25 @@
 import React from 'react';
-import s from './FilterList.module.css';
+import styles from './FilterList.module.css';
 import LogRender from '../LogRender/LogRender';
 
 class FilterList extends LogRender {
     setDefault = (event) => {
         event.preventDefault();
-        this.props.resetStateAC();
+        this.props.setDefaultFiltersValue();
     }
 
     render() {
-        const { minPriceValue, maxPriceValue, discountValue, categories, categoriesSelected,
-            changeInputValue, selectCategoryAC } = this.props;
+        const { filterValue: { minPriceValue, maxPriceValue, discountValue, activeCategories }, categories,
+            changeInputValue } = this.props;
 
         return (
-            <div>
+            <div className={styles.filterList}>
                 <form>
                     {this.props.renderInputNumber(minPriceValue, maxPriceValue, changeInputValue)}
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}
-                    {this.props.renderInputCategory(categories, categoriesSelected, selectCategoryAC)}
+                    {this.props.renderInputCategory(categories, activeCategories)}
                 </form>
-                <button className={s.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
+                <button className={styles.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
             </div>
         );
     }

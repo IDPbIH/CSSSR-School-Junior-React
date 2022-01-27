@@ -1,0 +1,21 @@
+.active_button {
+  font-size: 14px;
+  color: white;
+  min-width: 34px;
+  height: 32px;
+  background: #5695ed;
+  border: 1px solid #c5cfde;
+  margin: 1px;
+  pointer-events: none;
+}
+
+.inActive_button {
+  font-size: 14px;
+  color: #7e8fa4;
+  min-width: 34px;
+  height: 32px;
+  background: white;
+  border: 1px solid #c5cfde;
+  margin: 1px;
+  pointer-events: none;
+}

@@ -4,8 +4,8 @@ import FilterList from '../components/FilterList/FilterList';
 import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
-import withHistory from '../hoc/withHistory';
-import { resetStateAC, setFromHistoryAC, changeMinPriceValueAC, changeMaxPriceValueAC, changeDiscountValueAC, selectCategoryAC } from '../store/mainReducer';
+import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
+import { setDefaultFiltersValue } from '../store';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -24,44 +24,37 @@ const renderInputDiscount = memoize(
 );
 
 const renderInputCategory = memoize(
-    (categories, categoriesSelected, selectCategoryAC) => <InputCategory
+    (categories, activeCategories) => <InputCategory
         categories={categories}
-        categoriesSelected={categoriesSelected}
-        selectCategoryAC={selectCategoryAC}
+        activeCategories={activeCategories}
     />
 );
 
 const changeInputValue = (event) => {
     switch (event.target.name) {
         case 'minPriceValue':
-            return changeMinPriceValueAC(event.target.value);
+            return setMinPriceValue(event.target.value);
         case 'maxPriceValue':
-            return changeMaxPriceValueAC(event.target.value);
+            return setMaxPriceValue(event.target.value);
         case 'discountValue':
-            return changeDiscountValueAC(event.target.value);
+            return setDiscountValue(event.target.value);
         default:
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        minPriceValue: state.mainPage.minPriceValue,
-        maxPriceValue: state.mainPage.maxPriceValue,
-        discountValue: state.mainPage.discountValue,
-        categories: state.mainPage.categories,
-        categoriesSelected: state.mainPage.categoriesSelected,
-        dataForURL: state.mainPage.categoriesSelected
+        filterValue: getFilterValue(state),
+        categories: getCategories(state)
     };
 };
 
 const FilterListContainer = connect(mapStateToProps, {
-    resetStateAC,
-    selectCategoryAC,
-    setFromHistoryAC,
     changeInputValue,
+    setDefaultFiltersValue,
     renderInputNumber,
     renderInputDiscount,
     renderInputCategory
-})(withHistory(FilterList));
+})(FilterList);
 
 export default FilterListContainer;
