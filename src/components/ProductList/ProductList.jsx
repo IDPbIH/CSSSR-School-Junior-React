@@ -15,8 +15,8 @@ class ProductList extends LogRender {
         }
 
         return (
-            <div>
-                <h1>Список товаров</h1>
+            <div className={s.product_list}>
+                <h1 className={s.title}>Список товаров</h1>
                 <div className={s.grid}>
                     {filteredProducts.map(product => {
                         return (

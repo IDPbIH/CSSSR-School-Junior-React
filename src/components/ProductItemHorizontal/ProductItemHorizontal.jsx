@@ -1,22 +1,20 @@
 import React from 'react';
 import s from './ProductItemHorizontal.module.css';
-import RatingComponent from '../RatingComponent/RatingComponent';
+import cx from 'classnames';
 
-// function ProductItem(_ref) {
-//    
-//     return _react.default.createElement("div", {
-//       className: (0, _classnames.default)(_indexModule.default.goods, _defineProperty({}, _indexModule.default.goodsNone, !isInStock))
-//     }, _react.default.createElement("div", {
-//       className: (0, _classnames.default)(_indexModule.default.goodsType, _defineProperty({}, _indexModule.default.goodsTypeNone, !isInStock))
-//     }, isInStock ? "В наличии" : "Недоступен"),
-
-const ProductItemHorizontal = ({ img, isInStock, title, rating, maxRating, price, subPriceContent }) => {
+const ProductItemHorizontal = ({ ratingComponent, img, isInStock, title, rating, maxRating, price, subPriceContent }) => {
     return (
-        <div className={s.product_item_horinzontal}>
-            <img src={img} alt="placeholder"></img>
-            <div>{title}</div>
-            <div>{[...Array(maxRating)].map((item, index) => <RatingComponent isFilled={(index + 1) <= rating} />)}</div>
-            <div>{price + ' ' + subPriceContent}</div>
+        <div className={cx(s.product_item_horinzontal, { [s.product_item_horinzontal_none]: !isInStock })}>
+            <img className={cx(s.img_product, { [s.img_product_none]: !isInStock })} src={img} alt="placeholder" />
+            <div className={cx(s.is_in_stock, { [s.is_in_stock_none]: !isInStock })}>
+                {isInStock ? 'В наличии' : 'Недоступен'}</div>
+            <div className={s.title}>{title}</div>
+            <div className={s.rating}>{[...Array(maxRating)].map((item, index) =>
+                React.createElement(ratingComponent, { key: index, isFilled: (index + 1) <= rating }))}</div>
+            <div className={s.prices}>
+                <span className={s.price}>{price} &#8381;</span>
+                <span className={s.subprice}>{subPriceContent} &#8381;</span>
+            </div>
         </div>
     );
 }

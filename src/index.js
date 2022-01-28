@@ -17,14 +17,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <main>
-                <div className='main'>
-                    {/* <FilterListContainer /> */}
-                    <div className='right'>
-                        <Route path='/productlist'><ProductPage /></Route>
-                        {/* <Route path='/productlist'><ProductListContainer /></Route> */}
-                    </div>
-                </div>
+            <main className='main'>
+                    {/* <Route path='/productlist'><FilterListContainer /></Route> */}
+                    {/* <Route path='/productlist'><ProductListContainer /></Route> */}
+                    <Route path='/productlist'><ProductPage /></Route>
             </main >
         );
     }

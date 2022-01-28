@@ -3,13 +3,6 @@
 .main {
   color: #323c48;
   font-family: "Open Sans", sans-serif;
-  height: 700px;
   display: flex;
   justify-content: center;
-  align-items: top;
-}
-
-.right {
-  width: 736px;
-  text-align: center;
 }
