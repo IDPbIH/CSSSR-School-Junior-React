@@ -1,0 +1,12 @@
+img {
+  width: 224px;
+  height: 200px;
+}
+
+.product_item_horinzontal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 500px;
+  height: 200px;
+  background-color: plum;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './FilterList.module.css';
+import s from './FilterList.module.css';
 import LogRender from '../LogRender/LogRender';
 
 class FilterList extends LogRender {
@@ -13,13 +13,13 @@ class FilterList extends LogRender {
             changeInputValue } = this.props;
 
         return (
-            <div className={styles.filterList}>
+            <div className={s.filterList}>
                 <form>
                     {this.props.renderInputNumber(minPriceValue, maxPriceValue, changeInputValue)}
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}
                     {this.props.renderInputCategory(categories, activeCategories)}
                 </form>
-                <button className={styles.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
+                <button className={s.reset_button} onClick={this.setDefault}>Сбросить фильтры</button>
             </div>
         );
     }

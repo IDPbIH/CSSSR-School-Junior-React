@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './InputCategory.module.css'
+import s from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
 import LinkButton from '../LinkButton/LinkButton';
 import { isCategoryActive } from '../../utils/checks';
@@ -9,8 +9,8 @@ class InputCategory extends LogRender {
         const { categories, activeCategories } = this.props;
 
         return (
-            <div className={styles.categories}>
-                <h3 className={styles.title}>Категории</h3>
+            <div className={s.categories}>
+                <h3 className={s.title}>Категории</h3>
                 {categories.map((category) => {
                     return (
                         <LinkButton type='category'

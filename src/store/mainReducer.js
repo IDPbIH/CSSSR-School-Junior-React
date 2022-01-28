@@ -59,6 +59,7 @@ export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
+export const getProduct = (state) => state.mainPage.products.filter(product => (product.id === 1));
 
 export const getFilterValue = (state) => {
     return {

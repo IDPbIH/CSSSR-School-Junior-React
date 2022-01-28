@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Paginator.module.css';
+import s from './Paginator.module.css';
 import LinkButton from '../LinkButton/LinkButton';
 
 class Paginator extends React.Component {
@@ -9,8 +9,8 @@ class Paginator extends React.Component {
         const pageCount = Math.ceil(totalFilteredProductCount / pageSize);
 
         return (
-            <div className={styles.paginator}>
-                <span className={activePage === 1 ? styles.side_button_visible : 'false'}>
+            <div className={s.paginator}>
+                <span className={activePage === 1 ? s.side_button_visible : 'false'}>
                     <LinkButton type='page'
                         name='backPageButton'
                         value={activePage > 1 ? (activePage - 1) : 1}
@@ -28,7 +28,7 @@ class Paginator extends React.Component {
                             key={key} />
                     );
                 })}
-                <span className={activePage === pageCount ? styles.side_button_visible : 'false'}>
+                <span className={activePage === pageCount ? s.side_button_visible : 'false'}>
                     <LinkButton type='page'
                         name='nextPageButton'
                         value={activePage < pageCount ? (activePage + 1) : pageCount}

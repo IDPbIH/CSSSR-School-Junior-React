@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
-
+import Route from './components/Route/Route';
 import ProductListContainer from './containers/ProductListContainer';
 import FilterListContainer from './containers/FilterListContainer';
-import Route from './components/Route/Route';
+import ProductPage from './components/ProductPage/ProductPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -19,8 +19,11 @@ class App extends React.Component {
         return (
             <main>
                 <div className='main'>
-                    <FilterListContainer />
-                    <Route path='/productlist'><ProductListContainer /></Route>
+                    {/* <FilterListContainer /> */}
+                    <div className='right'>
+                        <Route path='/productlist'><ProductPage /></Route>
+                        {/* <Route path='/productlist'><ProductListContainer /></Route> */}
+                    </div>
                 </div>
             </main >
         );

@@ -8,3 +8,8 @@
   justify-content: center;
   align-items: top;
 }
+
+.right {
+  width: 736px;
+  text-align: center;
+}
