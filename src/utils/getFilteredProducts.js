@@ -1,7 +1,10 @@
 import { isCategoryActive, isDiscountActive, isPriceInMinMaxRange } from './checks';
 import memoize from './memoize';
 
-const getFilteredProducts = memoize(({ minPriceValue, maxPriceValue, discountValue, activeCategories }, products) => {
+const getFilteredProducts = memoize(({ minPriceValue, maxPriceValue, discountValue }, products) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const activeCategories = searchParams.getAll('category');
+ 
     return (
         products.filter(product => (
             isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)

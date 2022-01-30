@@ -45,7 +45,9 @@ const changeInputValue = (event) => {
 const mapStateToProps = (state) => {
     return {
         filterValue: getFilterValue(state),
-        categories: getCategories(state)
+        categories: getCategories(state),
+        // activePage: getActivePage(state),
+        // activeCategories: getActiveCategories(state)
     };
 };
 

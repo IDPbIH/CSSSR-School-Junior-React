@@ -1,5 +1,9 @@
 .product_page {
+  color: #323c48;
+  font-family: "Open Sans", sans-serif;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .title {

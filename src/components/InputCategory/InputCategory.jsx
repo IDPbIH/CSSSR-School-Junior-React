@@ -1,8 +1,7 @@
 import React from 'react';
 import s from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
-import LinkButton from '../LinkButton/LinkButton';
-import { isCategoryActive } from '../../utils/checks';
+import LinkButton from '../Buttons/LinkButton/LinkButton';
 
 class InputCategory extends LogRender {
     render() {
@@ -13,11 +12,10 @@ class InputCategory extends LogRender {
                 <h3 className={s.title}>Категории</h3>
                 {categories.map((category) => {
                     return (
-                        <LinkButton type='category'
+                        <LinkButton
+                            type='category'
                             name={category.category}
-                            value={category.category}
                             text={category.categoryName}
-                            isChecked={isCategoryActive(activeCategories, category.category) ? true : false}
                             keyButton={category.id}
                             key={category.id} />
                     );

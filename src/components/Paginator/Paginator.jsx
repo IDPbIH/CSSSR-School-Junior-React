@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Paginator.module.css';
-import LinkButton from '../LinkButton/LinkButton';
+import LinkButton from '../Buttons/LinkButton/LinkButton';
 
 class Paginator extends React.Component {
     render() {
@@ -12,26 +12,21 @@ class Paginator extends React.Component {
             <div className={s.paginator}>
                 <span className={activePage === 1 ? s.side_button_visible : 'false'}>
                     <LinkButton type='page'
-                        name='backPageButton'
-                        value={activePage > 1 ? (activePage - 1) : 1}
+                        name={activePage > 1 ? (activePage - 1) : 1}
                         text='Назад' />
                 </span>
-                {[...Array(pageCount)].map((page, key) => {
-                    key++
+                {[...Array(pageCount)].map((page, index) => {
+                    index++
                     return (
                         <LinkButton type='page'
-                            name={`pageButton ${key}`}
-                            value={key}
-                            text={key}
-                            isChecked={key === activePage ? true : false}
-                            keyButton={key}
-                            key={key} />
+                            name={index}
+                            text={index}
+                            key={index} />
                     );
                 })}
                 <span className={activePage === pageCount ? s.side_button_visible : 'false'}>
                     <LinkButton type='page'
-                        name='nextPageButton'
-                        value={activePage < pageCount ? (activePage + 1) : pageCount}
+                        name={activePage < pageCount ? (activePage + 1) : pageCount}
                         text='Вперёд' />
                 </span>
             </div >

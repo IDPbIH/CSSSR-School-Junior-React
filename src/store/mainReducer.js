@@ -59,14 +59,13 @@ export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
-export const getProduct = (state) => state.mainPage.products.filter(product => (product.id === 1));
+export const getProduct = (state, id) => state.mainPage.products.filter(product => (product.id === Number(id)));
 
 export const getFilterValue = (state) => {
     return {
         minPriceValue: getMinPriceValue(state),
         maxPriceValue: getMaxPriceValue(state),
         discountValue: getDiscountValue(state),
-        activeCategories: getActiveCategories(state)
     };
 };
 

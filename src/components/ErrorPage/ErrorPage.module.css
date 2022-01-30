@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.error_page {
+  color: #323c48;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+}
+
 .title {
   margin-bottom: 70px;
 }

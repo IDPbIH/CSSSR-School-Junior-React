@@ -10,7 +10,7 @@ export const setStateFromHistory = (state) => ({ type: SET_STATE_FROM_HISTORY, s
 
 const reducer = combineReducers({
     mainPage: mainReducer,
-    routing: routingReducer
+    // routing: routingReducer
 });
 
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();

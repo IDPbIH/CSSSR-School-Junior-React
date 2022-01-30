@@ -25,4 +25,4 @@ class Link extends React.Component {
     }
 }
 
-export default connect(null, { setActivePage, setActiveCategories })(Link);
+// export default connect(null, { setActivePage, setActiveCategories })(Link);
