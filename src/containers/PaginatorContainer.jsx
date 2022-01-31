@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Paginator from '../components/Paginator/Paginator';
 import { getFilterValue, getPageSize, getProducts } from '../store/mainReducer';
+
 import getFilteredProducts from '../utils/getFilteredProducts';
 
 const mapStateToProps = (state) => {

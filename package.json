@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "connected-react-router": "^6.9.2",
     "csssr-school-input-discount": "github:CSSSR-School/junior-course-input-discount",
     "csssr-school-product-card": "github:CSSSR-School/junior-course-product-card",
     "csssr-school-utils": "github:CSSSR-School/junior-course-utils",

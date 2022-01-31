@@ -1,23 +1,13 @@
-// import { getActiveCategoriesFromURL, getPageFromURL } from '../utils/getFromURL';
-
 // Routing Module.js
 
 // // Actions
-// const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
-// const SET_ACTIVE_CATEGORIES = 'SET_ACTIVE_CATEGORIES';
 
-// //initialState
-// const initialState = {
-//     path: window.location.pathname === '/' ? '/productlist' : window.location.pathname,
-//     queryItems: {
-//         activePage: window.location.search ? Number(getPageFromURL[0]) : 1,
-//         activeCategories: getActiveCategoriesFromURL
-//     }
-// };
+//initialState
+const initialState = {};
 
-// // Reducer
-// const routingReducer = (state = initialState, action) => {
-//     switch (action.type) {
+// Reducer
+const routingReducer = (state = initialState, action) => {
+    switch (action.type) {
 //         case SET_ACTIVE_PAGE:
 //             return {
 //                 ...state,
@@ -48,23 +38,12 @@
 //                     activeCategories: []
 //                 }
 //             };
-//         default:
-//             return state;
-//     }
-// };
+        default:
+            return state;
+    }
+};
 
-// // Action Creators
-// export const setActivePage = (page) => ({ type: SET_ACTIVE_PAGE, page });
-// export const setActiveCategories = (category) => ({ type: SET_ACTIVE_CATEGORIES, category });
-
-// // Selectors
-// export const getRoutingState = (state) => state.routing;
-// export const getActivePage = (state) => state.routing.queryItems.activePage;
-
-// export const getActiveCategories = (state) => state.routing.queryItems.activeCategories;
-
-
-// export default routingReducer;
+export default routingReducer;
 
 
 

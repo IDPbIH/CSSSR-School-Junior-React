@@ -1,3 +1,5 @@
+
+
 export const getActiveCategoriesFromURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const categories = searchParams.getAll('category');
@@ -6,11 +8,8 @@ export const getActiveCategoriesFromURL = () => {
 
 export const getActivePageFromURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
-    let page = 1;
-    if (searchParams.get('page')!==null) {
-        page = searchParams.get('page');
-    }
-    return Number(page);
+    const activePage = searchParams.get('page') || 1;
+    return Number(activePage);
 }
 
 export const getProductByIdFromURL = (products) => {

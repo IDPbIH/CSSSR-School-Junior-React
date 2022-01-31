@@ -60,7 +60,7 @@ export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
 
-export const getFilterValue = (state, ac) => {
+export const getFilterValue = (state) => {
     return {
         minPriceValue: getMinPriceValue(state),
         maxPriceValue: getMaxPriceValue(state),
