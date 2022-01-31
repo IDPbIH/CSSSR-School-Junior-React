@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
-import LinkButton from '../Buttons/LinkButton/LinkButton';
+import LinkButton from '../LinkButton/LinkButton';
 
 class InputCategory extends LogRender {
     render() {

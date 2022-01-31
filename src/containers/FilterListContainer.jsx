@@ -5,7 +5,7 @@ import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
 import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
-import { setDefaultFiltersValue } from '../store';
+import { setDefaultFiltersValue } from '../store/mainReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -24,9 +24,8 @@ const renderInputDiscount = memoize(
 );
 
 const renderInputCategory = memoize(
-    (categories, activeCategories) => <InputCategory
+    (categories) => <InputCategory
         categories={categories}
-        activeCategories={activeCategories}
     />
 );
 
@@ -46,12 +45,8 @@ const mapStateToProps = (state) => {
     return {
         filterValue: getFilterValue(state),
         categories: getCategories(state),
-        // activePage: getActivePage(state),
-        // activeCategories: getActiveCategories(state)
     };
 };
-
-//разобраться с active
 
 export default connect(mapStateToProps, {
     changeInputValue,

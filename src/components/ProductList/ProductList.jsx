@@ -11,13 +11,19 @@ import { Link } from 'react-router-dom';
 class ProductList extends LogRender {
     render() {
         const { filteredProducts } = this.props;
-        
+
         if (!filteredProducts.length) {
-            return <ErrorPage title='Нет товаров, удовлетворющих условиям поиска. Измените значения фильтров.' />;
+            return (
+                <div className={s.product_list_with_filters}>
+                    <FilterListContainer />
+                    <div className={s.product_list}>
+                        <ErrorPage title='Нет товаров, удовлетворющих условиям поиска. Измените значения фильтров.' />
+                    </div>
+                </div>);
         }
-        
+
         return (
-            <main className={s.product_list_with_filters}>
+            <div className={s.product_list_with_filters}>
                 <FilterListContainer />
                 <div className={s.product_list}>
                     <h1 className={s.title}>Список товаров</h1>
@@ -45,7 +51,7 @@ class ProductList extends LogRender {
                     </div>
                     <PaginatorContainer />
                 </div >
-            </main>
+            </div>
         );
     }
 }

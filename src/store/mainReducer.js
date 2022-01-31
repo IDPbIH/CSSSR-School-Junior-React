@@ -1,7 +1,8 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
-import { getActiveCategoriesFromURL, getActivePageFromURL } from '../utils/getFromURL';
+import { getActivePageFromURL } from '../utils/getFromURL';
+import { CALL_HISTORY_METHOD } from 'connected-react-router';
 
 // Filter Module.js
 
@@ -9,6 +10,8 @@ import { getActiveCategoriesFromURL, getActivePageFromURL } from '../utils/getFr
 const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
 const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
 const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
+const SET_STATE_FROM_HISTORY = 'SET_STATE_FROM_HISTORY';
+const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
 
 //initialState
 const initialState = {
@@ -38,10 +41,10 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 discountValue: Number(action.value)
             };
-        case 'SET_STATE_FROM_HISTORY':
-            return action.state.mainPage;
-        case 'SET_DEFAULT_FILTERS_VALUE':
+        case SET_DEFAULT_FILTERS_VALUE:
             return initialState;
+        case CALL_HISTORY_METHOD:
+            return action.state.mainPage;
         default:
             return state;
     }
@@ -51,6 +54,8 @@ const mainReducer = (state = initialState, action) => {
 export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value });
 export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
 export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
+export const setStateFromHistory = (state) => ({ type: SET_STATE_FROM_HISTORY, state });
+export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
 
 // Selectors
 export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
@@ -64,15 +69,15 @@ export const getFilterValue = (state) => {
     return {
         minPriceValue: getMinPriceValue(state),
         maxPriceValue: getMaxPriceValue(state),
-        discountValue: getDiscountValue(state),
-        activeCategories: getActiveCategoriesFromURL
+        discountValue: getDiscountValue(state)
     };
 };
 
-export const getFilteredProductsWithPagination = createSelector(getFilterValue, getActivePageFromURL, getPageSize, getProducts,
-    (filterValue, activePage, pageSize, products) => {
+export const getFilteredProductsWithPagination = createSelector(
+    getFilterValue, getPageSize, getProducts, (filterValue, pageSize, products) => {
+        const activePage = getActivePageFromURL();
         const filteredProducts = getFilteredProducts(filterValue, products);
-        
+
         return filteredProducts.filter((product, index) => {
             index++
             const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);

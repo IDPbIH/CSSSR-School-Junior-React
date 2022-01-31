@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackButton } from '../Buttons/BackButton/BackButton';
+import { BackButton } from '../BackButton/BackButton';
 import s from './ErrorPage.module.css';
 
 const ErrorPage = ({ title, back }) => {

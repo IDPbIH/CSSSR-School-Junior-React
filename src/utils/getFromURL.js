@@ -2,8 +2,8 @@
 
 export const getActiveCategoriesFromURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
-    const categories = searchParams.getAll('category');
-    return categories;
+    const activeCategories = searchParams.getAll('category');
+    return activeCategories;
 }
 
 export const getActivePageFromURL = () => {

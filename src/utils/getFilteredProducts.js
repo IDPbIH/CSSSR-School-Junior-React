@@ -4,7 +4,6 @@ import memoize from './memoize';
 
 const getFilteredProducts = memoize(({ minPriceValue, maxPriceValue, discountValue }, products) => {
     const activeCategories = getActiveCategoriesFromURL();
-
     return (
         products.filter(product => (
             isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)

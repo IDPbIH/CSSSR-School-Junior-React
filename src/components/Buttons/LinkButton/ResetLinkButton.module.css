@@ -1,0 +1,8 @@
+.inActive_button {
+  font-size: 14px;
+  height: 30px;
+  width: 256px;
+  border: 1px solid #323c48;
+  background-color: white;
+  margin-top: 20px;
+}

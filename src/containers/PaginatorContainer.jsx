@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import Paginator from '../components/Paginator/Paginator';
+import withRouter from '../hoc/withRouter';
 import { getFilterValue, getPageSize, getProducts } from '../store/mainReducer';
-
 import getFilteredProducts from '../utils/getFilteredProducts';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
     const filterValue = getFilterValue(state);
     const products = getProducts(state);
 
@@ -14,6 +14,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-const PaginatorContainer = connect(mapStateToProps, null)(Paginator);
-
-export default PaginatorContainer;
+export default withRouter(connect(mapStateToProps, null)(Paginator));
