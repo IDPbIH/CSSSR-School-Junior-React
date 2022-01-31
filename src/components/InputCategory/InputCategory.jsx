@@ -5,7 +5,7 @@ import LinkButton from '../Buttons/LinkButton/LinkButton';
 
 class InputCategory extends LogRender {
     render() {
-        const { categories, activeCategories } = this.props;
+        const { categories } = this.props;
 
         return (
             <div className={s.categories}>
@@ -16,7 +16,6 @@ class InputCategory extends LogRender {
                             type='category'
                             name={category.category}
                             text={category.categoryName}
-                            keyButton={category.id}
                             key={category.id} />
                     );
                 })}

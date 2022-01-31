@@ -1,7 +1,7 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
-import { getActiveCategories, getActivePage } from './routingReducer';
+import { getActiveCategoriesFromURL, getActivePageFromURL } from '../utils/getFromURL';
 
 // Filter Module.js
 
@@ -59,20 +59,20 @@ export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
-export const getProduct = (state, id) => state.mainPage.products.filter(product => (product.id === Number(id)));
 
-export const getFilterValue = (state) => {
+export const getFilterValue = (state, ac) => {
     return {
         minPriceValue: getMinPriceValue(state),
         maxPriceValue: getMaxPriceValue(state),
         discountValue: getDiscountValue(state),
+        activeCategories: getActiveCategoriesFromURL
     };
 };
 
-export const getFilteredProductsWithPagination = createSelector(getFilterValue, getActivePage, getPageSize, getProducts,
+export const getFilteredProductsWithPagination = createSelector(getFilterValue, getActivePageFromURL, getPageSize, getProducts,
     (filterValue, activePage, pageSize, products) => {
         const filteredProducts = getFilteredProducts(filterValue, products);
-
+        
         return filteredProducts.filter((product, index) => {
             index++
             const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);

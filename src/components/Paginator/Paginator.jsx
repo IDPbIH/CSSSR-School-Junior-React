@@ -1,11 +1,12 @@
 import React from 'react';
 import s from './Paginator.module.css';
 import LinkButton from '../Buttons/LinkButton/LinkButton';
+import { getActivePageFromURL } from '../../utils/getFromURL';
 
 class Paginator extends React.Component {
     render() {
-        const { activePage, pageSize, totalFilteredProductCount } = this.props;
-
+        const { totalFilteredProductCount, pageSize } = this.props;
+        const activePage = getActivePageFromURL();
         const pageCount = Math.ceil(totalFilteredProductCount / pageSize);
 
         return (

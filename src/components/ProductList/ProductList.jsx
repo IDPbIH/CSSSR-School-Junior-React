@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 class ProductList extends LogRender {
     render() {
         const { filteredProducts } = this.props;
-
+      
         if (!filteredProducts.length) {
             return <ErrorPage title='Нет товаров, удовлетворющих условиям поиска. Измените значения фильтров.' />;
         }

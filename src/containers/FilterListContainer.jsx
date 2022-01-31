@@ -51,12 +51,12 @@ const mapStateToProps = (state) => {
     };
 };
 
-const FilterListContainer = connect(mapStateToProps, {
+//разобраться с active
+
+export default connect(mapStateToProps, {
     changeInputValue,
     setDefaultFiltersValue,
     renderInputNumber,
     renderInputDiscount,
     renderInputCategory
 })(FilterList);
-
-export default FilterListContainer;

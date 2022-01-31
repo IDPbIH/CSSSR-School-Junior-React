@@ -60,8 +60,12 @@
 // // Selectors
 // export const getRoutingState = (state) => state.routing;
 // export const getActivePage = (state) => state.routing.queryItems.activePage;
-export const getActivePage = (state) => 2;
+
 // export const getActiveCategories = (state) => state.routing.queryItems.activeCategories;
-export const getActiveCategories = (state) => [];
+
 
 // export default routingReducer;
+
+
+
+

@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import s from './ProductPage.module.css';
-// import { getProduct } from '../../store/mainReducer';
 import ProductItemHorizontal from '../ProductItemHorizontal/ProductItemHorizontal';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import { useSearchParams } from 'react-router-dom';
-import { getProduct } from '../../store/mainReducer';
+import { getProducts } from '../../store/mainReducer';
 import { BackButton } from '../Buttons/BackButton/BackButton';
+import { getProductByIdFromURL } from '../../utils/getFromURL';
 
-const ProductPage = ({ product }) => {
+const ProductPage = ({ products }) => {
+    const product = getProductByIdFromURL(products);
+
     if (!product.length) {
         return <ErrorPage title='Товар не найден' back />;
     }
@@ -19,7 +20,6 @@ const ProductPage = ({ product }) => {
             {product.map(product => {
                 return (
                     <div key={product.id}>
-
                         <h1 className={s.title}>
                             <BackButton />
                             {product.title}
@@ -43,9 +43,7 @@ const ProductPage = ({ product }) => {
 }
 
 export default connect((state) => {
-    const [searchParams] = useSearchParams();
-    const id = searchParams.get('id');
     return {
-        product: getProduct(state, id)
+        products: getProducts(state)
     };
 })(ProductPage);

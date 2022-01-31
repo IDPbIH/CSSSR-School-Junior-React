@@ -1,33 +1,36 @@
 import React from 'react';
 import page_s from './PageLinkButton.module.css';
 import category_s from './CategoryLinkButton.module.css';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isCategoryActive } from '../../../utils/checks';
+import { getActiveCategoriesFromURL, getActivePageFromURL } from '../../../utils/getFromURL';
 
 const LinkButton = ({ type, name, text }) => {
-    let s;
-    let queryString = '';
+    useNavigate();
 
-    const [searchParams] = useSearchParams();
-    let page = 1;
+    let s;
+    let activeCategories = '';
+    let activeCategoriesFromURL = getActiveCategoriesFromURL();
+    let page = getActivePageFromURL();
     let isChecked;
-    let categories = searchParams.getAll('category');
 
     if (type === 'page') {
         s = page_s;
-        
-    } else {
+        isChecked = true && page === Number(text)
+        page = Number(name);
+    }
+    if (type === 'category') {
         s = category_s;
-        isChecked = isCategoryActive(categories, name);
+        isChecked = isCategoryActive(activeCategoriesFromURL, name);
         isChecked
-            ? categories = categories.filter(category => category != name)
-            : categories.push(name)
-        categories.forEach(category => {
-            queryString = queryString + '&category=' + category;
+            ? activeCategoriesFromURL = activeCategoriesFromURL.filter(category => category !== name)
+            : activeCategoriesFromURL.push(name)
+        activeCategoriesFromURL.forEach(category => {
+            activeCategories = activeCategories + '&category=' + category;
         });
     }
     return (
-        <Link to={`/productlist?page=${page}${queryString}`}>
+        <Link to={`/productlist?page=${page}${activeCategories}`}>
             <button name={name} className={isChecked ? s.active_button : s.inActive_button}>{text}</button>
         </Link>
     );

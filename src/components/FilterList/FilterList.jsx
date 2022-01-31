@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './FilterList.module.css';
 import LogRender from '../LogRender/LogRender';
+import { getActiveCategoriesFromURL } from '../../utils/getFromURL';
 
 class FilterList extends LogRender {
     setDefault = (event) => {
@@ -9,8 +10,10 @@ class FilterList extends LogRender {
     }
 
     render() {
-        const { filterValue: { minPriceValue, maxPriceValue, discountValue, activeCategories }, categories,
+        const { filterValue: { minPriceValue, maxPriceValue, discountValue }, categories,
             changeInputValue } = this.props;
+        //переработать active - уюрать
+        const activeCategories = getActiveCategoriesFromURL();
 
         return (
             <div className={s.filterList}>
