@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import FilterList from '../components/FilterList/FilterList';
 import InputCategory from '../components/InputCategory/InputCategory';
 import InputDiscount from '../components/InputDiscount/InputDiscount';
 import InputNumber from '../components/InputNumber/InputNumber';
-import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
-import { setDefaultFiltersValue } from '../store/mainReducer';
+import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories, setDefaultFiltersValue} from '../store/mainReducer';
 import memoize from '../utils/memoize';
 
 const renderInputNumber = memoize(
@@ -24,9 +24,7 @@ const renderInputDiscount = memoize(
 );
 
 const renderInputCategory = memoize(
-    (categories) => <InputCategory
-        categories={categories}
-    />
+    (categories) => <InputCategory categories={categories} />
 );
 
 const changeInputValue = (event) => {
@@ -48,10 +46,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
     changeInputValue,
     setDefaultFiltersValue,
     renderInputNumber,
     renderInputDiscount,
     renderInputCategory
-})(FilterList);
+})(FilterList));

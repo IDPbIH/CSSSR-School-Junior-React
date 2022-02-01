@@ -16,7 +16,7 @@ class FilterList extends LogRender {
                     {this.props.renderInputDiscount(discountValue, changeInputValue)}
                     {this.props.renderInputCategory(categories)}
                 </form>
-                <Link to={'/'}>
+                <Link to={'/'} replace>
                     <button className={s.reset_button} onClick={setDefaultFiltersValue}>Сбросить фильтры</button>
                 </Link>
             </div>

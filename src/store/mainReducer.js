@@ -14,8 +14,8 @@ const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
 
 //initialState
 const initialState = {
-    minPriceValue: Math.min.apply(null, ProductsJSON.map(product => { return product.price; })),
-    maxPriceValue: Math.max.apply(null, ProductsJSON.map(product => { return product.price; })),
+    minPriceValue: Math.min.apply(null, ProductsJSON.map(product => product.price)),
+    maxPriceValue: Math.max.apply(null, ProductsJSON.map(product => product.price)),
     discountValue: 0,
     categories: [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()],
     products: ProductsJSON,
@@ -40,9 +40,10 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 discountValue: Number(action.value)
             };
+        case LOCATION_CHANGE:
+            return (action.payload.location.pathname === '/') ? initialState : state
         case SET_DEFAULT_FILTERS_VALUE:
             return initialState;
-        // case LOCATION_CHANGE:
         default:
             return state;
     }
@@ -74,7 +75,7 @@ export const getFilteredProductsWithPagination = createSelector(
     getActivePage, getActiveCategories, getFilterValue, getPageSize, getProducts,
     (activePage, activeCategories, filterValue, pageSize, products) => {
         const filteredProducts = getFilteredProducts(activeCategories, filterValue, products);
-       
+
         return filteredProducts.filter((product, index) => {
             index++
             const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);

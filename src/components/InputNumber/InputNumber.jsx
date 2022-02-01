@@ -2,6 +2,7 @@ import React from 'react';
 import s from './InputNumber.module.css'
 import withHandle from '../../hoc/withHandle';
 import LogRender from '../../components/LogRender/LogRender';
+import { withRouter } from 'react-router-dom';
 
 class InputNumber extends LogRender {
     render() {
@@ -30,4 +31,4 @@ class InputNumber extends LogRender {
     }
 }
 
-export default withHandle(InputNumber);
+export default withRouter(withHandle(InputNumber));
