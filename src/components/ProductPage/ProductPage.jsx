@@ -1,15 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import s from './ProductPage.module.css';
 import ProductItemHorizontal from '../ProductItemHorizontal/ProductItemHorizontal';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import { getProducts } from '../../store/mainReducer';
-import { BackButton } from '../Buttons/BackButton/BackButton';
-import { getProductByIdFromURL } from '../../utils/getFromURL';
+import { BackButton } from '../BackButton/BackButton';
 
-const ProductPage = ({ products }) => {
-    const product = getProductByIdFromURL(products);
+const ProductPage = ({ products, productID }) => {
+    const product = products.filter(product => (product.id === Number(productID)));
 
     if (!product.length) {
         return <ErrorPage title='Товар не найден' back />;
@@ -42,8 +39,4 @@ const ProductPage = ({ products }) => {
     );
 }
 
-export default connect((state) => {
-    return {
-        products: getProducts(state)
-    };
-})(ProductPage);
+export default ProductPage;

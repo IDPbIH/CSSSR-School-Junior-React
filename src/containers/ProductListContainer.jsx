@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { getFilteredProductsWithPagination } from '../store/mainReducer';
 import ProductList from '../components/ProductList/ProductList';
-import withRouter from '../hoc/withRouter';
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
     return {
-        filteredProducts: getFilteredProductsWithPagination(state, props)
+        filteredProducts: getFilteredProductsWithPagination(state)
     };
 };
 
-export default withRouter(connect(mapStateToProps, null)(ProductList));
+export default connect(mapStateToProps)(ProductList);

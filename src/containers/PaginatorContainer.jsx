@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 import Paginator from '../components/Paginator/Paginator';
-import withRouter from '../hoc/withRouter';
 import { getFilterValue, getPageSize, getProducts } from '../store/mainReducer';
+import { getActiveCategories, getActivePage } from '../store/routingReducer';
 import getFilteredProducts from '../utils/getFilteredProducts';
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
+    const activeCategories = getActiveCategories(state);
     const filterValue = getFilterValue(state);
     const products = getProducts(state);
 
     return {
+        activePage: getActivePage(state),
         pageSize: getPageSize(state),
-        totalFilteredProductCount: getFilteredProducts(filterValue, products).length
+        totalFilteredProductCount: getFilteredProducts(activeCategories, filterValue, products).length
     };
 };
 
-export default withRouter(connect(mapStateToProps, null)(Paginator));
+export default connect(mapStateToProps)(Paginator);

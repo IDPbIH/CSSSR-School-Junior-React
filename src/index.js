@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { store } from './store';
 import { Provider } from 'react-redux';
 import ProductListContainer from './containers/ProductListContainer';
-import ProductPage from './components/ProductPage/ProductPage';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import ProductPageContainer from './containers/ProductPageContainer';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { history, store } from './store';
 
 class App extends React.Component {
     constructor(props) {
@@ -17,11 +18,11 @@ class App extends React.Component {
     render() {
         return (
             <main className='main'>
-                <Routes>
-                    <Route path='/' element={<Navigate to="productlist" />} />
-                    <Route path='productlist' element={<ProductListContainer />} />
-                    <Route path='productpage' element={<ProductPage />} />
-                </Routes>
+                <Switch>
+                    <Route exact path='/' ><Redirect to='/productlist' /></Route>
+                    <Route path='/productlist' ><ProductListContainer /></Route>
+                    <Route path='/productpage' ><ProductPageContainer /></Route>
+                </Switch >
             </main >
         );
     }
@@ -31,8 +32,8 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
             <App />
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>
     , rootElement);

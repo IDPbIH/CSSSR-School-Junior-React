@@ -2,6 +2,7 @@ import React from 'react';
 import s from './InputCategory.module.css'
 import LogRender from '../../components/LogRender/LogRender';
 import LinkButton from '../LinkButton/LinkButton';
+import { withRouter } from 'react-router-dom';
 
 class InputCategory extends LogRender {
     render() {
@@ -24,4 +25,4 @@ class InputCategory extends LogRender {
     }
 }
 
-export default InputCategory;
+export default withRouter(InputCategory);

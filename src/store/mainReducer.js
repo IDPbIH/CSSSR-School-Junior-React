@@ -1,8 +1,8 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
-import { getActivePageFromURL } from '../utils/getFromURL';
-import { CALL_HISTORY_METHOD } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'connected-react-router';
+import { getActiveCategories, getActivePage } from './routingReducer';
 
 // Filter Module.js
 
@@ -10,7 +10,6 @@ import { CALL_HISTORY_METHOD } from 'connected-react-router';
 const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
 const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
 const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
-const SET_STATE_FROM_HISTORY = 'SET_STATE_FROM_HISTORY';
 const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
 
 //initialState
@@ -43,8 +42,7 @@ const mainReducer = (state = initialState, action) => {
             };
         case SET_DEFAULT_FILTERS_VALUE:
             return initialState;
-        case CALL_HISTORY_METHOD:
-            return action.state.mainPage;
+        // case LOCATION_CHANGE:
         default:
             return state;
     }
@@ -54,7 +52,6 @@ const mainReducer = (state = initialState, action) => {
 export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value });
 export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
 export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
-export const setStateFromHistory = (state) => ({ type: SET_STATE_FROM_HISTORY, state });
 export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
 
 // Selectors
@@ -74,10 +71,10 @@ export const getFilterValue = (state) => {
 };
 
 export const getFilteredProductsWithPagination = createSelector(
-    getFilterValue, getPageSize, getProducts, (filterValue, pageSize, products) => {
-        const activePage = getActivePageFromURL();
-        const filteredProducts = getFilteredProducts(filterValue, products);
-
+    getActivePage, getActiveCategories, getFilterValue, getPageSize, getProducts,
+    (activePage, activeCategories, filterValue, pageSize, products) => {
+        const filteredProducts = getFilteredProducts(activeCategories, filterValue, products);
+       
         return filteredProducts.filter((product, index) => {
             index++
             const isFirstItemForActivePageRange = index >= (pageSize * (activePage - 1) + 1);
