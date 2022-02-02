@@ -6,17 +6,16 @@ import { isCategoryActive } from '../../utils/checks';
 import { getActiveCategories, getActivePage } from '../../store/routingReducer';
 import { connect } from 'react-redux';
 
-const LinkButton = ({ type, name, text, activePage, activeCategoriesFromRouting}) => {
+const LinkButton = ({ type, name, text, activePageFromRouting, activeCategoriesFromRouting}) => {
     let s;
-    let activeCategories = '';
-    let page = activePage;
     let isChecked;
-
+    let activePage = 1;
+    
     switch (type) {
         case 'page':
             s = page_s;
-            isChecked = true && Number(text) === activePage
-            page = Number(name);
+            isChecked = true && Number(text) === activePageFromRouting
+            activePage = Number(name);
             break;
         case 'category':
             s = category_s;
@@ -27,11 +26,11 @@ const LinkButton = ({ type, name, text, activePage, activeCategoriesFromRouting}
             break;
         default:
     }
-    activeCategoriesFromRouting.forEach(category => {
-        activeCategories = activeCategories + '&category=' + category;
-    });
+
+    const activeCategories = activeCategoriesFromRouting.map(category => '&category=' + category).join('');
+    
     return (
-        <Link to={`/productlist?page=${page}${activeCategories}`}>
+        <Link to={`/productlist?page=${activePage}${activeCategories}`}>
             <button name={name} className={isChecked ? s.active_button : s.inActive_button}>{text}</button>
         </Link>
     );
@@ -39,7 +38,7 @@ const LinkButton = ({ type, name, text, activePage, activeCategoriesFromRouting}
 
 export default connect((state) => {
     return {
-        activePage: getActivePage(state),
+        activePageFromRouting: getActivePage(state),
         activeCategoriesFromRouting: getActiveCategories(state)
     }
 })(LinkButton);

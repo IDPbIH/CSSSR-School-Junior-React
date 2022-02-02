@@ -1,7 +1,6 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
-import { LOCATION_CHANGE } from 'connected-react-router';
 import { getActiveCategories, getActivePage } from './routingReducer';
 
 // Filter Module.js
@@ -40,8 +39,6 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 discountValue: Number(action.value)
             };
-        case LOCATION_CHANGE:
-            return (action.payload.location.pathname === '/') ? initialState : state
         case SET_DEFAULT_FILTERS_VALUE:
             return initialState;
         default:
