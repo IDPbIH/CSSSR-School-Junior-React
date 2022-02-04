@@ -14,7 +14,7 @@ export default function withHandle(InputComponent) {
         handleChange = (event) => {
             if (!isNaN(event.target.value)) {
                 this.setState({ error: false })
-                this.props.changeInputValue(event.target.name, event.target.value);
+                this.props.changeInputValue(event);
             } else {
                 this.setState({ error: true })
             }

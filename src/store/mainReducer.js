@@ -1,7 +1,7 @@
 import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
-import { getActiveCategories, getActivePage } from './routingReducer';
+import { getActiveCategoriesFromRouting, getActivePageFromRouting } from './routingReducer';
 
 // Filter Module.js
 
@@ -69,7 +69,7 @@ export const getFilterValue = (state) => {
 };
 
 export const getFilteredProductsWithPagination = createSelector(
-    getActivePage, getActiveCategories, getFilterValue, getPageSize, getProducts,
+    getActivePageFromRouting, getActiveCategoriesFromRouting, getFilterValue, getPageSize, getProducts,
     (activePage, activeCategories, filterValue, pageSize, products) => {
         const filteredProducts = getFilteredProducts(activeCategories, filterValue, products);
 

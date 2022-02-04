@@ -25,7 +25,9 @@ class FilterList extends LogRender {
         );
 
         const renderInputCategory = memoize(
-            (props) => <InputCategory categories={this.props.categories} />
+            (props) => <InputCategory
+                categories={this.props.categories}
+                activeCategories={this.props.activeCategories} />
         );
 
         return (
