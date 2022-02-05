@@ -1,25 +1,26 @@
 import { isCategoryActive } from './checks';
+import getActiveCategories from './getActiveCategories';
 
 export const setURL = (type, value) => {
+    let url = new URL(document.location);
+    let categories = getActiveCategories(url.search);
     let page = 1;
-    let categoriesFromURL = new URLSearchParams(window.location.search).getAll('category');
 
     switch (type) {
-        case 'category':
-            isCategoryActive(categoriesFromURL, value)
-                ? categoriesFromURL = categoriesFromURL.filter(category => category !== value)
-                : categoriesFromURL.push(value)
+        case 'categories':
+            isCategoryActive(categories, value)
+                ? categories = categories.filter(category => category !== value)
+                : categories.push(value)
+            url.searchParams.set(type, categories);
             break;
         case 'page':
             page = Number(value);
             break;
         default:
     }
+    url.searchParams.set('page', page);
 
-    const categories = categoriesFromURL.map(category => '&category=' + category).join('');
-    const url = `/productlist?page=${page}${categories}`;
-
-    return url;
+    return decodeURIComponent(url.search);
 };
 
 export default setURL;

@@ -16,7 +16,7 @@ class InputCategory extends LogRender {
                     const isChecked = isCategoryActive(activeCategories, category.category);
 
                     return (
-                        <Link to={setURL('category', category.category)} key={category.id}>
+                        <Link to={setURL('categories', category.category)} key={category.id}>
                             <button
                                 name={category.category}
                                 className={isChecked ? s.active_button : s.inActive_button}

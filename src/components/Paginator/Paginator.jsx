@@ -9,11 +9,13 @@ class Paginator extends LogRender {
         const { totalFilteredProductCount, pageSize, activePage } = this.props;
 
         const pageCount = Math.ceil(totalFilteredProductCount / pageSize);
+        const isFirstPage = activePage > 1 ? (activePage - 1) : 1;
+        const isLastPage = activePage < pageCount ? (activePage + 1) : pageCount;
 
         return (
             <div className={s.paginator}>
                 <span className={activePage === 1 ? s.side_button_visible : 'false'}>
-                    <Link to={setURL('page', activePage > 1 ? (activePage - 1) : 1)}>
+                    <Link to={setURL('page', isFirstPage)}>
                         <button name='backButton' className={s.inActive_button}>Назад</button>
                     </Link>
                 </span>
@@ -31,7 +33,7 @@ class Paginator extends LogRender {
                     );
                 })}
                 <span className={activePage === pageCount ? s.side_button_visible : 'false'}>
-                    <Link to={setURL('page', activePage < pageCount ? (activePage + 1) : pageCount)}>
+                    <Link to={setURL('page', isLastPage)}>
                         <button name='nextButton' className={s.inActive_button}>Вперёд</button>
                     </Link>
                 </span>
