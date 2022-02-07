@@ -1,4 +1,5 @@
 import React from 'react';
+import s from './RatingComponent.module.css';
 
 const Star = ({ design }) => {
     switch (design) {
@@ -20,4 +21,8 @@ const Star = ({ design }) => {
     }
 }
 
-export default Star;
+const RatingComponent = ({ isFilled }) => {
+    return <div className={s.star}>{isFilled ? <Star design='filled' /> : <Star design='empty' />}</div>;
+};
+
+export default RatingComponent;

@@ -1,16 +1,15 @@
-import { createStore, combineReducers } from 'redux';
+import { createBrowserHistory } from 'history';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import mainReducer from './mainReducer';
-import routingReducer from './routingReducer';
 
-const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
-const SET_STATE_FROM_HISTORY = 'SET_STATE_FROM_HISTORY';
+export const history = createBrowserHistory();
 
-export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
-export const setStateFromHistory = (state) => ({ type: SET_STATE_FROM_HISTORY, state });
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const reducer = combineReducers({
+export const reducer = (history) => combineReducers({
     mainPage: mainReducer,
-    routing: routingReducer
+    router: connectRouter(history)
 });
 
-export const store = createStore(reducer);
+export const store = createStore(reducer(history), {}, composeEnhancers(applyMiddleware(routerMiddleware(history))));

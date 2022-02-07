@@ -1,15 +1,16 @@
 .filterList {
   width: 300px;
-  padding: 50px;
   text-align: center;
+  padding-right: 40px;
+  padding-top: 150px;
 }
 
 .reset_button {
-  font-family: OpenSans, sans-serif;
   font-size: 14px;
   height: 30px;
   width: 256px;
   border: 1px solid #323c48;
   background-color: white;
   margin-top: 20px;
+  pointer-events: none;
 }

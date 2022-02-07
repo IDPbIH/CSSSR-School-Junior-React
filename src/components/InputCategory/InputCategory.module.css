@@ -13,3 +13,27 @@
   text-align: left;
   padding-bottom: 10px;
 }
+
+.active_button {
+  font-size: 14px;
+  color: white;
+  height: 32px;
+  background: #323c48;
+  border: 1px solid #7e8fa4;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin: 5px;
+  pointer-events: none;
+}
+
+.inActive_button {
+  font-size: 14px;
+  color: #7e8fa4;
+  height: 32px;
+  background: white;
+  border: 1px solid #7e8fa4;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin: 5px;
+  pointer-events: none;
+}

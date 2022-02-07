@@ -1,43 +1,17 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import FilterList from '../components/FilterList/FilterList';
-import InputCategory from '../components/InputCategory/InputCategory';
-import InputDiscount from '../components/InputDiscount/InputDiscount';
-import InputNumber from '../components/InputNumber/InputNumber';
-import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories } from '../store/mainReducer';
-import { setDefaultFiltersValue } from '../store';
-import memoize from '../utils/memoize';
+import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories, setDefaultFiltersValue } from '../store/mainReducer';
+import { getActiveCategoriesFromRouting } from '../store/routingReducer';
 
-const renderInputNumber = memoize(
-    (minPriceValue, maxPriceValue, changeInputValue) => <InputNumber
-        minPriceValue={minPriceValue}
-        maxPriceValue={maxPriceValue}
-        changeInputValue={changeInputValue}
-    />
-);
-
-const renderInputDiscount = memoize(
-    (discountValue, changeInputValue) => <InputDiscount
-        discountValue={discountValue}
-        changeInputValue={changeInputValue}
-    />
-);
-
-const renderInputCategory = memoize(
-    (categories, activeCategories) => <InputCategory
-        categories={categories}
-        activeCategories={activeCategories}
-    />
-);
-
-const changeInputValue = (event) => {
-    switch (event.target.name) {
+const changeInputValue = ({target:{name, value}}) => {
+    switch (name) {
         case 'minPriceValue':
-            return setMinPriceValue(event.target.value);
+            return setMinPriceValue(value);
         case 'maxPriceValue':
-            return setMaxPriceValue(event.target.value);
+            return setMaxPriceValue(value);
         case 'discountValue':
-            return setDiscountValue(event.target.value);
+            return setDiscountValue(value);
         default:
     }
 }
@@ -45,16 +19,12 @@ const changeInputValue = (event) => {
 const mapStateToProps = (state) => {
     return {
         filterValue: getFilterValue(state),
-        categories: getCategories(state)
+        categories: getCategories(state),
+        activeCategories: getActiveCategoriesFromRouting(state)
     };
 };
 
-const FilterListContainer = connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
     changeInputValue,
-    setDefaultFiltersValue,
-    renderInputNumber,
-    renderInputDiscount,
-    renderInputCategory
-})(FilterList);
-
-export default FilterListContainer;
+    setDefaultFiltersValue
+})(FilterList));
