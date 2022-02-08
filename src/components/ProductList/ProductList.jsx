@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProductList.module.css';
 import LogRender from '../../components/LogRender/LogRender';
-import ProductItem from 'csssr-school-product-card';
+import ProductItemVertical from '../ProductItemVertical/ProductItemVertical';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import PaginatorContainer from '../../containers/PaginatorContainer';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -34,16 +34,15 @@ class ProductList extends LogRender {
                                     key={product.id}
                                     to={`/productpage?id=${product.id}`}
                                     style={{ textDecoration: 'none' }}>
-                                    <ProductItem
-                                        key={product.id}
-                                        isInStock={product.isInStock}
-                                        img={product.img}
-                                        title={product.title}
-                                        price={product.price}
-                                        subPriceContent={' ' + product.subPriceContent}
-                                        maxRating={product.maxRating}
-                                        rating={product.rating}
-                                        ratingComponent={RatingComponent}
+                                    <ProductItemVertical
+                                       key={product.id}
+                                       name={product.name}
+                                       img={product.img}
+                                       price={product.price}
+                                       discount={product.discount}
+                                       stars={product.stars}
+                                       status={product.status}
+                                       ratingComponent={RatingComponent}
                                     />
                                 </Link>
                             );

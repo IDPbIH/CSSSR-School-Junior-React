@@ -12,16 +12,16 @@ class InputCategory extends LogRender {
         return (
             <div className={s.categories}>
                 <h3 className={s.title}>Категории</h3>
-                {categories.map((category) => {
-                    const isChecked = isCategoryActive(activeCategories, category.category);
+                {categories.map((category,index) => {
+                    const isChecked = isCategoryActive(activeCategories, category);
 
                     return (
-                        <Link to={setURL('categories', category.category)} key={category.id}>
+                        <Link to={setURL('categories', category)} key={index}>
                             <button
-                                name={category.category}
+                                name={category}
                                 className={isChecked ? s.active_button : s.inActive_button}
-                                key={category.id}
-                            >{category.categoryName}</button>
+                                key={index}
+                            >{category}</button>
                         </Link>
                     );
                 })}

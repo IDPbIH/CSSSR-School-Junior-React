@@ -1,16 +1,17 @@
 import React from 'react';
-import s from './ProductItemHorizontal.module.css';
+import s from './ProductItemVertical.module.css';
 import cx from 'classnames';
 
-const ProductItemHorizontal = ({ name, img, price, discount, stars, status, ratingComponent }) => {
+const ProductItemVertical = ({ name, img, price, discount, stars, status, ratingComponent }) => {
     const priceWithDiscount = price - price * discount / 100;
     const maxStars = 5;
 
     return (
-        <div className={cx(s.product_item_horinzontal, { [s.product_item_horinzontal_none]: status === 'OUT_STOCK' })}>
-            <img className={cx(s.img_product, { [s.img_product_none]: status === 'OUT_STOCK' })} src={img} alt="placeholder" />
+        <div className={cx(s.product_item_vertical, { [s.product_item_vertical_none]: status === 'OUT_STOCK' })}>
             <div className={cx(s.is_in_stock, { [s.is_in_stock_none]: status === 'OUT_STOCK' })}>
-                {status === 'IN_STOCK' ? 'В наличии' : 'Недоступен'}</div>
+                {status === 'IN_STOCK' ? 'В наличии' : 'Недоступен'}
+            </div>
+            <img className={cx(s.img_product, { [s.img_product_none]: status === 'OUT_STOCK' })} src={img} alt="placeholder" />
             <div className={s.name}>{name}</div>
             <div className={s.rating}>
                 {[...Array(maxStars)].map((item, index) =>
@@ -24,4 +25,4 @@ const ProductItemHorizontal = ({ name, img, price, discount, stars, status, rati
     );
 }
 
-export default ProductItemHorizontal;
+export default ProductItemVertical;

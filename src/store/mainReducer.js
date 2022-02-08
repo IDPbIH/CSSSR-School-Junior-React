@@ -1,4 +1,3 @@
-import ProductsJSON from '../products.json';
 import { createSelector } from 'reselect';
 import getFilteredProducts from '../utils/getFilteredProducts';
 import { getActiveCategoriesFromRouting, getActivePageFromRouting } from './routingReducer';
@@ -10,14 +9,19 @@ const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
 const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
 const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
 const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
+const SET_PRODUCTS_FROM_API = 'SET_PRODUCTS_FROM_API';
+const SET_ERROR = 'SET_ERROR';
 
 //initialState
 const initialState = {
-    minPriceValue: Math.min.apply(null, ProductsJSON.map(product => product.price)),
-    maxPriceValue: Math.max.apply(null, ProductsJSON.map(product => product.price)),
+    result: 'ERROR',
+    message: 'Возникла непредвиденная ошибка',
+    isFetching: false,
+    minPriceValue: 0,
+    maxPriceValue: 0,
     discountValue: 0,
-    categories: [...new Map(ProductsJSON.map(product => [`${product.category}:${product.categoryName}`, product])).values()],
-    products: ProductsJSON,
+    categories: [],
+    products: [],
     pageSize: 6
 };
 
@@ -40,7 +44,28 @@ const mainReducer = (state = initialState, action) => {
                 discountValue: Number(action.value)
             };
         case SET_DEFAULT_FILTERS_VALUE:
-            return initialState;
+            return {
+                ...state,
+                minPriceValue: Math.min.apply(null, state.products.map(product => product.price)),
+                maxPriceValue: Math.max.apply(null, state.products.map(product => product.price)),
+                discountValue: 0,
+            };
+        case SET_PRODUCTS_FROM_API:
+            return {
+                ...state,
+                result: 'OK',
+                isFetching: true,
+                minPriceValue: Math.min.apply(null, action.products.map(product => product.price)),
+                maxPriceValue: Math.max.apply(null, action.products.map(product => product.price)),
+                categories: Array.from(new Set(action.products.map(product => product.category))),
+                products: action.products
+            };
+        case SET_ERROR:
+            return {
+                ...state,
+                result: 'ERROR',
+                message: 'Возникла непредвиденная ошибка'
+            }
         default:
             return state;
     }
@@ -51,6 +76,8 @@ export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value }
 export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
 export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
 export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
+export const setProductsFromAPI = (products) => ({ type: SET_PRODUCTS_FROM_API, products })
+export const setError = (error) => ({ type: SET_ERROR, error })
 
 // Selectors
 export const getMinPriceValue = (state) => state.mainPage.minPriceValue;

@@ -17,16 +17,16 @@ const ProductPage = ({ products, productID }) => {
             <div>
                 <h1 className={s.title}>
                     <BackButton />
-                    {product.title}
+                    {product.name}
                 </h1>
                 <ProductItemHorizontal
-                    isInStock={product.isInStock}
+                    key={product.id}
+                    name={product.name}
                     img={product.img}
-                    title={product.title}
                     price={product.price}
-                    subPriceContent={' ' + product.subPriceContent}
-                    maxRating={product.maxRating}
-                    rating={product.rating}
+                    discount={product.discount}
+                    stars={product.stars}
+                    status={product.status}
                     ratingComponent={RatingComponent}
                 />
             </div>

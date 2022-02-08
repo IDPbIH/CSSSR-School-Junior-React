@@ -6,7 +6,7 @@ const getFilteredProducts = memoize((activeCategories, { minPriceValue, maxPrice
         products.filter(product => (
             isPriceInMinMaxRange(minPriceValue, maxPriceValue, product.price)
             &&
-            isDiscountActive(discountValue, product.price, product.subPriceContent)
+            isDiscountActive(discountValue, product.discount)
             &&
             (isCategoryActive(activeCategories, product.category) || activeCategories.length === 0)
         ))

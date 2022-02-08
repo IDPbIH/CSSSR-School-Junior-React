@@ -1,15 +1,14 @@
-.product_item_horinzontal {
+.product_item_vertical {
+  font-family: OpenSans, sans-serif;
   color: #323c48;
+  text-decoration: none;
+  position: relative;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  position: relative;
-  width: 480px;
-  height: 200px;
-  text-align: left;
+  width: 224px;
 }
 
-.product_item_horinzontal_none {
+.product_item_vertical_none {
   color: #7e8fa4;
 }
 
@@ -24,14 +23,14 @@
 }
 
 .is_in_stock {
-  position: absolute;
-  z-index: 1;
   color: #41ce7f;
   font-size: 12px;
-  top: 0px;
-  left: 0px;
-  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
   border-bottom-right-radius: 15px;
+  z-index: 1;
   padding-top: 15px;
   padding-right: 11px;
   padding-bottom: 15px;
@@ -45,18 +44,22 @@
 
 .name {
   font-size: 16px;
-  width: 224px;
-  margin: 5px 0 5px 32px;
+  line-height: 1.5;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  text-align: left;
 }
 
 .rating {
   width: 224px;
-  margin: 5px 0 5px 32px;
+  margin: 5px 0 5px 0px;
+  text-align: left;
 }
 
 .prices {
   width: 224px;
-  margin: 5px 0 5px 32px;
+  margin: 5px 0 5px 0px;
+  text-align: left;
 }
 
 .price_with_discount {
