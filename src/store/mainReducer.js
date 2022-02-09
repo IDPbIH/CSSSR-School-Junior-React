@@ -14,9 +14,9 @@ const SET_ERROR = 'SET_ERROR';
 
 //initialState
 const initialState = {
-    result: 'ERROR',
-    message: 'Возникла непредвиденная ошибка',
-    isFetching: false,
+    result: '',
+    message: '',
+    loading: true,
     minPriceValue: 0,
     maxPriceValue: 0,
     discountValue: 0,
@@ -54,9 +54,9 @@ const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 result: 'OK',
-                isFetching: true,
-                minPriceValue: Math.min.apply(null, action.products.map(product => product.price)),
-                maxPriceValue: Math.max.apply(null, action.products.map(product => product.price)),
+                loading: false,
+                minPriceValue: action.products.length !== 0 ? Math.min.apply(null, action.products.map(product => product.price)) : 0,
+                maxPriceValue: action.products.length !== 0 ? Math.max.apply(null, action.products.map(product => product.price)) : 0,
                 categories: Array.from(new Set(action.products.map(product => product.category))),
                 products: action.products
             };
@@ -64,7 +64,8 @@ const mainReducer = (state = initialState, action) => {
             return {
                 ...state,
                 result: 'ERROR',
-                message: 'Возникла непредвиденная ошибка'
+                loading: false,
+                message: action.error
             }
         default:
             return state;
@@ -86,6 +87,9 @@ export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
+export const getResult= (state) => state.mainPage.result;
+export const getMessage = (state) => state.mainPage.message;
+export const getLoading = (state) => state.mainPage.loading;
 
 export const getFilterValue = (state) => {
     return {

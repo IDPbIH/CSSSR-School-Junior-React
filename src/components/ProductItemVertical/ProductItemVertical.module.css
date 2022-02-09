@@ -31,10 +31,7 @@
   background-color: #fff;
   border-bottom-right-radius: 15px;
   z-index: 1;
-  padding-top: 15px;
-  padding-right: 11px;
-  padding-bottom: 15px;
-  padding-left: 12px;
+  padding: 15px 11px 15px 12px;
 }
 
 .is_in_stock_none {
@@ -45,20 +42,19 @@
 .name {
   font-size: 16px;
   line-height: 1.5;
-  margin-top: 15px;
-  margin-bottom: 8px;
+  margin: 15px 0 0 0;
   text-align: left;
 }
 
 .rating {
   width: 224px;
-  margin: 5px 0 5px 0px;
+  margin: 4px 0 0 0;
   text-align: left;
 }
 
 .prices {
   width: 224px;
-  margin: 5px 0 5px 0px;
+  margin: 4px 0 0 0;
   text-align: left;
 }
 
