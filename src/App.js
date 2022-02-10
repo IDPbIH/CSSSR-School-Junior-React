@@ -6,7 +6,7 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 import ProductListContainer from './containers/ProductListContainer';
 import ProductPageContainer from './containers/ProductPageContainer';
 import { store } from './store';
-import { getMessage, getResult, getLoading, setError, setProductsFromAPI } from './store/mainReducer';
+import { getMessage, getResult, getLoading, getDataFromAPI } from './store/mainReducer';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,18 +14,9 @@ class App extends React.Component {
 
         window.history.replaceState(store.getState(), '', window.location.search);
     }
-
+    
     componentDidMount() {
-        fetch('https://course-api.school.csssr.com/products')
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Что-то пошло не так ...');
-                }
-            })
-            .then(result => store.dispatch(setProductsFromAPI(result.products)))
-            .catch(e => store.dispatch(setError('Товары не найдены')))
+        this.props.getDataFromAPI();
     }
 
     render() {
@@ -55,4 +46,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {getDataFromAPI})(App);

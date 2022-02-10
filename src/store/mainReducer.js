@@ -80,6 +80,22 @@ export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE }
 export const setProductsFromAPI = (products) => ({ type: SET_PRODUCTS_FROM_API, products })
 export const setError = (error) => ({ type: SET_ERROR, error })
 
+//Thunk Creators
+export const getDataFromAPI = () => {
+    return (dispatch) => {
+        fetch('https://course-api.school.csssr.com/products')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Что-то пошло не так ...');
+                }
+            })
+            .then(result => dispatch(setProductsFromAPI(result.products)))
+            .catch(e => dispatch(setError('Товары не найдены')))
+    }
+}
+
 // Selectors
 export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
 export const getMaxPriceValue = (state) => state.mainPage.maxPriceValue;
@@ -87,7 +103,7 @@ export const getDiscountValue = (state) => state.mainPage.discountValue;
 export const getPageSize = (state) => state.mainPage.pageSize;
 export const getCategories = (state) => state.mainPage.categories;
 export const getProducts = (state) => state.mainPage.products;
-export const getResult= (state) => state.mainPage.result;
+export const getResult = (state) => state.mainPage.result;
 export const getMessage = (state) => state.mainPage.message;
 export const getLoading = (state) => state.mainPage.loading;
 
