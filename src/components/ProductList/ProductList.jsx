@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProductList.module.css';
 import LogRender from '../../components/LogRender/LogRender';
-import ProductItemVertical from '../ProductItemVertical/ProductItemVertical';
+import ProductItem from '../ProductItem/ProductItem';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import PaginatorContainer from '../../containers/PaginatorContainer';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -33,8 +33,7 @@ class ProductList extends LogRender {
                                             key={product.id}
                                             to={`/productpage?id=${product.id}`}
                                             style={{ textDecoration: 'none' }}>
-                                            <ProductItemVertical
-                                                key={product.id}
+                                            <ProductItem column
                                                 name={product.name}
                                                 img={product.img}
                                                 price={product.price}
@@ -42,6 +41,7 @@ class ProductList extends LogRender {
                                                 stars={product.stars}
                                                 status={product.status}
                                                 ratingComponent={RatingComponent}
+                                                key={product.id}
                                             />
                                         </Link>
                                     );
