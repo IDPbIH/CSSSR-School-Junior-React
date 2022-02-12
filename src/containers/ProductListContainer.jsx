@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
-import { getFilteredProductsWithPagination } from '../store/mainReducer';
+import { getFilteredProductsWithPagination, getPageSize, getProducts } from '../store/mainReducer';
 import ProductList from '../components/ProductList/ProductList';
 
 const mapStateToProps = (state) => {
     return {
-        filteredProducts: getFilteredProductsWithPagination(state)
+        products: getProducts(state),
+        filteredProducts: getFilteredProductsWithPagination(state), 
+        pageSize: getPageSize(state)
     };
 };
 

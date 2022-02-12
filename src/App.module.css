@@ -4,3 +4,9 @@
   color: #323c48;
   font-family: "Open Sans", sans-serif;
 }
+
+.loading {
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+}

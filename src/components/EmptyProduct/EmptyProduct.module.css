@@ -1,0 +1,26 @@
+.img {
+  width: 224px;
+  height: 200px;
+  background-color: #f5f6fa;
+}
+
+.name {
+  width: 175px;
+  height: 24px;
+  margin: 15px 0 0 0;
+  background-color: #f5f6fa;
+}
+
+.rating {
+  width: 119px;
+  height: 24px;
+  margin: 4px 0 0 0;
+  background-color: #f5f6fa;
+}
+
+.prices {
+  width: 146px;
+  height: 24px;
+  margin: 4px 0 0 0;
+  background-color: #f5f6fa;
+}

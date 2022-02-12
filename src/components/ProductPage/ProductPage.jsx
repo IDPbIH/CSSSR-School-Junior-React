@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './ProductPage.module.css';
-import ProductItemHorizontal from '../ProductItemHorizontal/ProductItemHorizontal';
+import ProductItem from '../ProductItem/ProductItem';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import { BackButton } from '../BackButton/BackButton';
@@ -17,17 +17,17 @@ const ProductPage = ({ products, productID }) => {
             <div>
                 <h1 className={s.title}>
                     <BackButton />
-                    {product.title}
+                    {product.name}
                 </h1>
-                <ProductItemHorizontal
-                    isInStock={product.isInStock}
+                <ProductItem row
+                    name={product.name}
                     img={product.img}
-                    title={product.title}
                     price={product.price}
-                    subPriceContent={' ' + product.subPriceContent}
-                    maxRating={product.maxRating}
-                    rating={product.rating}
+                    discount={product.discount}
+                    stars={product.stars}
+                    status={product.status}
                     ratingComponent={RatingComponent}
+                    key={product.id}
                 />
             </div>
         </div >
