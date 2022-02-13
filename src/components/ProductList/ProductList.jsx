@@ -8,6 +8,7 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import FilterListContainer from '../../containers/FilterListContainer';
 import { Link } from 'react-router-dom';
 import { EmptyProduct } from '../EmptyProduct/EmptyProduct';
+import { Basket } from '../Basket/Basket';
 
 class ProductList extends LogRender {
     render() {
@@ -34,6 +35,7 @@ class ProductList extends LogRender {
                                             to={`/productpage?id=${product.id}`}
                                             style={{ textDecoration: 'none' }}>
                                             <ProductItem column
+                                                key={product.id}
                                                 name={product.name}
                                                 img={product.img}
                                                 price={product.price}
@@ -41,7 +43,6 @@ class ProductList extends LogRender {
                                                 stars={product.stars}
                                                 status={product.status}
                                                 ratingComponent={RatingComponent}
-                                                key={product.id}
                                             />
                                         </Link>
                                     );
@@ -50,6 +51,7 @@ class ProductList extends LogRender {
                         )}
                     {filteredProducts.length !== 0 && <PaginatorContainer />}
                 </div >
+                {filteredProducts.length !== 0 && <Basket />}
             </div>
         );
     }
