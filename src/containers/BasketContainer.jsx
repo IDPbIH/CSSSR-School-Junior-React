@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { Basket } from '../components/Basket/Basket';
-import { getBasket } from '../store/mainReducer';
+import { getBasket, saveBasket } from '../store/basketReducer';
 
 const mapStateToProps = (state) => {
     return {
-        totalProductCountInBasket: getBasket(state).length,
+        basket: getBasket(state)
     };
 };
 
-export default connect(mapStateToProps)(Basket);
+export default connect(mapStateToProps, { saveBasket })(Basket);

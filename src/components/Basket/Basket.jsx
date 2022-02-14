@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import s from './Basket.module.css';
 
-export const Basket = ({ totalProductCountInBasket }) => {
+export const Basket = ({ basket, saveBasket }) => {
+    const totalProductCountInBasket = basket.length;
+
     return (
         <div className={s.basket}>
             <h3 className={s.title}>
@@ -12,7 +14,7 @@ export const Basket = ({ totalProductCountInBasket }) => {
                 Корзина {totalProductCountInBasket}
             </h3>
             <div>
-                <Link to={'/productlist'}>
+                <Link to={'/productlist'} onClick={() => saveBasket(basket)}>
                     <button className={s.save_button} >Сохранить корзину</button>
                 </Link>
             </div>

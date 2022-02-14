@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from '../components/ProductItem/ProductItem';
-import { getBasket, setBasket } from '../store/mainReducer';
+import { getBasket, setBasket } from '../store/basketReducer';
 import { isProductInBasket } from '../utils/checks';
 
 const ProductItemContainer = (props) => {

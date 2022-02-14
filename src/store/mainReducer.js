@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect';
-import { isProductInBasket } from '../utils/checks';
 import getFilteredProducts from '../utils/getFilteredProducts';
 import { getActiveCategoriesFromRouting, getActivePageFromRouting } from './routingReducer';
 
-// Filter Module.js
+// Main Module.js
 
 // Actions
 const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
@@ -12,7 +11,6 @@ const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
 const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
 const SET_PRODUCTS_FROM_API = 'SET_PRODUCTS_FROM_API';
 const SET_ERROR = 'SET_ERROR';
-const SET_BASKET = 'SET_BASKET';
 
 //initialState
 const initialState = {
@@ -70,14 +68,6 @@ const mainReducer = (state = initialState, action) => {
                 loading: false,
                 message: action.error
             }
-        case SET_BASKET:
-            return {
-                ...state,
-                basket: isProductInBasket(state.basket, action.id)
-                    ? state.basket.filter(id => id !== action.id)
-                    : [...state.basket, action.id]
-
-            }
         default:
             return state;
     }
@@ -90,7 +80,6 @@ export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value })
 export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
 export const setProductsFromAPI = (products) => ({ type: SET_PRODUCTS_FROM_API, products });
 export const setError = (error) => ({ type: SET_ERROR, error });
-export const setBasket = (id) => ({ type: SET_BASKET, id });
 
 //Thunk Creators
 export const getDataFromAPI = () => {
@@ -109,16 +98,15 @@ export const getDataFromAPI = () => {
 }
 
 // Selectors
-export const getMinPriceValue = (state) => state.mainPage.minPriceValue;
-export const getMaxPriceValue = (state) => state.mainPage.maxPriceValue;
-export const getDiscountValue = (state) => state.mainPage.discountValue;
-export const getPageSize = (state) => state.mainPage.pageSize;
-export const getCategories = (state) => state.mainPage.categories;
-export const getProducts = (state) => state.mainPage.products;
-export const getResult = (state) => state.mainPage.result;
-export const getMessage = (state) => state.mainPage.message;
-export const getLoading = (state) => state.mainPage.loading;
-export const getBasket = (state) => state.mainPage.basket;
+export const getMinPriceValue = (state) => state.main.minPriceValue;
+export const getMaxPriceValue = (state) => state.main.maxPriceValue;
+export const getDiscountValue = (state) => state.main.discountValue;
+export const getPageSize = (state) => state.main.pageSize;
+export const getCategories = (state) => state.main.categories;
+export const getProducts = (state) => state.main.products;
+export const getResult = (state) => state.main.result;
+export const getMessage = (state) => state.main.message;
+export const getLoading = (state) => state.main.loading;
 
 export const getFilterValue = (state) => {
     return {
