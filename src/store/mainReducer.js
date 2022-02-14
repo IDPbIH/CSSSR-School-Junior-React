@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { isProductInBasket } from '../utils/checks';
 import getFilteredProducts from '../utils/getFilteredProducts';
 import { getActiveCategoriesFromRouting, getActivePageFromRouting } from './routingReducer';
 
@@ -11,6 +12,7 @@ const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
 const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
 const SET_PRODUCTS_FROM_API = 'SET_PRODUCTS_FROM_API';
 const SET_ERROR = 'SET_ERROR';
+const SET_BASKET = 'SET_BASKET';
 
 //initialState
 const initialState = {
@@ -22,7 +24,8 @@ const initialState = {
     discountValue: 0,
     categories: [],
     products: [],
-    pageSize: 6
+    pageSize: 6,
+    basket: []
 };
 
 // Reducer
@@ -67,6 +70,14 @@ const mainReducer = (state = initialState, action) => {
                 loading: false,
                 message: action.error
             }
+        case SET_BASKET:
+            return {
+                ...state,
+                basket: isProductInBasket(state.basket, action.id)
+                    ? state.basket.filter(id => id !== action.id)
+                    : [...state.basket, action.id]
+
+            }
         default:
             return state;
     }
@@ -77,8 +88,9 @@ export const setMinPriceValue = (value) => ({ type: SET_MIN_PRICE_VALUE, value }
 export const setMaxPriceValue = (value) => ({ type: SET_MAX_PRICE_VALUE, value });
 export const setDiscountValue = (value) => ({ type: SET_DISCOUNT_VALUE, value });
 export const setDefaultFiltersValue = () => ({ type: SET_DEFAULT_FILTERS_VALUE });
-export const setProductsFromAPI = (products) => ({ type: SET_PRODUCTS_FROM_API, products })
-export const setError = (error) => ({ type: SET_ERROR, error })
+export const setProductsFromAPI = (products) => ({ type: SET_PRODUCTS_FROM_API, products });
+export const setError = (error) => ({ type: SET_ERROR, error });
+export const setBasket = (id) => ({ type: SET_BASKET, id });
 
 //Thunk Creators
 export const getDataFromAPI = () => {
@@ -106,6 +118,7 @@ export const getProducts = (state) => state.mainPage.products;
 export const getResult = (state) => state.mainPage.result;
 export const getMessage = (state) => state.mainPage.message;
 export const getLoading = (state) => state.mainPage.loading;
+export const getBasket = (state) => state.mainPage.basket;
 
 export const getFilterValue = (state) => {
     return {
