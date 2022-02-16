@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { Basket } from '../components/Basket/Basket';
-import { getBasket, saveBasket } from '../store/basketReducer';
+import { getBasket, getError, getLoading, getResult, saveBasket } from '../store/basketReducer';
 
 const mapStateToProps = (state) => {
     return {
+        loading: getLoading(state),
+        result: getResult(state),
+        error: getError(state),
         basket: getBasket(state)
     };
 };

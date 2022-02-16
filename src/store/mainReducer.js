@@ -5,12 +5,12 @@ import { getActiveCategoriesFromRouting, getActivePageFromRouting } from './rout
 // Main Module.js
 
 // Actions
-const SET_MIN_PRICE_VALUE = 'SET_MIN_PRICE_VALUE';
-const SET_MAX_PRICE_VALUE = 'SET_MAX_PRICE_VALUE';
-const SET_DISCOUNT_VALUE = 'SET_DISCOUNT_VALUE';
-const SET_DEFAULT_FILTERS_VALUE = 'SET_DEFAULT_FILTERS_VALUE';
-const SET_PRODUCTS_FROM_API = 'SET_PRODUCTS_FROM_API';
-const SET_ERROR = 'SET_ERROR';
+const SET_MIN_PRICE_VALUE = 'main/SET_MIN_PRICE_VALUE';
+const SET_MAX_PRICE_VALUE = 'main/SET_MAX_PRICE_VALUE';
+const SET_DISCOUNT_VALUE = 'main/SET_DISCOUNT_VALUE';
+const SET_DEFAULT_FILTERS_VALUE = 'main/SET_DEFAULT_FILTERS_VALUE';
+const SET_PRODUCTS_FROM_API = 'main/SET_PRODUCTS_FROM_API';
+const SET_ERROR = 'main/SET_ERROR';
 
 //initialState
 const initialState = {
@@ -22,8 +22,7 @@ const initialState = {
     discountValue: 0,
     categories: [],
     products: [],
-    pageSize: 6,
-    basket: []
+    pageSize: 6
 };
 
 // Reducer

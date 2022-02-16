@@ -14,19 +14,19 @@ class InputNumber extends LogRender {
                     от
                     <input
                         name='minPriceValue'
-                        className={s.minValue + ' ' + (error && s.errorInputs)}
+                        className={s.minValue}
                         value={minPriceValue}
                         onChange={handleChange}
                     />
                     до
                     <input
                         name='maxPriceValue'
-                        className={s.maxValue + ' ' + (error && s.errorInputs)}
+                        className={s.maxValue}
                         value={maxPriceValue}
                         onChange={handleChange}
                     />
                 </label>
-                <p className={s.message + ' ' + (error && s.errorMessage)}>Используйте для ввода только цифры</p>
+                {error && <div className={s.error_message}>Используйте для ввода только цифры</div>}
             </div>
         );
     }

@@ -1,15 +1,43 @@
+.loading {
+  font-size: 12px;
+  text-align: center;
+  padding: 25px 0 0 0;
+  width: 256px;
+  color: plum;
+}
+
 .basket {
-  text-align: left;
   padding: 90px 0 0 40px;
-  width: 300px;
+  width: 256px;
+}
+
+.basket_top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.basket_top h3 {
+  margin: 0;
 }
 
 .basket_svg {
   width: 16px;
   height: 13px;
-  vertical-align: middle;
-  cursor: pointer;
   margin: 0 10px 0 0;
+}
+
+.save_svg {
+  width: 18px;
+  height: 14px;
+  margin: 0 0 0 10px;
+}
+
+.error_message {
+  font-size: 12px;
+  text-align: center;
+  margin: 5px 0 0 0;
+  color: plum;
 }
 
 .save_button {

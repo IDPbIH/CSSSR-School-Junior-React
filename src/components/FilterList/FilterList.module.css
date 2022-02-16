@@ -1,8 +1,7 @@
 .filterList {
-  width: 300px;
   text-align: center;
-  padding-right: 40px;
-  padding-top: 150px;
+  width: 300px;
+  padding: 150px 40px 0 0;
 }
 
 .reset_button {
@@ -11,6 +10,6 @@
   width: 256px;
   border: 1px solid #323c48;
   background-color: white;
-  margin-top: 20px;
+  margin: 20px 0 0 0;
   pointer-events: none;
 }

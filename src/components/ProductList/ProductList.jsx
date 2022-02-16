@@ -15,7 +15,7 @@ class ProductList extends LogRender {
 
         return (
             <div className={s.product_list_with_filters}>
-                {filteredProducts.length !== 0 && <FilterListContainer />}
+                {products.length !== 0 && <FilterListContainer />}
                 <div className={s.product_list}>
                     <h1 className={s.title}>Список товаров</h1>
                     {products.length === 0
@@ -46,7 +46,7 @@ class ProductList extends LogRender {
                         )}
                     {filteredProducts.length !== 0 && <PaginatorContainer />}
                 </div >
-                {filteredProducts.length !== 0 && <BasketContainer />}
+                {products.length !== 0 && <BasketContainer />}
             </div>
         );
     }
