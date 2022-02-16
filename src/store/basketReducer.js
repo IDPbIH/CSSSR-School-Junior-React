@@ -4,22 +4,21 @@ import { isProductInBasket } from '../utils/checks';
 
 // Actions
 const SET_BASKET = 'basket/SET_BASKET';
-const SET_RESULT_FROM_API = 'basket/SET_RESULT_FROM_API';
+const CLEAR_BASKET = 'basket/CLEAR_BASKET';
+const SAVE_BASKET = 'basket/SAVE_BASKET';
 const SET_ERROR = 'basket/SET_ERROR';
 const SET_LOADING = 'basket/SET_LOADING';
 
 //initialState
 const initialState = {
-    products: [],
-    result: '',
     loading: false,
     save: false,
-    error: ''
+    error: '',
+    products: []
 };
 
 // Reducer
 const basketReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case SET_BASKET:
             return {
@@ -28,17 +27,24 @@ const basketReducer = (state = initialState, action) => {
                     ? state.products.filter(id => id !== action.id)
                     : [...state.products, action.id]
             }
-        case SET_RESULT_FROM_API:
+        case CLEAR_BASKET:
+            return {
+                ...state,
+                products: [],
+                save: false
+            }
+        case SAVE_BASKET:
             return {
                 ...state,
                 loading: false,
-                result: action.result
+                save: true
             }
         case SET_ERROR:
             return {
                 ...state,
                 error: action.error,
-                loading: false
+                loading: false,
+                save: false
             }
         case SET_LOADING:
             return {
@@ -52,12 +58,13 @@ const basketReducer = (state = initialState, action) => {
 
 // Action Creators
 export const setBasket = (id) => ({ type: SET_BASKET, id });
-export const setResultFromAPI = (result) => ({ type: SET_RESULT_FROM_API, result });
-export const setError = (error) => ({ type: SET_ERROR, error });
+export const clearBasket = () => ({ type: CLEAR_BASKET });
 export const setLoading = () => ({ type: SET_LOADING });
+const saveBasket = () => ({ type: SAVE_BASKET });
+const setError = (error) => ({ type: SET_ERROR, error });
 
 //Thunk Creators
-export const saveBasket = (basket) => {
+export const sendBasket = (basket) => {
     return (dispatch) => {
         dispatch(setLoading());
         fetch('https://course-api.school.csssr.com/save', {
@@ -72,14 +79,14 @@ export const saveBasket = (basket) => {
                 throw new Error('Проблемы с сетью.');
             }
         })
-            .then(result => dispatch(setResultFromAPI(result.result)))
+            .then(result => dispatch(saveBasket(result.result)))
             .catch(e => dispatch(setError('Ошибка. Корзина не сохранена')));
     };
 };
 
 // Selectors
 export const getBasket = (state) => state.basket.products;
-export const getResult = (state) => state.basket.result;
+export const getSave = (state) => state.basket.save;
 export const getError = (state) => state.basket.error;
 export const getLoading = (state) => state.basket.loading;
 

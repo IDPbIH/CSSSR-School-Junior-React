@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import s from './Basket.module.css';
 
-export const Basket = ({ loading, result, error, basket, saveBasket, }) => {
+const Basket = ({ loading, save, error, basket, clearBasket, sendBasket }) => {
     const totalProductCountInBasket = basket.length;
 
     return (
@@ -14,21 +13,30 @@ export const Basket = ({ loading, result, error, basket, saveBasket, }) => {
                 <h3 className={s.title}>
                     Корзина {totalProductCountInBasket}
                 </h3>
-                {result === 'OK' &&
+                {save &&
                     <svg className={s.save_svg} fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.99999 11.2001L1.79999 7.0001L0.399994 8.4001L5.99999 14.0001L18 2.0001L16.6 0.600098L5.99999 11.2001Z" fill="black" />
                     </svg>
                 }
             </div>
             {error !== '' && <div className={s.error_message}>{error}</div>}
-            {!loading
-                ? (<div>
-                    <Link to={'/productlist'} onClick={() => saveBasket(basket)}>
-                        <button className={s.save_button} >Сохранить корзину</button>
-                    </Link>
-                </div>)
-                : (<div className={s.loading}>Loading...</div>)
+            <div>
+                <button
+                    onClick={save ? clearBasket : () => sendBasket(basket)}
+                    className={loading ? s.save_button + ' ' + s.lock : s.save_button}
+                    disabled={loading}
+                >
+                    {save ? 'Очистить корзину' : 'Сохранить корзину'}
+                </button>
+            </div>
+            {
+                save &&
+                <div>
+                    <button className={s.to_basket_button} >Перейти в корзину</button>
+                </div>
             }
-        </div>
+        </div >
     );
 };
+
+export default Basket;

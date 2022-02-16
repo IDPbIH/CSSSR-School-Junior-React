@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from '../components/ProductItem/ProductItem';
-import { getBasket, setBasket } from '../store/basketReducer';
+import { getBasket, getLoading, setBasket } from '../store/basketReducer';
 import { isProductInBasket } from '../utils/checks';
 
 const ProductItemContainer = (props) => {
@@ -12,7 +12,8 @@ const ProductItemContainer = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        basket: getBasket(state),
+        loading: getLoading(state),
+        basket: getBasket(state)
     };
 };
 

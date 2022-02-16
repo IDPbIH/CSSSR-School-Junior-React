@@ -2,8 +2,9 @@ import React from 'react';
 import s from './ProductItem.module.css';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
+import AddRemoveButton from '../AddRemoveButton/AddRemoveButton';
 
-const ProductItem = ({ row, column, id, name, img, price, discount, stars, status, ratingComponent, productInBasket, setBasket }) => {
+const ProductItem = ({ row, column, loading, id, name, img, price, discount, stars, status, ratingComponent, productInBasket, setBasket }) => {
     const priceWithDiscount = price - price * discount / 100;
     const maxStars = 5;
 
@@ -27,11 +28,7 @@ const ProductItem = ({ row, column, id, name, img, price, discount, stars, statu
                     <span className={s.price_with_discount}>{priceWithDiscount} &#8381; </span>
                     <span className={s.price}>{price} &#8381;</span>
                 </div>
-                <div>
-                    <Link to={window.location.search} onClick={() => setBasket(id)}>
-                        <button className={s.addRemove_button} >{productInBasket ? 'Убрать из корзины' : 'Добавить в корзину'}</button>
-                    </Link>
-                </div>
+                <AddRemoveButton loading={loading} id={id} productInBasket={productInBasket} setBasket={setBasket}/>
             </div>
         </div>
     );
