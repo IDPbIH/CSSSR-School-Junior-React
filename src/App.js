@@ -31,8 +31,8 @@ class App extends React.Component {
                         ? (<ErrorPage title={message} />)
                         : (<Switch>
                             <Route exact path='/' ><Redirect to='/productlist' /></Route>
-                            <Route path='/productlist' ><ProductListContainer /></Route>
-                            <Route path='/productpage' ><ProductPageContainer /></Route>
+                            <Route exact path='/productlist' ><ProductListContainer /></Route>
+                            <Route exact path='/productpage' ><ProductPageContainer /></Route>
                             <Route path='/404' ><NotFound /></Route>
                             <Route path='*'><Redirect to='/404' /></Route>
                         </Switch >)

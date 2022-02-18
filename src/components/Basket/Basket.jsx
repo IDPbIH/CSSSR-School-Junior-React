@@ -21,13 +21,15 @@ const Basket = ({ loading, save, error, basket, clearBasket, sendBasket }) => {
             </div>
             {error !== '' && <div className={s.error_message}>{error}</div>}
             <div>
-                <button
-                    onClick={save ? clearBasket : () => sendBasket(basket)}
-                    className={loading ? s.save_button + ' ' + s.lock : s.save_button}
-                    disabled={loading}
-                >
-                    {save ? 'Очистить корзину' : 'Сохранить корзину'}
-                </button>
+                {totalProductCountInBasket !== 0 &&
+                    <button
+                        onClick={save ? clearBasket : () => sendBasket(basket)}
+                        className={loading ? s.save_button + ' ' + s.lock : s.save_button}
+                        disabled={loading}
+                    >
+                        {save ? 'Очистить корзину' : 'Сохранить корзину'}
+                    </button>
+                }
             </div>
             {
                 save &&

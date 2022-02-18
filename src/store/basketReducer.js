@@ -76,7 +76,7 @@ export const sendBasket = (basket) => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Проблемы с сетью.');
+                throw setError('Проблемы с сетью');
             }
         })
             .then(result => dispatch(saveBasket(result.result)))
