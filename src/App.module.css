@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-
 .main {
+  font-family: OpenSans, sans-serif;
   color: #323c48;
-  font-family: "Open Sans", sans-serif;
 }
 
 .loading {

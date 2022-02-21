@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './ProductPage.module.css';
-import ProductItem from '../ProductItem/ProductItem';
+import ProductItemContainer from '../../containers/ProductItemContainer';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import { BackButton } from '../BackButton/BackButton';
@@ -19,7 +19,8 @@ const ProductPage = ({ products, productID }) => {
                     <BackButton />
                     {product.name}
                 </h1>
-                <ProductItem row
+                <ProductItemContainer row
+                    id={product.id}
                     name={product.name}
                     img={product.img}
                     price={product.price}

@@ -14,7 +14,7 @@ class Paginator extends LogRender {
 
         return (
             <div className={s.paginator}>
-                <span className={activePage === 1 ? s.side_button_visible : 'false'}>
+                <span className={activePage === 1 ? s.side_button : 'false'}>
                     <Link to={setURL('page', isFirstPage)}>
                         <button name='backButton' className={s.inActive_button}>Назад</button>
                     </Link>
@@ -32,7 +32,7 @@ class Paginator extends LogRender {
                         </Link>
                     );
                 })}
-                <span className={activePage === pageCount ? s.side_button_visible : 'false'}>
+                <span className={activePage === pageCount ? s.side_button : 'false'}>
                     <Link to={setURL('page', isLastPage)}>
                         <button name='nextButton' className={s.inActive_button}>Вперёд</button>
                     </Link>

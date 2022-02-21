@@ -1,0 +1,56 @@
+.basket {
+  padding: 90px 0 0 40px;
+  width: 256px;
+}
+
+.basket_top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.basket_top h3 {
+  margin: 0;
+}
+
+.basket_svg {
+  width: 16px;
+  height: 13px;
+  margin: 0 10px 0 0;
+}
+
+.save_svg {
+  width: 18px;
+  height: 14px;
+  margin: 0 0 0 10px;
+}
+
+.error_message {
+  font-size: 12px;
+  text-align: center;
+  margin: 16px 0 0 0;
+  color: plum;
+}
+
+.save_button {
+  font-size: 14px;
+  width: 256px;
+  height: 32px;
+  border: 1px solid #323c48;
+  background-color: white;
+  margin: 16px 0 0 0;
+}
+
+.lock {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.to_basket_button {
+  font-size: 14px;
+  width: 256px;
+  height: 32px;
+  border: 1px solid white;
+  background-color: white;
+  margin: 16px 0 0 0;
+}

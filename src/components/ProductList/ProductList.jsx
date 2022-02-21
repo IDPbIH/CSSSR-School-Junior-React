@@ -1,13 +1,13 @@
 import React from 'react';
 import s from './ProductList.module.css';
 import LogRender from '../../components/LogRender/LogRender';
-import ProductItem from '../ProductItem/ProductItem';
+import ProductItemContainer from '../../containers/ProductItemContainer';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import PaginatorContainer from '../../containers/PaginatorContainer';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import FilterListContainer from '../../containers/FilterListContainer';
-import { Link } from 'react-router-dom';
 import { EmptyProduct } from '../EmptyProduct/EmptyProduct';
+import BasketContainer from '../../containers/BasketContainer';
 
 class ProductList extends LogRender {
     render() {
@@ -15,7 +15,7 @@ class ProductList extends LogRender {
 
         return (
             <div className={s.product_list_with_filters}>
-                {filteredProducts.length !== 0 && <FilterListContainer />}
+                {products.length !== 0 && <FilterListContainer />}
                 <div className={s.product_list}>
                     <h1 className={s.title}>Список товаров</h1>
                     {products.length === 0
@@ -29,27 +29,24 @@ class ProductList extends LogRender {
                             : (<div className={s.grid}>
                                 {filteredProducts.map(product => {
                                     return (
-                                        <Link
+                                        <ProductItemContainer column
+                                            id={product.id}
+                                            name={product.name}
+                                            img={product.img}
+                                            price={product.price}
+                                            discount={product.discount}
+                                            stars={product.stars}
+                                            status={product.status}
+                                            ratingComponent={RatingComponent}
                                             key={product.id}
-                                            to={`/productpage?id=${product.id}`}
-                                            style={{ textDecoration: 'none' }}>
-                                            <ProductItem column
-                                                name={product.name}
-                                                img={product.img}
-                                                price={product.price}
-                                                discount={product.discount}
-                                                stars={product.stars}
-                                                status={product.status}
-                                                ratingComponent={RatingComponent}
-                                                key={product.id}
-                                            />
-                                        </Link>
+                                        />
                                     );
                                 })}
                             </div>)
                         )}
                     {filteredProducts.length !== 0 && <PaginatorContainer />}
                 </div >
+                {products.length !== 0 && <BasketContainer />}
             </div>
         );
     }

@@ -1,16 +1,12 @@
 .numbers {
-  font-family: OpenSans, sans-serif;
-  color: #323c48;
   font-size: 14px;
-  font-weight: 600;
 }
 
 .title {
-  font-family: OpenSans, sans-serif;
   font-size: 20px;
   color: #323c48;
   text-align: left;
-  padding-bottom: 16px;
+  padding: 0 0 16px 0;
 }
 
 .inputs {
@@ -23,39 +19,25 @@
 .minValue {
   color: #7e8fa4;
   font-size: 14px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin: 0 8px 0 8px;
+  padding: 0 16px 0 16px;
   height: 30px;
   width: 70px;
   border: solid 1px #7e8fa4;
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
 .maxValue {
   color: black;
   font-size: 14px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin: 0 8px 0 8px;
+  padding: 0 16px 0 16px;
   height: 30px;
   width: 70px;
   border: solid 1px #7e8fa4;
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
-.message {
-  color: white;
+.error_message {
   font-size: 12px;
-  text-align: left;
-}
-
-/* errors */
-
-.errorInputs:focus {
-  box-shadow: 0 0 10px red;
-}
-
-.errorMessage {
-  color: red;
+  margin: 16px 0 0 0;
+  color: plum;
 }

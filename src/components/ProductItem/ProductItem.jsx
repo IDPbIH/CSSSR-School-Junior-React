@@ -1,8 +1,10 @@
 import React from 'react';
 import s from './ProductItem.module.css';
 import cx from 'classnames';
+import { Link } from 'react-router-dom';
+import AddRemoveButton from '../AddRemoveButton/AddRemoveButton';
 
-const ProductItem = ({ row, column, name, img, price, discount, stars, status, ratingComponent }) => {
+const ProductItem = ({ row, column, loading, id, name, img, price, discount, stars, status, ratingComponent, productInBasket, setBasket }) => {
     const priceWithDiscount = price - price * discount / 100;
     const maxStars = 5;
 
@@ -13,7 +15,9 @@ const ProductItem = ({ row, column, name, img, price, discount, stars, status, r
             <div className={cx(s.is_in_stock, { [s.is_in_stock_none]: status === 'OUT_STOCK' })}>
                 {status === 'IN_STOCK' ? 'В наличии' : 'Недоступен'}
             </div>
-            <img className={cx(s.img_product, { [s.img_product_none]: status === 'OUT_STOCK' })} src={img} alt="placeholder" />
+            <Link to={`/productpage?id=${id}`} style={{ textDecoration: 'none' }}>
+                <img className={cx(s.img_product, { [s.img_product_none]: status === 'OUT_STOCK' })} src={img} alt="placeholder" />
+            </Link>
             <div className={row ? s.row_info : s.column_info}>
                 <div className={s.name}>{name}</div>
                 <div className={s.rating}>
@@ -24,6 +28,7 @@ const ProductItem = ({ row, column, name, img, price, discount, stars, status, r
                     <span className={s.price_with_discount}>{priceWithDiscount} &#8381; </span>
                     <span className={s.price}>{price} &#8381;</span>
                 </div>
+                <AddRemoveButton loading={loading} id={id} productInBasket={productInBasket} setBasket={setBasket}/>
             </div>
         </div>
     );

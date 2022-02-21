@@ -9,3 +9,7 @@ export const isDiscountActive = (discountValue, discount) => {
 export const isCategoryActive = (activeCategories, category) => {
     return activeCategories.includes(category);
 };
+
+export const isProductInBasket = (basket, product) => {
+    return basket.includes(product);
+};

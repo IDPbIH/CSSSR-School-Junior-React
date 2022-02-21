@@ -7,6 +7,7 @@ import ProductListContainer from './containers/ProductListContainer';
 import ProductPageContainer from './containers/ProductPageContainer';
 import { store } from './store';
 import { getMessage, getResult, getLoading, getDataFromAPI } from './store/mainReducer';
+import NotFound from './components/NotFound/NotFound';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,14 +15,14 @@ class App extends React.Component {
 
         window.history.replaceState(store.getState(), '', window.location.search);
     }
-    
+
     componentDidMount() {
         this.props.getDataFromAPI();
     }
 
     render() {
         const { result, message, loading } = this.props;
-        
+
         return (
             <main className={s.main}>
                 {loading
@@ -30,9 +31,12 @@ class App extends React.Component {
                         ? (<ErrorPage title={message} />)
                         : (<Switch>
                             <Route exact path='/' ><Redirect to='/productlist' /></Route>
-                            <Route path='/productlist' ><ProductListContainer /></Route>
-                            <Route path='/productpage' ><ProductPageContainer /></Route>
-                        </Switch >)}
+                            <Route exact path='/productlist' ><ProductListContainer /></Route>
+                            <Route exact path='/productpage' ><ProductPageContainer /></Route>
+                            <Route path='/404' ><NotFound /></Route>
+                            <Route path='*'><Redirect to='/404' /></Route>
+                        </Switch >)
+    }
             </main >
         );
     }
@@ -46,4 +50,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {getDataFromAPI})(App);
+export default connect(mapStateToProps, { getDataFromAPI })(App);
