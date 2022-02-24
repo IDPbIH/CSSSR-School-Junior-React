@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import s from './Basket.module.css';
 
 const Basket = ({ loading, save, error, basket, clearBasket, sendBasket }) => {
@@ -34,7 +35,9 @@ const Basket = ({ loading, save, error, basket, clearBasket, sendBasket }) => {
             {
                 save &&
                 <div>
-                    <button className={s.to_basket_button} >Перейти в корзину</button>
+                    <Link to={'/basketpage'} style={{ textDecoration: 'none' }}>
+                        <button className={s.to_basket_button} >Перейти в корзину</button>
+                    </Link>
                 </div>
             }
         </div >

@@ -8,6 +8,7 @@ import ProductPageContainer from './containers/ProductPageContainer';
 import { store } from './store';
 import { getMessage, getResult, getLoading, getDataFromAPI } from './store/mainReducer';
 import NotFound from './components/NotFound/NotFound';
+import BasketPage from './components/BasketPage/BasketPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -33,10 +34,11 @@ class App extends React.Component {
                             <Route exact path='/' ><Redirect to='/productlist' /></Route>
                             <Route exact path='/productlist' ><ProductListContainer /></Route>
                             <Route exact path='/productpage' ><ProductPageContainer /></Route>
+                            <Route exact path='/basketpage' ><BasketPage /></Route>
                             <Route path='/404' ><NotFound /></Route>
                             <Route path='*'><Redirect to='/404' /></Route>
                         </Switch >)
-    }
+                }
             </main >
         );
     }
