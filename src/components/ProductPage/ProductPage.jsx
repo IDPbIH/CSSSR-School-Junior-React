@@ -3,7 +3,7 @@ import s from './ProductPage.module.css';
 import ProductItemContainer from '../../containers/ProductItemContainer';
 import RatingComponent from '../RatingComponent/RatingComponent';
 import ErrorPage from '../ErrorPage/ErrorPage';
-import { BackButton } from '../BackButton/BackButton';
+import BackButton from '../BackButton/BackButton';
 
 const ProductPage = ({ products, productID }) => {
     const product = products.find(product => (product.id === Number(productID)));

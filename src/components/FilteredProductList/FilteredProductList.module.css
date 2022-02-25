@@ -1,13 +1,13 @@
-.basket_page {
+.product_list_with_other {
   display: flex;
   justify-content: center;
-  text-align: center;
 }
 
 .product_list {
   width: 736px;
+  text-align: center;
 }
 
 .title {
-  margin: 30px 0 70px 0;
+  margin: 30px 0;
 }
