@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import Basket from '../components/Basket/Basket';
-import { getBasket, getError, getLoading, getSave, sendBasket, clearBasket} from '../store/basketReducer';
-import { getProducts } from '../store/mainReducer';
+import { getError, getLoading, getProductsInBasket, getSave } from '../store/basket/selectors';
+import { sendBasket } from '../store/basket/operations';
+import { clearBasket } from '../store/basket/actions';
 
 const mapStateToProps = (state) => {
     return {
         loading: getLoading(state),
         save: getSave(state),
         error: getError(state),
-        basket: getBasket(state),
-        products: getProducts(state)
+        productsInBasket: getProductsInBasket(state)
     };
 };
 

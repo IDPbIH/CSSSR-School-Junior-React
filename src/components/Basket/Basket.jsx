@@ -1,16 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import s from './Basket.module.css';
 
-const Basket = ({ loading, save, error, basket, products, clearBasket, sendBasket }) => {
-    const totalProductCountInBasket = basket.length;
+const Basket = ({ loading, save, error, basket, productsInBasket, clearBasket, sendBasket }) => {
+    const totalProductCountInBasket = productsInBasket.length;
 
     const cartSumm = () => {
-        let sum = 0;
-        const priceArr = products.filter(product => basket.includes(product.id)).map(product => product.price - product.price * product.discount / 100);
-        priceArr.forEach(price => sum = sum + parseInt(price));
+        const priceArr = productsInBasket.reduce((sum, product) => sum + product.price - product.price * product.discount / 100, 0);
 
-        return sum.toLocaleString('ru') + ' ₽';
+        return priceArr.toLocaleString('ru') + ' ₽';
     }
 
     return (
@@ -56,11 +54,11 @@ const Basket = ({ loading, save, error, basket, products, clearBasket, sendBaske
                         </button>
                     </div>
                     <div>
-                        {window.location.pathname !== '/basketpage' && (
+                        <Route exact path="/productlist">
                             <Link to={'/basketpage'} style={{ textDecoration: 'none' }}>
                                 <button className={s.to_basket_button} >Перейти в корзину</button>
                             </Link>
-                        )}
+                        </Route>
                     </div>
                 </div>
             )}

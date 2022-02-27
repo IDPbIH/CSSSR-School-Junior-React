@@ -11,22 +11,25 @@ import ProductList from '../ProductList/ProductList';
 class FilteredProductList extends LogRender {
     render() {
         const { products, filteredProducts, pageSize } = this.props;
+        const productList =
+            filteredProducts.length === 0
+                ? <div className={s.product_list}>
+                    <ErrorPage title='Нет товаров, удовлетворющих условиям поиска. Измените значения фильтров.' />
+                </div>
+                : <ProductList products={filteredProducts} />
+        const emptyProductList =
+            <div className={s.grid}>
+                {[...Array(pageSize)].map((product, index) => <EmptyProduct key={index} />)}
+            </div>
 
         return (
             <div className={s.product_list_with_other}>
                 {products.length !== 0 && <FilterListContainer />}
                 <div className={s.product_list}>
                     <h1 className={s.title}>Список товаров</h1>
-                    {products.length === 0
-                        ? (<div className={s.grid}>
-                            {[...Array(pageSize)].map((product, index) => <EmptyProduct key={index} />)}
-                        </div>)
-                        : (filteredProducts.length === 0
-                            ? (<div className={s.product_list}>
-                                <ErrorPage title='Нет товаров, удовлетворющих условиям поиска. Измените значения фильтров.' />
-                            </div>)
-                            : (<ProductList products={filteredProducts}/>)
-                        )}
+                    {products.length !== 0
+                        ? productList
+                        : emptyProductList}
                     {filteredProducts.length !== 0 && <PaginatorContainer />}
                 </div >
                 {products.length !== 0 && <BasketContainer />}

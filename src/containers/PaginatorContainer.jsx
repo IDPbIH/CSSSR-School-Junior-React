@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Paginator from '../components/Paginator/Paginator';
-import { getFilterValue, getPageSize, getProducts } from '../store/mainReducer';
-import { getActiveCategoriesFromRouting, getActivePageFromRouting } from '../store/routingReducer';
+import { getFilterValue, getPageSize, getProducts } from '../store/main/selectors';
+import { getActiveCategoriesFromRouting, getActivePageFromRouting } from '../store/routing/selectors';
 import getFilteredProducts from '../utils/getFilteredProducts';
 
 const mapStateToProps = (state) => {

@@ -7,7 +7,8 @@ import FilteredProductListContainer from './containers/FilteredProductListContai
 import ProductPageContainer from './containers/ProductPageContainer';
 import BasketPageContainer from './containers/BasketPageContainer';
 import { store } from './store';
-import { getMessage, getResult, getLoading, getDataFromAPI } from './store/mainReducer';
+import { getMessage, getResult, getLoading } from './store/main/selectors';
+import { getDataFromAPI } from './store/main/operations';
 import NotFound from './components/NotFound/NotFound';
 
 class App extends React.Component {
