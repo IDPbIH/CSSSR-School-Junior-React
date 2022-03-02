@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FilterList from '../components/FilterList/FilterList';
-import { setMinPriceValue, setMaxPriceValue, setDiscountValue, getFilterValue, getCategories, setDefaultFiltersValue } from '../store/mainReducer';
-import { getActiveCategoriesFromRouting } from '../store/routingReducer';
+import { getCategories, getFilterValue } from '../store/main/selectors';
+import { getActiveCategoriesFromRouting } from '../store/routing/selectors';
+import { setMinPriceValue, setMaxPriceValue, setDiscountValue, setDefaultFiltersValue} from '../store/main/actions';
 
 const changeInputValue = ({target:{name, value}}) => {
     switch (name) {

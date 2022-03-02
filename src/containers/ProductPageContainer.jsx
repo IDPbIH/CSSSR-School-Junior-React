@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ProductPage from '../components/ProductPage/ProductPage';
-import { getProducts } from '../store/mainReducer';
-import { getProductID } from '../store/routingReducer';
+import { getProducts } from '../store/main/selectors';
+import { getProductID } from '../store/routing/selectors';
 
 const mapStateToProps = (state) => {
     return {

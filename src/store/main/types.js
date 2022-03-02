@@ -1,0 +1,6 @@
+export const SET_MIN_PRICE_VALUE = 'main/SET_MIN_PRICE_VALUE';
+export const SET_MAX_PRICE_VALUE = 'main/SET_MAX_PRICE_VALUE';
+export const SET_DISCOUNT_VALUE = 'main/SET_DISCOUNT_VALUE';
+export const SET_DEFAULT_FILTERS_VALUE = 'main/SET_DEFAULT_FILTERS_VALUE';
+export const SET_PRODUCTS_FROM_API = 'main/SET_PRODUCTS_FROM_API';
+export const SET_ERROR = 'main/SET_ERROR';

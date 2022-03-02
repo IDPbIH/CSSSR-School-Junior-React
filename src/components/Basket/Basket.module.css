@@ -32,6 +32,19 @@
   color: plum;
 }
 
+.basket_bottom {
+  text-align: left;
+}
+
+.clear_button {
+  font-size: 14px;
+  width: 256px;
+  height: 32px;
+  border: 1px solid #323c48;
+  background-color: white;
+  margin: 16px 0 0 0;
+}
+
 .save_button {
   font-size: 14px;
   width: 256px;
@@ -50,7 +63,23 @@
   font-size: 14px;
   width: 256px;
   height: 32px;
-  border: 1px solid white;
+  border: 1px solid #323c48;
   background-color: white;
   margin: 16px 0 0 0;
+}
+
+.total_product_count {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.total_product_count_price {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.total_price {
+  font-size: 20px;
 }
